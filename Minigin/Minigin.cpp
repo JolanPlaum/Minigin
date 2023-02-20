@@ -5,14 +5,19 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "Minigin.h"
+
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+
+#include <chrono>
 #include "Scene.h"
 #include "TextObject.h"
 
-SDL_Window* g_window{};
+using namespace std::chrono;
+
+SDL_Window* g_pWindow{};
 
 void PrintSDLVersion()
 {
@@ -51,7 +56,7 @@ dae::Minigin::Minigin(const std::string &dataPath)
 		throw std::runtime_error(std::string("SDL_Init Error: ") + SDL_GetError());
 	}
 
-	g_window = SDL_CreateWindow(
+	g_pWindow = SDL_CreateWindow(
 		"Programming 4 assignment",
 		SDL_WINDOWPOS_CENTERED,
 		SDL_WINDOWPOS_CENTERED,
@@ -59,12 +64,12 @@ dae::Minigin::Minigin(const std::string &dataPath)
 		480,
 		SDL_WINDOW_OPENGL
 	);
-	if (g_window == nullptr) 
+	if (g_pWindow == nullptr) 
 	{
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
-	Renderer::GetInstance().Init(g_window);
+	Renderer::GetInstance().Init(g_pWindow);
 
 	ResourceManager::GetInstance().Init(dataPath);
 }
@@ -72,26 +77,44 @@ dae::Minigin::Minigin(const std::string &dataPath)
 dae::Minigin::~Minigin()
 {
 	Renderer::GetInstance().Destroy();
-	SDL_DestroyWindow(g_window);
-	g_window = nullptr;
+	SDL_DestroyWindow(g_pWindow);
+	g_pWindow = nullptr;
 	SDL_Quit();
 }
 
 void dae::Minigin::Run()
 {
 	LoadGame();
-
+	
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 
-	// todo: this update loop could use some work.
-	bool doContinue = true;
-	while (doContinue)
+	const int msPerFrame = 16;
+
+	auto prevTime = high_resolution_clock::now();
+	float deltaTime = 0.f;
+	bool isRunning = true;
+	while (isRunning)
 	{
-		doContinue = input.ProcessInput();
+		//Input Events
+		isRunning = input.ProcessInput();
+
+		//Game Logic
 		sceneManager.Update();
+
+		//Render
 		renderer.Render();
+
+		//Time Management
+		const auto currentTime = high_resolution_clock::now();
+		deltaTime = duration<float>(currentTime - prevTime).count();
+		auto sleepTime = duration_cast<duration<float>>(prevTime - currentTime + milliseconds(msPerFrame));
+		prevTime = currentTime;
+		if (sleepTime.count() > 0.f)
+		{
+			std::this_thread::sleep_for(sleepTime);
+		}
 	}
 }
 
