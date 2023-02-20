@@ -9,6 +9,8 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "Scene.h"
+#include "TextObject.h"
 
 SDL_Window* g_window{};
 
@@ -75,9 +77,9 @@ dae::Minigin::~Minigin()
 	SDL_Quit();
 }
 
-void dae::Minigin::Run(const std::function<void()>& load)
+void dae::Minigin::Run()
 {
-	load();
+	LoadGame();
 
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
@@ -91,4 +93,23 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		sceneManager.Update();
 		renderer.Render();
 	}
+}
+
+void dae::Minigin::LoadGame() const
+{
+	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
+
+	auto go = std::make_shared<dae::GameObject>();
+	go->SetTexture("background.tga");
+	scene.Add(go);
+
+	go = std::make_shared<dae::GameObject>();
+	go->SetTexture("logo.tga");
+	go->SetPosition(216, 180);
+	scene.Add(go);
+
+	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	auto to = std::make_shared<dae::TextObject>("Programming 4 Assignment", font);
+	to->SetPosition(80, 20);
+	scene.Add(to);
 }
