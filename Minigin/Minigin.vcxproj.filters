@@ -7,11 +7,10 @@
     </Filter>
     <Filter Include="Engine Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Game Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
+      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
     </Filter>
     <Filter Include="Engine Files\Scene">
       <UniqueIdentifier>{97cb70a1-f7ae-46b6-8070-17f82646cef5}</UniqueIdentifier>
@@ -66,6 +65,9 @@
     <ClInclude Include="Minigin.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
+    <ClInclude Include="TimeManager.h">
+      <Filter>Engine Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -103,6 +105,9 @@
     </ClCompile>
     <ClCompile Include="Minigin.cpp">
       <Filter>Engine Files</Filter>
+    </ClCompile>
+    <ClCompile Include="TimeManager.cpp">
+      <Filter>Engine Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

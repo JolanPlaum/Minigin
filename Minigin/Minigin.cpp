@@ -10,12 +10,10 @@
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
+#include "TimeManager.h"
 
-#include <chrono>
 #include "Scene.h"
 #include "TextObject.h"
-
-using namespace std::chrono;
 
 SDL_Window* g_pWindow{};
 
@@ -49,6 +47,8 @@ void PrintSDLVersion()
 
 dae::Minigin::Minigin(const std::string &dataPath)
 {
+	TimeManager::GetInstance();
+
 	PrintSDLVersion();
 	
 	if (SDL_Init(SDL_INIT_VIDEO) != 0) 
@@ -89,14 +89,14 @@ void dae::Minigin::Run()
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
+	auto& time = TimeManager::GetInstance();
 
-	const int msPerFrame = 16;
-
-	auto prevTime = high_resolution_clock::now();
-	float deltaTime = 0.f;
 	bool isRunning = true;
 	while (isRunning)
 	{
+		//Update Time
+		time.Update();
+
 		//Input Events
 		isRunning = input.ProcessInput();
 
@@ -106,15 +106,8 @@ void dae::Minigin::Run()
 		//Render
 		renderer.Render();
 
-		//Time Management
-		const auto currentTime = high_resolution_clock::now();
-		deltaTime = duration<float>(currentTime - prevTime).count();
-		auto sleepTime = duration_cast<duration<float>>(prevTime - currentTime + milliseconds(msPerFrame));
-		prevTime = currentTime;
-		if (sleepTime.count() > 0.f)
-		{
-			std::this_thread::sleep_for(sleepTime);
-		}
+		//Let CPU rest
+		time.Sleep();
 	}
 }
 
