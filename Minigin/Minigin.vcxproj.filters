@@ -53,9 +53,6 @@
     <ClInclude Include="SceneManager.h">
       <Filter>Engine Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="Transform.h">
-      <Filter>Engine Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Minigin.h">
       <Filter>Engine Files</Filter>
     </ClInclude>
@@ -70,6 +67,9 @@
     </ClInclude>
     <ClInclude Include="Font.h">
       <Filter>Engine Files\Rendering</Filter>
+    </ClInclude>
+    <ClInclude Include="Transform.h">
+      <Filter>Engine Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -94,9 +94,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Engine Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Transform.cpp">
-      <Filter>Engine Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Main.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
@@ -111,6 +108,9 @@
     </ClCompile>
     <ClCompile Include="Font.cpp">
       <Filter>Engine Files\Rendering</Filter>
+    </ClCompile>
+    <ClCompile Include="Transform.cpp">
+      <Filter>Engine Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
