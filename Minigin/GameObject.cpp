@@ -1,24 +1,35 @@
-#include <string>
+//-----------------------------------------------------------------
+// Includes
+//-----------------------------------------------------------------
 #include "GameObject.h"
-#include "ResourceManager.h"
-#include "Renderer.h"
+#include "Transform.h"
 
-dae::GameObject::~GameObject() = default;
+using namespace dae;
 
-void dae::GameObject::Update(){}
 
-void dae::GameObject::Render() const
+//-----------------------------------------------------------------
+// Constructors
+//-----------------------------------------------------------------
+GameObject::GameObject()
 {
-	const auto& pos = m_transform.GetPosition();
-	Renderer::GetInstance().RenderTexture(*m_texture, pos.x, pos.y);
+	AddComponent<Transform>();
 }
 
-void dae::GameObject::SetTexture(const std::string& filename)
+
+//-----------------------------------------------------------------
+// Destructor
+//-----------------------------------------------------------------
+GameObject::~GameObject()
 {
-	m_texture = ResourceManager::GetInstance().LoadTexture(filename);
 }
 
-void dae::GameObject::SetPosition(float x, float y)
-{
-	m_transform.SetPosition(x, y, 0.0f);
-}
+
+//-----------------------------------------------------------------
+// Public Member Functions
+//-----------------------------------------------------------------
+
+
+//-----------------------------------------------------------------
+// Private Member Functions
+//-----------------------------------------------------------------
+

@@ -13,7 +13,7 @@
 #include "TimeManager.h"
 
 #include "Scene.h"
-#include "TextObject.h"
+#include "Component.h"
 
 SDL_Window* g_pWindow{};
 
@@ -113,19 +113,20 @@ void dae::Minigin::Run()
 
 void dae::Minigin::LoadGame() const
 {
-	auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
+	//todo: create background with components
+	//auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
 
-	auto go = std::make_shared<dae::GameObject>();
-	go->SetTexture("background.tga");
-	scene.Add(go);
+	//auto go = std::make_shared<dae::GameObject>();
+	//go->SetTexture("background.tga");
+	//scene.Add(go);
 
-	go = std::make_shared<dae::GameObject>();
-	go->SetTexture("logo.tga");
-	go->SetPosition(216, 180);
-	scene.Add(go);
+	//go = std::make_shared<dae::GameObject>();
+	//go->SetTexture("logo.tga");
+	//go->SetPosition(216, 180);
+	//scene.Add(go);
 
-	auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	auto to = std::make_shared<dae::TextObject>("Programming 4 Assignment", font);
-	to->SetPosition(80, 20);
-	scene.Add(to);
+	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
+	//auto to = std::make_shared<dae::TextObject>("Programming 4 Assignment", font);
+	//to->SetPosition(80, 20);
+	//scene.Add(to);
 }

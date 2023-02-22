@@ -26,17 +26,19 @@ void Scene::RemoveAll()
 
 void Scene::Update()
 {
-	for(auto& object : m_objects)
-	{
-		object->Update();
-	}
+	//todo: implement update function
+	//for(auto& object : m_objects)
+	//{
+	//	object->Update();
+	//}
 }
 
 void Scene::Render() const
 {
-	for (const auto& object : m_objects)
-	{
-		object->Render();
-	}
+	//todo: implement render function
+	//for (const auto& object : m_objects)
+	//{
+	//	object->Render();
+	//}
 }
 

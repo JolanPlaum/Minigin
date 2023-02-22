@@ -2,6 +2,8 @@
 
 namespace dae
 {
+	class GameObject;
+
 	//=============================
 	// Base Component Class
 	//=============================
@@ -20,6 +22,11 @@ namespace dae
 
 		// Public Member Functions
 		virtual void Init() {};
+
+	private:
+		// Member variables
+		friend GameObject;
+		GameObject* m_pGameObject = nullptr;
 	};
 
 	//=============================

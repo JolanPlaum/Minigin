@@ -35,9 +35,6 @@
     <ClInclude Include="Scene.h">
       <Filter>Engine Files\Scene</Filter>
     </ClInclude>
-    <ClInclude Include="TextObject.h">
-      <Filter>Engine Files\Scene</Filter>
-    </ClInclude>
     <ClInclude Include="InputManager.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
@@ -77,9 +74,6 @@
       <Filter>Engine Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="Scene.cpp">
-      <Filter>Engine Files\Scene</Filter>
-    </ClCompile>
-    <ClCompile Include="TextObject.cpp">
       <Filter>Engine Files\Scene</Filter>
     </ClCompile>
     <ClCompile Include="InputManager.cpp">
