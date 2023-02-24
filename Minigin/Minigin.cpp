@@ -95,7 +95,7 @@ void dae::Minigin::Run()
 	while (isRunning)
 	{
 		//Update Time
-		time.Update();
+		time.Tick();
 
 		//Input Events
 		isRunning = input.ProcessInput();

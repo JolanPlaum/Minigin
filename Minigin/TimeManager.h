@@ -23,7 +23,7 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
-		void Update();
+		void Tick();
 		void Sleep();
 	
 	

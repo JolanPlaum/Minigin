@@ -19,7 +19,7 @@ TimeManager::TimeManager()
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
-void TimeManager::Update()
+void TimeManager::Tick()
 {
 	//Get the current time
 	const auto currentTime = high_resolution_clock::now();
