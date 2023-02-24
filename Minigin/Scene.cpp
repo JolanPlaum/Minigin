@@ -24,6 +24,10 @@ Scene::Scene(const std::string& name)
 //-----------------------------------------------------------------
 void Scene::Init()
 {
+	for (const auto& go : m_Objects)
+	{
+		go->Init();
+	}
 }
 
 void Scene::Update()

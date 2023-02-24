@@ -34,6 +34,8 @@ namespace dae
 		template <typename Comp> void RemoveComponent();
 		template <typename Comp> bool HasComponent() const;
 
+		void Init();
+
 		bool GetDestroyed() const { return m_IsDestroyed; }
 		Scene& GetScene() const { return *m_pScene; }
 
