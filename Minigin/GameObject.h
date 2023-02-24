@@ -10,6 +10,7 @@
 namespace dae
 {
 	// Class Forward Declarations
+	class Scene;
 
 	// Class Declaration
 	class GameObject final
@@ -33,9 +34,16 @@ namespace dae
 		template <typename Comp> void RemoveComponent();
 		template <typename Comp> bool HasComponent();
 
+		bool GetDestroyed() const { return m_IsDestroyed; }
+		Scene& GetScene() const { return *m_pScene; }
+
 
 	private:
 		// Member variables
+		friend Scene;
+		bool m_IsDestroyed{ false };
+		Scene* m_pScene{ nullptr };
+
 		std::vector<std::shared_ptr<Component>> m_Components{};
 
 		//---------------------------

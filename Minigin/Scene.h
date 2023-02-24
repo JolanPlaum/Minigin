@@ -1,33 +1,49 @@
 #pragma once
+// Includes
 #include "SceneManager.h"
 
 namespace dae
 {
+	// Class Forward Declarations
 	class GameObject;
+
+	// Class Declaration
 	class Scene final
 	{
-		friend Scene& SceneManager::CreateScene(const std::string& name);
 	public:
+		// Constructors and Destructor
+		~Scene() = default;
+
+		// Copy and Move semantics
+		Scene(const Scene& other)					= delete;
+		Scene& operator=(const Scene& other)		= delete;
+		Scene(Scene&& other) noexcept				= delete;
+		Scene& operator=(Scene&& other) noexcept	= delete;
+
+		//---------------------------
+		// Public Member Functions
+		//---------------------------
+		void Update();
+		void Render() const;
+
 		void Add(std::shared_ptr<GameObject> object);
 		void Remove(std::shared_ptr<GameObject> object);
 		void RemoveAll();
 
-		void Update();
-		void Render() const;
 
-		~Scene();
-		Scene(const Scene& other) = delete;
-		Scene(Scene&& other) = delete;
-		Scene& operator=(const Scene& other) = delete;
-		Scene& operator=(Scene&& other) = delete;
+	private:
+		// Member variables
+		std::string m_Name;
+		std::vector<std::shared_ptr<GameObject>> m_Objects{};
 
-	private: 
+		static unsigned int m_IdCounter; 
+
+		//---------------------------
+		// Private Member Functions
+		//---------------------------
+		friend Scene& SceneManager::CreateScene(const std::string& name);
 		explicit Scene(const std::string& name);
 
-		std::string m_name;
-		std::vector < std::shared_ptr<GameObject>> m_objects{};
-
-		static unsigned int m_idCounter; 
 	};
 
 }
