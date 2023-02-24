@@ -5,11 +5,11 @@
 #include <memory>
 #include <algorithm>
 #include <typeinfo>
-#include "Component.h"
 
 namespace dae
 {
 	// Class Forward Declarations
+	class Component;
 	class Scene;
 
 	// Class Declaration
