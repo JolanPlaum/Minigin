@@ -21,6 +21,10 @@ GameObject::GameObject()
 //-----------------------------------------------------------------
 GameObject::~GameObject()
 {
+	for (const auto& component : m_Components)
+	{
+		component->m_pGameObject = nullptr;
+	}
 }
 
 
