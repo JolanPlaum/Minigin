@@ -49,6 +49,7 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
+		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponents();
 
 	};
 
@@ -112,5 +113,21 @@ namespace dae
 		);
 
 		return (it != m_Components.end());
+	}
+
+	template<typename Comp>
+	inline std::vector<std::shared_ptr<Comp>> GameObject::GetComponents()
+	{
+		std::vector<std::shared_ptr<Comp>> result{};
+
+		for (const auto& component : m_Components)
+		{
+			if (dynamic_cast<Comp*>(component.get()) != nullptr)
+			{
+				result.emplace_back(std::static_pointer_cast<Comp>(component));
+			}
+		}
+
+		return result;
 	}
 }
