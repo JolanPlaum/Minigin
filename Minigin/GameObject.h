@@ -30,9 +30,9 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		template <typename Comp> std::weak_ptr<Comp> AddComponent();
-		template <typename Comp> std::weak_ptr<Comp> GetComponent();
+		template <typename Comp> std::weak_ptr<Comp> GetComponent() const;
 		template <typename Comp> void RemoveComponent();
-		template <typename Comp> bool HasComponent();
+		template <typename Comp> bool HasComponent() const;
 
 		bool GetDestroyed() const { return m_IsDestroyed; }
 		Scene& GetScene() const { return *m_pScene; }
@@ -49,7 +49,7 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponents();
+		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponents() const;
 
 	};
 
@@ -68,7 +68,7 @@ namespace dae
 	}
 
 	template<typename Comp>
-	inline std::weak_ptr<Comp> GameObject::GetComponent()
+	inline std::weak_ptr<Comp> GameObject::GetComponent() const
 	{
 		for (const auto& component : m_Components)
 		{
@@ -102,7 +102,7 @@ namespace dae
 	}
 
 	template<typename Comp>
-	inline bool GameObject::HasComponent()
+	inline bool GameObject::HasComponent() const
 	{
 		auto it = std::find_if(
 			m_Components.begin(),
@@ -116,7 +116,7 @@ namespace dae
 	}
 
 	template<typename Comp>
-	inline std::vector<std::shared_ptr<Comp>> GameObject::GetComponents()
+	inline std::vector<std::shared_ptr<Comp>> GameObject::GetComponents() const
 	{
 		std::vector<std::shared_ptr<Comp>> result{};
 
