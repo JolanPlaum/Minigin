@@ -23,6 +23,7 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
+		void Init();
 		void Update();
 		void Render() const;
 

@@ -21,6 +21,10 @@ Scene::Scene(const std::string& name)
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
+void Scene::Init()
+{
+}
+
 void Scene::Update()
 {
 	//todo: implement update function
