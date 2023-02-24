@@ -23,10 +23,8 @@ namespace dae
 		// Public Member Functions
 		virtual void Init() {};
 
-		bool operator==(const GameObject* go) const
-		{
-			return m_pGameObject == go;
-		}
+		GameObject* GetGameObject() const { return m_pGameObject; }
+
 
 	private:
 		// Member variables

@@ -101,7 +101,7 @@ void Scene::RemoveRenderComponents(const GameObject* pObject)
 {
 	std::erase_if(m_RenderComponents,
 		[pObject](const std::shared_ptr<RenderComponent>& comp){
-			return *comp.get() == pObject;
+			return comp->GetGameObject() == pObject;
 		});
 }
 
@@ -109,7 +109,7 @@ void Scene::RemoveBehaviourComponents(const GameObject* pObject)
 {
 	std::erase_if(m_BehaviourComponents,
 		[pObject](const std::shared_ptr<BehaviourComponent>& comp){
-			return *comp.get() == pObject;
+			return comp->GetGameObject() == pObject;
 		});
 }
 
