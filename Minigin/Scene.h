@@ -6,6 +6,8 @@ namespace dae
 {
 	// Class Forward Declarations
 	class GameObject;
+	class RenderComponent;
+	class BehaviourComponent;
 
 	// Class Declaration
 	class Scene final
@@ -37,6 +39,9 @@ namespace dae
 		std::string m_Name;
 		std::vector<std::shared_ptr<GameObject>> m_Objects{};
 
+		std::vector<std::shared_ptr<RenderComponent>> m_RenderComponents{};
+		std::vector<std::shared_ptr<BehaviourComponent>> m_BehaviourComponents{};
+
 		static unsigned int m_IdCounter; 
 
 		//---------------------------
@@ -44,6 +49,11 @@ namespace dae
 		//---------------------------
 		friend Scene& SceneManager::CreateScene(const std::string& name);
 		explicit Scene(const std::string& name);
+
+		void AddRenderComponents(const GameObject& object);
+		void AddBehaviourComponents(const GameObject& object);
+		void RemoveRenderComponents(const GameObject* pObject);
+		void RemoveBehaviourComponents(const GameObject* pObject);
 
 	};
 
