@@ -16,6 +16,5 @@ namespace dae
 		Minigin& operator=(Minigin&& other)			= delete;
 
 		void Run();
-		void LoadGame() const;
 	};
 }
