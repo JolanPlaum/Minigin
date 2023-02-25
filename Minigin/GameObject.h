@@ -74,7 +74,7 @@ namespace dae
 	{
 		for (const auto& component : m_Components)
 		{
-			if (typeid(*component.get()) == typeid(Comp))
+			if (dynamic_cast<Comp*>(component.get()) != nullptr)
 			{
 				return std::static_pointer_cast<Comp>(component);
 			}
