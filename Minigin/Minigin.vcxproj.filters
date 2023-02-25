@@ -36,6 +36,9 @@
     <Filter Include="Game Files\Scene Helpers">
       <UniqueIdentifier>{4bca6ec4-88e9-4377-bc72-c45336d1d99f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\Components">
+      <UniqueIdentifier>{790b3f46-9132-4a07-ae2d-bf10756d517e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -80,9 +83,6 @@
     <ClInclude Include="CTexture.h">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="CTextureRenderer.h">
-      <Filter>Engine Files\Components\Behaviour</Filter>
-    </ClInclude>
     <ClInclude Include="CTextTexture.h">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClInclude>
@@ -91,6 +91,12 @@
     </ClInclude>
     <ClInclude Include="AssignmentBackground.h">
       <Filter>Game Files\Scene Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureRenderer.h">
+      <Filter>Engine Files\Components\Render</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS.h">
+      <Filter>Game Files\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -133,14 +139,17 @@
     <ClCompile Include="CTexture.cpp">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClCompile>
-    <ClCompile Include="CTextureRenderer.cpp">
-      <Filter>Engine Files\Components\Behaviour</Filter>
-    </ClCompile>
     <ClCompile Include="CTextTexture.cpp">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClCompile>
     <ClCompile Include="GameSelector.cpp">
       <Filter>Game Files</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureRenderer.cpp">
+      <Filter>Engine Files\Components\Render</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS.cpp">
+      <Filter>Game Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

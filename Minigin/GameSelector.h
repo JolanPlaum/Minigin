@@ -1,6 +1,7 @@
 #pragma once
 
-#define Demo
+//#define Demo
+#define UpdatingGameObjects
 
 namespace dae
 {

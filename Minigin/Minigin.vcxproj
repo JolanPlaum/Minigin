@@ -181,6 +181,7 @@
     <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureRenderer.h" />
     <ClInclude Include="Font.h" />
+    <ClInclude Include="FPS.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="GameSelector.h" />
     <ClInclude Include="InputManager.h" />
@@ -199,6 +200,7 @@
     <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureRenderer.cpp" />
     <ClCompile Include="Font.cpp" />
+    <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="GameSelector.cpp" />
     <ClCompile Include="InputManager.cpp" />
