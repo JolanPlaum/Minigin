@@ -27,6 +27,12 @@
     <Filter Include="Engine Files\Components">
       <UniqueIdentifier>{96387432-8e71-480b-85d4-a70a40819473}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Components\Render">
+      <UniqueIdentifier>{27ba4cfb-a271-4e13-a90c-6d1f6f1406d9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Components\Behaviour">
+      <UniqueIdentifier>{34e4a5d0-e246-46cc-9472-a587cc7557db}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -68,6 +74,15 @@
     <ClInclude Include="Transform.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="CTexture.h">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextureRenderer.h">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="CTextTexture.h">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -105,6 +120,15 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Engine Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="CTexture.cpp">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextureRenderer.cpp">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="CTextTexture.cpp">
+      <Filter>Engine Files\Components\Behaviour</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

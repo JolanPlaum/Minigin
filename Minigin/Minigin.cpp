@@ -14,6 +14,10 @@
 
 #include "Scene.h"
 #include "Component.h"
+#include "Transform.h"
+#include "CTexture.h"
+#include "CTextTexture.h"
+#include "CTextureRenderer.h"
 
 SDL_Window* g_pWindow{};
 
@@ -91,6 +95,8 @@ void dae::Minigin::Run()
 	auto& input = InputManager::GetInstance();
 	auto& time = TimeManager::GetInstance();
 
+	sceneManager.Init();
+
 	bool isRunning = true;
 	while (isRunning)
 	{
@@ -113,20 +119,36 @@ void dae::Minigin::Run()
 
 void dae::Minigin::LoadGame() const
 {
-	//todo: create background with components
-	//auto& scene = dae::SceneManager::GetInstance().CreateScene("Demo");
+	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
-	//auto go = std::make_shared<dae::GameObject>();
-	//go->SetTexture("background.tga");
-	//scene.Add(go);
+	//Background
+	auto go = std::make_shared<GameObject>();
+	auto texture = go->AddComponent<CTexture>();
+	auto textureRenderer = go->AddComponent<CTextureRenderer>();
 
-	//go = std::make_shared<dae::GameObject>();
-	//go->SetTexture("logo.tga");
-	//go->SetPosition(216, 180);
-	//scene.Add(go);
+	texture.lock()->SetTexture("background.tga");
+	scene.Add(go);
 
-	//auto font = dae::ResourceManager::GetInstance().LoadFont("Lingua.otf", 36);
-	//auto to = std::make_shared<dae::TextObject>("Programming 4 Assignment", font);
-	//to->SetPosition(80, 20);
-	//scene.Add(to);
+
+	//DAE logo
+	go = std::make_shared<GameObject>();
+	auto transform = go->GetComponent<Transform>();
+	texture = go->AddComponent<CTexture>();
+	textureRenderer = go->AddComponent<CTextureRenderer>();
+
+	texture.lock()->SetTexture("logo.tga");
+	transform.lock()->SetPosition(216, 180, 0);
+	scene.Add(go);
+
+
+	//Course title
+	go = std::make_shared<GameObject>();
+	transform = go->GetComponent<Transform>();
+	auto textTexture = go->AddComponent<CTextTexture>();
+	textureRenderer = go->AddComponent<CTextureRenderer>();
+
+	textTexture.lock()->SetText("Programming 4 Assignment");
+	textTexture.lock()->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 36));
+	transform.lock()->SetPosition(80, 20, 0);
+	scene.Add(go);
 }

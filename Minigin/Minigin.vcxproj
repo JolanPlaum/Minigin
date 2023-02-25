@@ -176,6 +176,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CTextTexture.h" />
+    <ClInclude Include="CTexture.h" />
+    <ClInclude Include="CTextureRenderer.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="GameObject.h" />
     <ClInclude Include="InputManager.h" />
@@ -190,6 +193,9 @@
     <ClInclude Include="Transform.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="CTextTexture.cpp" />
+    <ClCompile Include="CTexture.cpp" />
+    <ClCompile Include="CTextureRenderer.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="GameObject.cpp" />
     <ClCompile Include="InputManager.cpp" />
