@@ -38,7 +38,7 @@ namespace dae
 	private:
 		// Member variables
 		bool m_NeedsUpdate{};
-		std::string m_Text{};
+		std::string m_Text{" "};
 		std::shared_ptr<Font> m_pFont{};
 		SDL_Color m_Color{ 255,255,255 };
 	
