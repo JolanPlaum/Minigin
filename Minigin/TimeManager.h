@@ -25,6 +25,9 @@ namespace dae
 		//---------------------------
 		void Tick();
 		void Sleep();
+
+		float GetDeltaTime() const { return m_DeltaTime; }
+		float GetFPS() const { return m_FPS; }
 	
 	
 	private:
