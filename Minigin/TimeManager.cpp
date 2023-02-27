@@ -38,10 +38,7 @@ void TimeManager::Sleep()
 {
 	//Let the CPU rest if last call was faster than MsPerFrame
 	const auto sleepTime = duration<float>(m_PrevTime - high_resolution_clock::now() + milliseconds(m_MsPerFrame));
-	if (sleepTime.count() > 0.f)
-	{
-		std::this_thread::sleep_for(sleepTime);
-	}
+	std::this_thread::sleep_for(sleepTime);
 }
 
 
