@@ -5,20 +5,13 @@
 #include <SDL_image.h>
 #include <SDL_ttf.h>
 #include "Minigin.h"
+#include "GameSelector.h"
 
 #include "InputManager.h"
 #include "SceneManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "TimeManager.h"
-
-#include "Scene.h"
-#include "Component.h"
-#include "Transform.h"
-#include "CTexture.h"
-#include "CTextTexture.h"
-#include "CTextureRenderer.h"
-#include "GameSelector.h"
 
 SDL_Window* g_pWindow{};
 
