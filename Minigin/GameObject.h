@@ -13,7 +13,7 @@ namespace dae
 	class Scene;
 
 	// Class Declaration
-	class GameObject final
+	class GameObject final : public std::enable_shared_from_this<GameObject>
 	{
 	public:
 		// Constructors and Destructor
@@ -36,8 +36,12 @@ namespace dae
 
 		void Init();
 
+		void SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition = true);
+
 		bool GetDestroyed() const { return m_IsDestroyed; }
-		Scene& GetScene() const { return *m_pScene; }
+		Scene* GetScene() const { return m_pScene; }
+		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
+		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
 
 
 	private:
@@ -46,12 +50,18 @@ namespace dae
 		bool m_IsDestroyed{ false };
 		Scene* m_pScene{ nullptr };
 
+		std::weak_ptr<GameObject> m_pParent{};
+		std::vector<std::shared_ptr<GameObject>> m_Children{};
+
 		std::vector<std::shared_ptr<Component>> m_Components{};
 
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
 		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponents() const;
+
+		void AddChild(std::shared_ptr<GameObject> pChild);
+		void RemoveChild(std::shared_ptr<GameObject> pChild);
 
 	};
 
