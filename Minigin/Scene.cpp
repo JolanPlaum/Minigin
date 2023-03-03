@@ -87,13 +87,13 @@ void Scene::RemoveAll()
 //-----------------------------------------------------------------
 void Scene::AddRenderComponents(const GameObject& object)
 {
-	const auto& comps = object.GetComponents<RenderComponent>();
+	const auto& comps = object.GetComponentsInChildren<RenderComponent>();
 	m_RenderComponents.insert(m_RenderComponents.end(), comps.begin(), comps.end());
 }
 
 void Scene::AddBehaviourComponents(const GameObject& object)
 {
-	const auto& comps = object.GetComponents<BehaviourComponent>();
+	const auto& comps = object.GetComponentsInChildren<BehaviourComponent>();
 	m_BehaviourComponents.insert(m_BehaviourComponents.end(), comps.begin(), comps.end());
 }
 
