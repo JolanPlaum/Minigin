@@ -42,7 +42,7 @@ void GameObject::Init()
 void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition)
 {
 	// Remove self as a child from previous parent
-	if (m_pParent.expired()) m_pParent.lock()->RemoveChild(shared_from_this());
+	if (m_pParent.lock()) m_pParent.lock()->RemoveChild(shared_from_this());
 
 	// Set given parent on self
 	m_pParent = pParent;
