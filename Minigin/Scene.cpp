@@ -32,17 +32,17 @@ void Scene::Init()
 
 void Scene::Update()
 {
-	for (const auto& comp : m_BehaviourComponents)
+	for (const auto& go : m_Objects)
 	{
-		comp->Update();
+		go->Update();
 	}
 }
 
 void Scene::Render() const
 {
-	for (const auto& comp : m_RenderComponents)
+	for (const auto& go : m_Objects)
 	{
-		comp->Render();
+		go->Render();
 	}
 }
 
@@ -51,9 +51,6 @@ void Scene::Add(std::shared_ptr<GameObject> object)
 	if (object->m_pScene == nullptr)
 	{
 		object->m_pScene = this;
-		AddRenderComponents(*object);
-		AddBehaviourComponents(*object);
-
 		m_Objects.emplace_back(std::move(object));
 	}
 }
@@ -63,9 +60,6 @@ void Scene::Remove(std::shared_ptr<GameObject> object)
 	if (object->m_pScene == this)
 	{
 		object->m_pScene = nullptr;
-		RemoveRenderComponents(object.get());
-		RemoveBehaviourComponents(object.get());
-
 		std::erase(m_Objects, object);
 	}
 }
@@ -77,39 +71,10 @@ void Scene::RemoveAll()
 		object->m_pScene = nullptr;
 	}
 	m_Objects.clear();
-	m_RenderComponents.clear();
-	m_BehaviourComponents.clear();
 }
 
 
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
-void Scene::AddRenderComponents(const GameObject& object)
-{
-	const auto& comps = object.GetComponentsInChildren<RenderComponent>();
-	m_RenderComponents.insert(m_RenderComponents.end(), comps.begin(), comps.end());
-}
-
-void Scene::AddBehaviourComponents(const GameObject& object)
-{
-	const auto& comps = object.GetComponentsInChildren<BehaviourComponent>();
-	m_BehaviourComponents.insert(m_BehaviourComponents.end(), comps.begin(), comps.end());
-}
-
-void Scene::RemoveRenderComponents(const GameObject* pObject)
-{
-	std::erase_if(m_RenderComponents,
-		[pObject](const std::shared_ptr<RenderComponent>& comp){
-			return comp->GetGameObject() == pObject;
-		});
-}
-
-void Scene::RemoveBehaviourComponents(const GameObject* pObject)
-{
-	std::erase_if(m_BehaviourComponents,
-		[pObject](const std::shared_ptr<BehaviourComponent>& comp){
-			return comp->GetGameObject() == pObject;
-		});
-}
 

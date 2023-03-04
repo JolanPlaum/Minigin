@@ -12,7 +12,7 @@ namespace dae
 	class CTextureRenderer;
 	
 	// Class Declaration
-	class CTextTexture : public BehaviourComponent
+	class CTextTexture : public Component
 	{
 	public:
 		// Constructors and Destructor

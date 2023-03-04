@@ -10,7 +10,7 @@ namespace dae
 	class Texture2D;
 	
 	// Class Declaration
-	class CTextureRenderer : public RenderComponent
+	class CTextureRenderer : public Component
 	{
 	public:
 		// Constructors and Destructor

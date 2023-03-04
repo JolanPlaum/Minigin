@@ -37,6 +37,8 @@ namespace dae
 		template <typename Comp> bool HasComponent() const;
 
 		void Init();
+		void Update();
+		void Render() const;
 
 		void SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition = true);
 

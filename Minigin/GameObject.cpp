@@ -37,6 +37,37 @@ void GameObject::Init()
 	{
 		component->Init();
 	}
+
+	for (const auto& child : m_Children)
+	{
+		child->Init();
+	}
+}
+
+void GameObject::Update()
+{
+	for (const auto& component : m_Components)
+	{
+		component->Update();
+	}
+
+	for (const auto& child : m_Children)
+	{
+		child->Update();
+	}
+}
+	 
+void GameObject::Render() const
+{
+	for (const auto& component : m_Components)
+	{
+		component->Render();
+	}
+
+	for (const auto& child : m_Children)
+	{
+		child->Render();
+	}
 }
 
 void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition)

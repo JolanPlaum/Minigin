@@ -8,7 +8,7 @@ namespace dae
 	class CTextTexture;
 	
 	// Class Declaration
-	class FPS final : public BehaviourComponent
+	class FPS final : public Component
 	{
 	public:
 		// Constructors and Destructor
