@@ -43,7 +43,6 @@ namespace dae
 		void SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition = true);
 
 		bool GetDestroyed() const { return m_IsDestroyed; }
-		Scene* GetScene() const { return m_pScene; }
 		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
 		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
 
@@ -70,6 +69,8 @@ namespace dae
 
 		void AddChild(std::shared_ptr<GameObject> pChild);
 		void RemoveChild(std::shared_ptr<GameObject> pChild);
+
+		Scene* GetScene() const;
 
 	};
 

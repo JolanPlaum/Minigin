@@ -3,6 +3,7 @@
 //-----------------------------------------------------------------
 #include "GameObject.h"
 #include "Transform.h"
+#include "Scene.h"
 
 using namespace dae;
 
@@ -72,6 +73,14 @@ void GameObject::Render() const
 
 void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition)
 {
+	// Remove/Add self from/to scene it's currently in
+	Scene* pScene = GetScene();
+	if (pScene)
+	{
+		if (pParent) pScene->Remove(shared_from_this());
+		else pScene->Add(shared_from_this());
+	}
+
 	// Remove self as a child from previous parent
 	if (m_pParent.lock()) m_pParent.lock()->RemoveChild(shared_from_this());
 
@@ -97,5 +106,14 @@ void GameObject::AddChild(std::shared_ptr<GameObject> pChild)
 void GameObject::RemoveChild(std::shared_ptr<GameObject> pChild)
 {
 	std::erase(m_Children, pChild);
+}
+
+Scene* GameObject::GetScene() const
+{
+	if (m_pScene) return m_pScene;
+
+	if (m_pParent.lock()) return m_pParent.lock()->GetScene();
+
+	return nullptr;
 }
 

@@ -60,8 +60,8 @@ void Scene::Remove(std::shared_ptr<GameObject> object)
 	if (object->m_pScene == this)
 	{
 		object->m_pScene = nullptr;
-		std::erase(m_Objects, object);
 	}
+	std::erase(m_Objects, object);
 }
 
 void Scene::RemoveAll()
