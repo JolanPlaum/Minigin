@@ -6,6 +6,7 @@
 #include "Font.h"
 #include "Renderer.h"
 #include "Texture2D.h"
+#include "CTextureRenderer.h"
 
 using namespace dae;
 
@@ -13,6 +14,10 @@ using namespace dae;
 //-----------------------------------------------------------------
 // Constructors
 //-----------------------------------------------------------------
+void CTextTexture::Init()
+{
+	m_pTextureRenderer = GetGameObject()->GetComponent<CTextureRenderer>();
+}
 
 
 //-----------------------------------------------------------------
@@ -27,6 +32,9 @@ void CTextTexture::Update()
 {
 	if (m_NeedsUpdate)
 	{
+		//todo: check for new component of this type, but not every frame?
+		if (m_pTextureRenderer.expired()) return;
+
 		const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
 		if (surf == nullptr)
 		{
@@ -38,7 +46,7 @@ void CTextTexture::Update()
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		m_pTexture = std::make_shared<Texture2D>(texture);
+		m_pTextureRenderer.lock()->SetTexture(std::make_shared<Texture2D>(texture));
 		m_NeedsUpdate = false;
 	}
 }
@@ -63,7 +71,7 @@ void CTextTexture::SetColor(const SDL_Color& color)
 
 void CTextTexture::SetColor(Uint8 r, Uint8 g, Uint8 b, Uint8 a)
 {
-	SetColor({ r,g,b,a });
+	SetColor({ r, g, b, a });
 }
 
 

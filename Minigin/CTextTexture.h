@@ -1,6 +1,6 @@
 #pragma once
 // Includes
-#include "CTexture.h"
+#include "Component.h"
 #include <memory>
 #include <string>
 #include <SDL.h>
@@ -9,9 +9,10 @@ namespace dae
 {
 	// Class Forward Declarations
 	class Font;
+	class CTextureRenderer;
 	
 	// Class Declaration
-	class CTextTexture : public CTexture
+	class CTextTexture : public BehaviourComponent
 	{
 	public:
 		// Constructors and Destructor
@@ -27,6 +28,7 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
+		void Init() override;
 		void Update() override;
 
 		void SetText(const std::string& text);
@@ -40,6 +42,7 @@ namespace dae
 		bool m_NeedsUpdate{};
 		std::string m_Text{" "};
 		std::shared_ptr<Font> m_pFont{};
+		std::weak_ptr<CTextureRenderer> m_pTextureRenderer{};
 		SDL_Color m_Color{ 255,255,255 };
 	
 		//---------------------------

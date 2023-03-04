@@ -178,7 +178,6 @@
     <ClInclude Include="AssignmentBackground.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CTextTexture.h" />
-    <ClInclude Include="CTexture.h" />
     <ClInclude Include="CTextureRenderer.h" />
     <ClInclude Include="Font.h" />
     <ClInclude Include="FPS.h" />
@@ -197,7 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="CTextTexture.cpp" />
-    <ClCompile Include="CTexture.cpp" />
     <ClCompile Include="CTextureRenderer.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPS.cpp" />

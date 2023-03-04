@@ -80,9 +80,6 @@
     <ClInclude Include="Transform.h">
       <Filter>Engine Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="CTexture.h">
-      <Filter>Engine Files\Components\Behaviour</Filter>
-    </ClInclude>
     <ClInclude Include="CTextTexture.h">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClInclude>
@@ -135,9 +132,6 @@
     </ClCompile>
     <ClCompile Include="Transform.cpp">
       <Filter>Engine Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="CTexture.cpp">
-      <Filter>Engine Files\Components\Behaviour</Filter>
     </ClCompile>
     <ClCompile Include="CTextTexture.cpp">
       <Filter>Engine Files\Components\Behaviour</Filter>

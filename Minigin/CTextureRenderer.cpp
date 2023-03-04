@@ -4,7 +4,6 @@
 #include "CTextureRenderer.h"
 #include "Renderer.h"
 #include "Transform.h"
-#include "CTexture.h"
 
 using namespace dae;
 
@@ -15,7 +14,6 @@ using namespace dae;
 void CTextureRenderer::Init()
 {
 	m_Transform = GetGameObject()->GetComponent<Transform>();
-	m_TextureComponent = GetGameObject()->GetComponent<CTexture>();
 }
 
 
@@ -29,11 +27,13 @@ void CTextureRenderer::Init()
 //-----------------------------------------------------------------
 void CTextureRenderer::Render() const
 {
-	if (!m_TextureComponent.expired())
-	{
-		const auto& pos = m_Transform.lock()->GetPosition();
-		Renderer::GetInstance().RenderTexture(m_TextureComponent.lock()->GetTexture(), pos.x, pos.y);
-	}
+	const auto& pos = m_Transform.lock()->GetPosition();
+	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
+}
+
+void CTextureRenderer::SetTexture(std::shared_ptr<Texture2D> pTexture)
+{
+	m_pTexture = pTexture;
 }
 
 

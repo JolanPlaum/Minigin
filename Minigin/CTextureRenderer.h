@@ -7,7 +7,7 @@ namespace dae
 {
 	// Class Forward Declarations
 	class Transform;
-	class CTexture;
+	class Texture2D;
 	
 	// Class Declaration
 	class CTextureRenderer : public RenderComponent
@@ -22,23 +22,25 @@ namespace dae
 		CTextureRenderer& operator=(const CTextureRenderer& other)		= delete;
 		CTextureRenderer(CTextureRenderer&& other) noexcept				= delete;
 		CTextureRenderer& operator=(CTextureRenderer&& other) noexcept	= delete;
-	
+		
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
 		void Init() override;
 		void Render() const override;
-	
-	
+
+		void SetTexture(std::shared_ptr<Texture2D> pTexture);
+		
+		
 	private:
 		// Member variables
 		std::weak_ptr<Transform> m_Transform{};
-		std::weak_ptr<CTexture> m_TextureComponent{};
-	
+		std::shared_ptr<Texture2D> m_pTexture{};
+		
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-	
+		
 	};
 }
 
