@@ -2,7 +2,8 @@
 
 //#define Demo
 //#define UpdatingGameObjects
-#define SceneGraphDemo
+//#define SceneGraphDemo
+#define Scenegraph
 
 namespace dae
 {
