@@ -24,6 +24,8 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
+		void ClearDirtyFlags();
+
 		void SetLocalPosition(const glm::vec3& pos);
 		void SetLocalPosition(float x, float y, float z);
 		void SetLocalRotation(const glm::vec3& rot);
@@ -31,6 +33,14 @@ namespace dae
 		void SetLocalScale(const glm::vec3& s);
 		void SetLocalScale(float x, float y, float z);
 		void SetLocalScale(float s);
+
+		void SetWorldPosition(const glm::vec3& pos);
+		void SetWorldPosition(float x, float y, float z);
+		void SetWorldRotation(const glm::vec3& rot);
+		void SetWorldRotation(float x, float y, float z);
+		void SetWorldScale(const glm::vec3& s);
+		void SetWorldScale(float x, float y, float z);
+		void SetWorldScale(float s);
 
 		const glm::vec3& GetWorldPosition();
 		const glm::vec3& GetWorldRotation();

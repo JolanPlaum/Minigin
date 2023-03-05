@@ -20,6 +20,13 @@ using namespace dae;
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
+void Transform::ClearDirtyFlags()
+{
+	ClearDirtyPosition();
+	ClearDirtyRotation();
+	ClearDirtyScale();
+}
+
 void Transform::SetLocalPosition(const glm::vec3& pos)
 {
 	m_LocalPosition = pos;
@@ -50,6 +57,44 @@ void Transform::SetLocalScale(float x, float y, float z)
 void Transform::SetLocalScale(float s)
 {
 	SetLocalScale({ s, s, s });
+}
+
+void Transform::SetWorldPosition(const glm::vec3& pos)
+{
+	SetLocalPosition(pos);
+
+	GameObject* parent = GetGameObject()->GetParent().lock().get();
+	if (parent)	m_LocalPosition -= parent->GetTransform().GetWorldPosition();
+}
+void Transform::SetWorldPosition(float x, float y, float z)
+{
+	SetWorldPosition({ x, y, z });
+}
+void Transform::SetWorldRotation(const glm::vec3& rot)
+{
+	SetLocalRotation(rot);
+
+	GameObject* parent = GetGameObject()->GetParent().lock().get();
+	if (parent)	m_LocalRotation -= parent->GetTransform().GetWorldRotation();
+}
+void Transform::SetWorldRotation(float x, float y, float z)
+{
+	SetWorldRotation({ x, y, z });
+}
+void Transform::SetWorldScale(const glm::vec3& s)
+{
+	SetLocalScale(s);
+
+	GameObject* parent = GetGameObject()->GetParent().lock().get();
+	if (parent)	m_LocalScale /= parent->GetTransform().GetWorldScale();
+}
+void Transform::SetWorldScale(float x, float y, float z)
+{
+	SetWorldScale({ x, y, z });
+}
+void Transform::SetWorldScale(float s)
+{
+	SetWorldScale({ s, s, s });
 }
 
 
