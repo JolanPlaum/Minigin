@@ -42,6 +42,10 @@ namespace dae
 		void SetWorldScale(float x, float y, float z);
 		void SetWorldScale(float s);
 
+		const glm::vec3& GetLocalPosition();
+		const glm::vec3& GetLocalRotation();
+		const glm::vec3& GetLocalScale();
+
 		const glm::vec3& GetWorldPosition();
 		const glm::vec3& GetWorldRotation();
 		const glm::vec3& GetWorldScale();

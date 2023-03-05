@@ -97,10 +97,19 @@ void Transform::SetWorldScale(float s)
 	SetWorldScale({ s, s, s });
 }
 
+const glm::vec3& Transform::GetLocalPosition()
+{
+	return m_LocalPosition;
+}
+const glm::vec3& Transform::GetLocalRotation()
+{
+	return m_LocalRotation;
+}
+const glm::vec3& Transform::GetLocalScale()
+{
+	return m_LocalScale;
+}
 
-//-----------------------------------------------------------------
-// Private Member Functions
-//-----------------------------------------------------------------
 const glm::vec3& Transform::GetWorldPosition()
 {
 	ClearDirtyPosition();
@@ -118,6 +127,9 @@ const glm::vec3& Transform::GetWorldScale()
 }
 
 
+//-----------------------------------------------------------------
+// Private Member Functions
+//-----------------------------------------------------------------
 void Transform::SetPositionDirty()
 {
 	m_IsPositionDirty = true;
