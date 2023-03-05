@@ -24,26 +24,35 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
-		void SetPosition(const glm::vec3& pos);
-		void SetPosition(float x, float y, float z);
-		void SetRotation(const glm::vec3& rot);
-		void SetRotation(float x, float y, float z);
-		void SetScale(const glm::vec3& s);
-		void SetScale(float x, float y, float z);
-		void SetScale(float s);
+		void SetLocalPosition(const glm::vec3& pos);
+		void SetLocalPosition(float x, float y, float z);
+		void SetLocalRotation(const glm::vec3& rot);
+		void SetLocalRotation(float x, float y, float z);
+		void SetLocalScale(const glm::vec3& s);
+		void SetLocalScale(float x, float y, float z);
+		void SetLocalScale(float s);
 
-		const glm::vec3& GetPosition() const { return m_Position; }
-		const glm::vec3& GetRotation() const { return m_Rotation; }
-		const glm::vec3& GetScale() const { return m_Scale; }
+		const glm::vec3& GetWorldPosition();
+		const glm::vec3& GetWorldRotation();
+		const glm::vec3& GetWorldScale();
 	
 	
 	private:
 		// Member variables
-		glm::vec3 m_Position, m_Rotation, m_Scale;
+		bool m_IsPositionDirty{ false }, m_IsRotationDirty{ false }, m_IsScaleDirty{ false };
+		glm::vec3 m_LocalPosition{}, m_LocalRotation{}, m_LocalScale{};
+		glm::vec3 m_WorldPosition{}, m_WorldRotation{}, m_WorldScale{};
 	
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
+		void SetPositionDirty();
+		void SetRotationDirty();
+		void SetScaleDirty();
+
+		void ClearDirtyPosition();
+		void ClearDirtyRotation();
+		void ClearDirtyScale();
 	
 	};
 }
