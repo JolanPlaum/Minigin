@@ -6,7 +6,6 @@
 namespace dae
 {
 	// Class Forward Declarations
-	class Transform;
 	class Texture2D;
 	
 	// Class Declaration
@@ -34,7 +33,6 @@ namespace dae
 		
 	private:
 		// Member variables
-		std::weak_ptr<Transform> m_Transform{};
 		std::shared_ptr<Texture2D> m_pTexture{};
 		
 		//---------------------------

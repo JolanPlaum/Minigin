@@ -13,7 +13,6 @@ using namespace dae;
 //-----------------------------------------------------------------
 void CTextureRenderer::Init()
 {
-	m_Transform = GetGameObject()->GetComponent<Transform>();
 }
 
 
@@ -27,7 +26,7 @@ void CTextureRenderer::Init()
 //-----------------------------------------------------------------
 void CTextureRenderer::Render() const
 {
-	const auto& pos = m_Transform.lock()->GetPosition();
+	const auto& pos = GetGameObject()->GetTransform().GetPosition();
 	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 }
 

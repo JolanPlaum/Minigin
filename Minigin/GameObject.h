@@ -11,6 +11,7 @@ namespace dae
 	// Class Forward Declarations
 	class Component;
 	class Scene;
+	class Transform;
 
 	// Class Declaration
 	class GameObject final : public std::enable_shared_from_this<GameObject>
@@ -43,6 +44,7 @@ namespace dae
 		void SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition = true);
 
 		bool GetDestroyed() const { return m_IsDestroyed; }
+		Transform& GetTransform() const { return *m_pTransform; }
 		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
 		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
 
@@ -57,7 +59,7 @@ namespace dae
 		std::weak_ptr<GameObject> m_pParent{};
 		std::vector<std::shared_ptr<GameObject>> m_Children{};
 
-		//todo: make gameobject have a weak_ptr to components owned by ??scene?? ??componentManager??
+		std::unique_ptr<Transform> m_pTransform{};
 		std::vector<std::shared_ptr<Component>> m_Components{};
 
 		//---------------------------
@@ -73,6 +75,9 @@ namespace dae
 		Scene* GetScene() const;
 
 	};
+
+	//todo: add checks to component functions to keep the transform component in mind
+	//		either add or ignore if this is the case depending on the function
 
 	template<typename Comp>
 	inline std::weak_ptr<Comp> GameObject::AddComponent()
