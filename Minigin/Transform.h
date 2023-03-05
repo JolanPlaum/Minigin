@@ -45,6 +45,8 @@ namespace dae
 		const glm::vec3& GetWorldPosition();
 		const glm::vec3& GetWorldRotation();
 		const glm::vec3& GetWorldScale();
+		//todo: currently world position is not affected by owner rotation/scale
+		//		make it so that it does take that into mind
 	
 	
 	private:

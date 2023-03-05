@@ -74,6 +74,9 @@ void GameObject::Render() const
 
 void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition)
 {
+	// Update world transformations to the latest
+	m_pTransform->ClearDirtyFlags();
+
 	// Remove/Add self from/to scene it's currently in
 	Scene* pScene = GetScene();
 	if (pScene)
@@ -92,7 +95,12 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPo
 	if (pParent) pParent->AddChild(shared_from_this());
 
 	// Update transform
-	// todo: update transform
+	if (keepWorldPosition)
+	{
+		m_pTransform->SetWorldPosition(m_pTransform->GetWorldPosition());
+		m_pTransform->SetWorldRotation(m_pTransform->GetWorldRotation());
+		m_pTransform->SetWorldScale(m_pTransform->GetWorldScale());
+	}
 }
 
 
