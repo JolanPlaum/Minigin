@@ -98,6 +98,9 @@
     <ClInclude Include="TestSceneGraph.h">
       <Filter>Game Files\Scene Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="RotationMovement.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -146,6 +149,9 @@
       <Filter>Engine Files\Components\Render</Filter>
     </ClCompile>
     <ClCompile Include="FPS.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationMovement.cpp">
       <Filter>Game Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
