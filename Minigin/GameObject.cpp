@@ -101,6 +101,13 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPo
 		m_pTransform->SetWorldRotation(m_pTransform->GetWorldRotation());
 		m_pTransform->SetWorldScale(m_pTransform->GetWorldScale());
 	}
+	else
+	{
+		//make sure the flag is dirty since we have a new parent
+		m_pTransform->SetLocalPosition(m_pTransform->GetLocalPosition());
+		m_pTransform->SetLocalRotation(m_pTransform->GetLocalRotation());
+		m_pTransform->SetLocalScale(m_pTransform->GetLocalScale());
+	}
 }
 
 
