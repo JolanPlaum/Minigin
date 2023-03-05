@@ -10,6 +10,8 @@
 #include "CTextureRenderer.h"
 #include "FPS.h"
 #include "ResourceManager.h"
+#elif defined(SceneGraphDemo)
+#include "TestSceneGraph.h"
 #endif
 
 void dae::LoadGame()
@@ -28,5 +30,8 @@ void dae::LoadGame()
 	text.lock()->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 20));
 	text.lock()->SetColor(200, 200, 0);
 	scene.Add(go);
+#elif defined(SceneGraphDemo)
+	auto& scene = SceneManager::GetInstance().CreateScene("SceneGraph Demo");
+	TestSceneGraph::LoadScene(scene);
 #endif
 }

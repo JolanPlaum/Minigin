@@ -95,6 +95,9 @@
     <ClInclude Include="FPS.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="TestSceneGraph.h">
+      <Filter>Game Files\Scene Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
