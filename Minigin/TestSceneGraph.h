@@ -1,6 +1,7 @@
 #pragma once
 #include "Scene.h"
 #include "GameObject.h"
+#include "Transform.h"
 
 namespace dae
 {
@@ -11,6 +12,8 @@ namespace dae
 			// Test SetParent on 2 objects not part of a scene
 			auto go1 = std::make_shared<GameObject>();
 			auto go2 = std::make_shared<GameObject>();
+			go1->GetTransform().SetLocalPosition(15, 0, 0);
+			go2->GetTransform().SetLocalPosition(2, 0, 2);
 			go1->SetParent(nullptr);	// nullptr without having a parent
 			go1->SetParent(go2);	// object without having a parent
 			go1->SetParent(nullptr);	// nullptr while having a parent

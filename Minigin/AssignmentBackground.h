@@ -24,7 +24,7 @@ namespace dae
 			textureRenderer = go->AddComponent<CTextureRenderer>();
 
 			textureRenderer.lock()->SetTexture(ResourceManager::GetInstance().LoadTexture("logo.tga"));
-			go->GetTransform().SetPosition(216, 180, 0);
+			go->GetTransform().SetLocalPosition(216, 180, 0);
 			scene.Add(go);
 
 
@@ -35,7 +35,7 @@ namespace dae
 
 			textTexture.lock()->SetText("Programming 4 Assignment");
 			textTexture.lock()->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 36));
-			go->GetTransform().SetPosition(80, 20, 0);
+			go->GetTransform().SetLocalPosition(80, 20, 0);
 			scene.Add(go);
 		}
 	}

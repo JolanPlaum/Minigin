@@ -26,7 +26,7 @@ void CTextureRenderer::Init()
 //-----------------------------------------------------------------
 void CTextureRenderer::Render() const
 {
-	const auto& pos = GetGameObject()->GetTransform().GetPosition();
+	const auto& pos = GetGameObject()->GetTransform().GetWorldPosition();
 	Renderer::GetInstance().RenderTexture(*m_pTexture, pos.x, pos.y);
 }
 
