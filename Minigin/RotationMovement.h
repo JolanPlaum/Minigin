@@ -1,6 +1,7 @@
 #pragma once
 // Includes
 #include "Component.h"
+#include <glm/gtc/constants.hpp>
 
 namespace dae
 {
@@ -32,7 +33,7 @@ namespace dae
 
 	private:
 		// Member variables
-		float m_RotationSpeed{ 3.1415f };
+		float m_RotationSpeed{ glm::pi<float>() };
 		float m_Radius{ 1.f };
 		float m_CurrentAngle{ 0.f };
 	

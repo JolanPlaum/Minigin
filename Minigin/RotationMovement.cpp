@@ -25,9 +25,10 @@ using namespace dae;
 void RotationMovement::Update()
 {
 	m_CurrentAngle += TimeManager::GetInstance().GetDeltaTime() * m_RotationSpeed;
+	glm::mod(m_CurrentAngle, glm::pi<float>());
 
-	auto x = glm::cos(m_CurrentAngle) * m_Radius;
-	auto y = glm::sin(m_CurrentAngle) * m_Radius;
+	float x = glm::cos(m_CurrentAngle) * m_Radius;
+	float y = glm::sin(m_CurrentAngle) * m_Radius;
 
 	GetGameObject()->GetTransform().SetLocalPosition(x, y, 0);
 }
