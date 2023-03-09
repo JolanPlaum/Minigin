@@ -63,7 +63,7 @@ void Transform::SetWorldPosition(const glm::vec3& pos)
 {
 	SetLocalPosition(pos);
 
-	GameObject* parent = GetGameObject()->GetParent().lock().get();
+	GameObject* parent = GetGameObject()->GetParent();
 	if (parent)	m_LocalPosition -= parent->GetTransform().GetWorldPosition();
 }
 void Transform::SetWorldPosition(float x, float y, float z)
@@ -74,7 +74,7 @@ void Transform::SetWorldRotation(const glm::vec3& rot)
 {
 	SetLocalRotation(rot);
 
-	GameObject* parent = GetGameObject()->GetParent().lock().get();
+	GameObject* parent = GetGameObject()->GetParent();
 	if (parent)	m_LocalRotation -= parent->GetTransform().GetWorldRotation();
 }
 void Transform::SetWorldRotation(float x, float y, float z)
@@ -85,7 +85,7 @@ void Transform::SetWorldScale(const glm::vec3& s)
 {
 	SetLocalScale(s);
 
-	GameObject* parent = GetGameObject()->GetParent().lock().get();
+	GameObject* parent = GetGameObject()->GetParent();
 	if (parent)	m_LocalScale /= parent->GetTransform().GetWorldScale();
 }
 void Transform::SetWorldScale(float x, float y, float z)
@@ -164,7 +164,7 @@ void Transform::ClearDirtyPosition()
 	{
 		m_WorldPosition = m_LocalPosition;
 
-		GameObject* parent = GetGameObject()->GetParent().lock().get();
+		GameObject* parent = GetGameObject()->GetParent();
 		if (parent)	m_WorldPosition += parent->GetTransform().GetWorldPosition();
 
 		m_IsPositionDirty = false;
@@ -176,7 +176,7 @@ void Transform::ClearDirtyRotation()
 	{
 		m_WorldRotation = m_LocalRotation;
 
-		GameObject* parent = GetGameObject()->GetParent().lock().get();
+		GameObject* parent = GetGameObject()->GetParent();
 		if (parent)	m_WorldRotation += parent->GetTransform().GetWorldRotation();
 
 		m_IsRotationDirty = false;
@@ -188,7 +188,7 @@ void Transform::ClearDirtyScale()
 	{
 		m_WorldScale = m_LocalScale;
 
-		GameObject* parent = GetGameObject()->GetParent().lock().get();
+		GameObject* parent = GetGameObject()->GetParent();
 		if (parent)	m_WorldScale *= parent->GetTransform().GetWorldScale();
 
 		m_IsScaleDirty = false;

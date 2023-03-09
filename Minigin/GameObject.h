@@ -44,11 +44,12 @@ namespace dae
 		void Update();
 		void Render() const;
 
-		void SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition = true);
+		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
+		void SetParent(const std::shared_ptr<GameObject>& pParent, bool keepWorldPosition = true);
 
 		bool GetDestroyed() const { return m_IsDestroyed; }
 		Transform& GetTransform() const { return *m_pTransform; }
-		std::weak_ptr<GameObject> GetParent() const { return m_pParent; }
+		GameObject* GetParent() const { return m_pParent; }
 		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
 
 
@@ -59,7 +60,7 @@ namespace dae
 		bool m_IsDestroyed{ false };
 		Scene* m_pScene{ nullptr };
 
-		std::weak_ptr<GameObject> m_pParent{};
+		GameObject* m_pParent{};
 		std::vector<std::shared_ptr<GameObject>> m_Children{};
 
 		std::unique_ptr<Transform> m_pTransform{};
@@ -129,7 +130,7 @@ namespace dae
 
 		if (result) return result;
 
-		return m_pParent.lock()->GetComponentInParent<Comp>();
+		return m_pParent->GetComponentInParent<Comp>();
 	}
 
 	template<typename Comp>
@@ -204,9 +205,9 @@ namespace dae
 
 		result = std::move(GetComponents<Comp>());
 
-		if (!m_pParent.expired())
+		if (m_pParent)
 		{
-			auto otherResult = m_pParent.lock()->GetComponentsInParent<Comp>();
+			auto otherResult = m_pParent->GetComponentsInParent<Comp>();
 			result.insert(result.end(), otherResult.begin(), otherResult.end());
 		}
 

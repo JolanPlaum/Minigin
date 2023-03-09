@@ -72,7 +72,7 @@ void GameObject::Render() const
 	}
 }
 
-void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPosition)
+void GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 {
 	// Update world transformations to the latest
 	m_pTransform->ClearDirtyFlags();
@@ -86,13 +86,13 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPo
 	}
 
 	// Remove self as a child from previous parent
-	if (m_pParent.lock()) m_pParent.lock()->RemoveChild(shared_from_this());
+	if (m_pParent) m_pParent->RemoveChild(shared_from_this());
 
 	// Set given parent on self
 	m_pParent = pParent;
 
 	// Add self as a child to given parent
-	if (pParent) pParent->AddChild(shared_from_this());
+	if (m_pParent) m_pParent->AddChild(shared_from_this());
 
 	// Update transform
 	if (keepWorldPosition)
@@ -108,6 +108,11 @@ void GameObject::SetParent(std::shared_ptr<GameObject> pParent, bool keepWorldPo
 		m_pTransform->SetLocalRotation(m_pTransform->GetLocalRotation());
 		m_pTransform->SetLocalScale(m_pTransform->GetLocalScale());
 	}
+}
+
+void GameObject::SetParent(const std::shared_ptr<GameObject>& pParent, bool keepWorldPosition)
+{
+	SetParent(pParent.get(), keepWorldPosition);
 }
 
 
@@ -128,7 +133,7 @@ Scene* GameObject::GetScene() const
 {
 	if (m_pScene) return m_pScene;
 
-	if (m_pParent.lock()) return m_pParent.lock()->GetScene();
+	if (m_pParent) return m_pParent->GetScene();
 
 	return nullptr;
 }
