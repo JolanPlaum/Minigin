@@ -31,8 +31,8 @@ void dae::LoadGame()
 	auto text = go->AddComponent<CTextTexture>();
 	go->AddComponent<CTextureRenderer>();
 	go->AddComponent<FPS>();
-	text.lock()->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 20));
-	text.lock()->SetColor(200, 200, 0);
+	text->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 20));
+	text->SetColor(200, 200, 0);
 	scene.Add(go);
 #elif defined(SceneGraphDemo)
 	auto& scene = SceneManager::GetInstance().CreateScene("SceneGraph Demo");
@@ -46,8 +46,8 @@ void dae::LoadGame()
 	auto text = go->AddComponent<CTextTexture>();
 	go->AddComponent<CTextureRenderer>();
 	go->AddComponent<FPS>();
-	text.lock()->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 20));
-	text.lock()->SetColor(200, 200, 0);
+	text->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 20));
+	text->SetColor(200, 200, 0);
 	scene.Add(go);
 
 	//Emtpy root object
@@ -59,18 +59,18 @@ void dae::LoadGame()
 	auto parent = std::make_shared<GameObject>();
 	auto textureRenderer = parent->AddComponent<CTextureRenderer>();
 	auto rotator = parent->AddComponent<RotationMovement>();
-	rotator.lock()->SetRadius(16.f);
-	rotator.lock()->SetSpeedDegrees(180.f);
-	textureRenderer.lock()->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
+	rotator->SetRadius(16.f);
+	rotator->SetSpeedDegrees(180.f);
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
 	parent->SetParent(go);
 
 	//Child object
 	auto child = std::make_shared<GameObject>();
 	textureRenderer = child->AddComponent<CTextureRenderer>();
 	rotator = child->AddComponent<RotationMovement>();
-	rotator.lock()->SetRadius(16.f);
-	rotator.lock()->SetSpeedDegrees(-360.f);
-	textureRenderer.lock()->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
+	rotator->SetRadius(16.f);
+	rotator->SetSpeedDegrees(-360.f);
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
 	child->SetParent(parent, false);
 #endif
 }

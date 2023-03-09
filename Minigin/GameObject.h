@@ -30,10 +30,10 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
-		template <typename Comp> std::weak_ptr<Comp> AddComponent();
-		template <typename Comp> std::weak_ptr<Comp> GetComponent() const;
-		template <typename Comp> std::weak_ptr<Comp> GetComponentInChildren() const;
-		template <typename Comp> std::weak_ptr<Comp> GetComponentInParent() const;
+		template <typename Comp> Comp* AddComponent();
+		template <typename Comp> Comp* GetComponent() const;
+		template <typename Comp> Comp* GetComponentInChildren() const;
+		template <typename Comp> Comp* GetComponentInParent() const;
 		template <typename Comp> void RemoveComponent();
 		template <typename Comp> bool HasComponent() const;
 
@@ -65,9 +65,9 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponents() const;
-		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponentsInChildren() const;
-		template <typename Comp> std::vector<std::shared_ptr<Comp>> GetComponentsInParent() const;
+		template <typename Comp> std::vector<Comp*> GetComponents() const;
+		template <typename Comp> std::vector<Comp*> GetComponentsInChildren() const;
+		template <typename Comp> std::vector<Comp*> GetComponentsInParent() const;
 
 		void AddChild(std::shared_ptr<GameObject> pChild);
 		void RemoveChild(std::shared_ptr<GameObject> pChild);
@@ -80,55 +80,55 @@ namespace dae
 	//		either add or ignore if this is the case depending on the function
 
 	template<typename Comp>
-	inline std::weak_ptr<Comp> GameObject::AddComponent()
+	inline Comp* GameObject::AddComponent()
 	{
 		if (HasComponent<Comp>())
 		{
 			std::cout << "Component of type \"" << typeid(Comp).name() << "\" already exists.\n";
-			return std::shared_ptr<Comp>(nullptr);
+			return nullptr;
 		}
 
 		m_Components.emplace_back(std::make_shared<Comp>());
 		m_Components.back()->m_pGameObject = this;
-		return std::static_pointer_cast<Comp>(m_Components.back());
+		return static_cast<Comp*>(m_Components.back().get());
 	}
 
 	template<typename Comp>
-	inline std::weak_ptr<Comp> GameObject::GetComponent() const
+	inline Comp* GameObject::GetComponent() const
 	{
 		for (const auto& component : m_Components)
 		{
 			if (dynamic_cast<Comp*>(component.get()) != nullptr)
 			{
-				return std::static_pointer_cast<Comp>(component);
+				return static_cast<Comp*>(component.get());
 			}
 		}
 
-		return std::shared_ptr<Comp>(nullptr);
+		return nullptr;
 	}
 
 	template<typename Comp>
-	inline std::weak_ptr<Comp> GameObject::GetComponentInChildren() const
+	inline Comp* GameObject::GetComponentInChildren() const
 	{
-		std::weak_ptr<Comp> result = GetComponent<Comp>();
+		Comp* result = GetComponent<Comp>();
 
-		if (result.lock()) return result;
+		if (result) return result;
 
 		for (const auto& child : m_Children)
 		{
 			result = child->GetComponentInChildren<Comp>();
-			if (result.lock()) return result;
+			if (result) return result;
 		}
 
 		return result;
 	}
 
 	template<typename Comp>
-	inline std::weak_ptr<Comp> GameObject::GetComponentInParent() const
+	inline Comp* GameObject::GetComponentInParent() const
 	{
-		std::weak_ptr<Comp> result = GetComponent<Comp>();
+		Comp* result = GetComponent<Comp>();
 
-		if (result.lock()) return result;
+		if (result) return result;
 
 		return m_pParent.lock()->GetComponentInParent<Comp>();
 	}
@@ -167,15 +167,15 @@ namespace dae
 	}
 
 	template<typename Comp>
-	inline std::vector<std::shared_ptr<Comp>> GameObject::GetComponents() const
+	inline std::vector<Comp*> GameObject::GetComponents() const
 	{
-		std::vector<std::shared_ptr<Comp>> result{};
+		std::vector<Comp*> result{};
 
 		for (const auto& component : m_Components)
 		{
 			if (dynamic_cast<Comp*>(component.get()) != nullptr)
 			{
-				result.emplace_back(std::static_pointer_cast<Comp>(component));
+				result.emplace_back(static_cast<Comp*>(component.get()));
 			}
 		}
 
@@ -183,9 +183,9 @@ namespace dae
 	}
 
 	template<typename Comp>
-	inline std::vector<std::shared_ptr<Comp>> GameObject::GetComponentsInChildren() const
+	inline std::vector<Comp*> GameObject::GetComponentsInChildren() const
 	{
-		std::vector<std::shared_ptr<Comp>> result;
+		std::vector<Comp*> result;
 
 		result = std::move(GetComponents<Comp>());
 
@@ -199,9 +199,9 @@ namespace dae
 	}
 
 	template<typename Comp>
-	inline std::vector<std::shared_ptr<Comp>> GameObject::GetComponentsInParent() const
+	inline std::vector<Comp*> GameObject::GetComponentsInParent() const
 	{
-		std::vector<std::shared_ptr<Comp>> result;
+		std::vector<Comp*> result;
 
 		result = std::move(GetComponents<Comp>());
 

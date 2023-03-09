@@ -30,7 +30,7 @@ namespace dae
 	
 	private:
 		// Member variables
-		std::weak_ptr<CTextTexture> m_TextComponent{};
+		CTextTexture* m_pTextComponent{};
 	
 		//---------------------------
 		// Private Member Functions

@@ -33,7 +33,7 @@ void CTextTexture::Update()
 	if (m_NeedsUpdate)
 	{
 		//todo: check for new component of this type, but not every frame?
-		if (m_pTextureRenderer.expired()) return;
+		if (m_pTextureRenderer == nullptr) return;
 
 		const auto surf = TTF_RenderText_Blended(m_pFont->GetFont(), m_Text.c_str(), m_Color);
 		if (surf == nullptr)
@@ -46,7 +46,7 @@ void CTextTexture::Update()
 			throw std::runtime_error(std::string("Create text texture from surface failed: ") + SDL_GetError());
 		}
 		SDL_FreeSurface(surf);
-		m_pTextureRenderer.lock()->SetTexture(std::make_shared<Texture2D>(texture));
+		m_pTextureRenderer->SetTexture(std::make_shared<Texture2D>(texture));
 		m_NeedsUpdate = false;
 	}
 }

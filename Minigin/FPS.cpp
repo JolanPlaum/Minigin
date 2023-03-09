@@ -13,7 +13,7 @@ using namespace dae;
 //-----------------------------------------------------------------
 void FPS::Init()
 {
-	m_TextComponent = GetGameObject()->GetComponent<CTextTexture>();
+	m_pTextComponent = GetGameObject()->GetComponent<CTextTexture>();
 }
 
 
@@ -27,7 +27,7 @@ void FPS::Init()
 //-----------------------------------------------------------------
 void FPS::Update()
 {
-	m_TextComponent.lock()->SetText(std::to_string(int(TimeManager::GetInstance().GetFPS())) + " FPS");
+	m_pTextComponent->SetText(std::to_string(int(TimeManager::GetInstance().GetFPS())) + " FPS");
 }
 
 

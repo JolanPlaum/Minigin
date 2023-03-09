@@ -42,8 +42,9 @@ namespace dae
 		bool m_NeedsUpdate{};
 		std::string m_Text{" "};
 		std::shared_ptr<Font> m_pFont{};
-		std::weak_ptr<CTextureRenderer> m_pTextureRenderer{};
 		SDL_Color m_Color{ 255,255,255 };
+
+		CTextureRenderer* m_pTextureRenderer{};
 	
 		//---------------------------
 		// Private Member Functions
