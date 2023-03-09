@@ -63,7 +63,7 @@ namespace dae
 		std::vector<std::shared_ptr<GameObject>> m_Children{};
 
 		std::unique_ptr<Transform> m_pTransform{};
-		std::vector<std::shared_ptr<Component>> m_Components{};
+		std::vector<std::unique_ptr<Component>> m_Components{};
 
 		//---------------------------
 		// Private Member Functions
@@ -87,7 +87,7 @@ namespace dae
 			return nullptr;
 		}
 
-		m_Components.emplace_back(std::make_shared<Comp>());
+		m_Components.emplace_back(std::make_unique<Comp>());
 		m_Components.back()->m_pGameObject = this;
 		return static_cast<Comp*>(m_Components.back().get());
 	}
@@ -138,9 +138,9 @@ namespace dae
 		auto it = std::find_if(
 			m_Components.begin(),
 			m_Components.end(),
-			[](const std::shared_ptr<Component>& component)
+			[](const std::unique_ptr<Component>& component)
 			{
-				return (typeid(*component.get()) == typeid(Comp));
+				return (typeid(*component) == typeid(Comp));
 			}
 		);
 
@@ -157,8 +157,8 @@ namespace dae
 		auto it = std::find_if(
 			m_Components.begin(),
 			m_Components.end(),
-			[](const std::shared_ptr<Component>& component){
-				return (typeid(*component.get()) == typeid(Comp));
+			[](const std::unique_ptr<Component>& component){
+				return (typeid(*component) == typeid(Comp));
 			}
 		);
 
