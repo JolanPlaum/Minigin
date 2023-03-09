@@ -34,6 +34,9 @@ namespace dae
 		template <typename Comp> Comp* GetComponent() const;
 		template <typename Comp> Comp* GetComponentInChildren() const;
 		template <typename Comp> Comp* GetComponentInParent() const;
+		template <typename Comp> std::vector<Comp*> GetComponents() const;
+		template <typename Comp> std::vector<Comp*> GetComponentsInChildren() const;
+		template <typename Comp> std::vector<Comp*> GetComponentsInParent() const;
 		template <typename Comp> void RemoveComponent();
 		template <typename Comp> bool HasComponent() const;
 
@@ -65,10 +68,6 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-		template <typename Comp> std::vector<Comp*> GetComponents() const;
-		template <typename Comp> std::vector<Comp*> GetComponentsInChildren() const;
-		template <typename Comp> std::vector<Comp*> GetComponentsInParent() const;
-
 		void AddChild(std::shared_ptr<GameObject> pChild);
 		void RemoveChild(std::shared_ptr<GameObject> pChild);
 
