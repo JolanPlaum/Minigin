@@ -31,6 +31,8 @@ namespace dae
 	private:
 		// Member variables
 		SDL_Window* m_pWindow{};
+
+		bool m_IsDemoWindow{ true };
 	
 		//---------------------------
 		// Private Member Functions

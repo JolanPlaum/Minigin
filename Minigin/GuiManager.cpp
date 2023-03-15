@@ -45,6 +45,10 @@ void GuiManager::OnGui()
 	ImGui::NewFrame();
 
 	// Update GUI
+	if (m_IsDemoWindow)
+	{
+		ImGui::ShowDemoWindow(&m_IsDemoWindow);
+	}
 
 	// Render
 	ImGui::Render();

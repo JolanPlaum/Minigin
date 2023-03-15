@@ -2,6 +2,7 @@
 #include "Renderer.h"
 #include "SceneManager.h"
 #include "Texture2D.h"
+#include "GuiManager.h"
 
 int GetOpenGLDriverIndex()
 {
@@ -34,6 +35,8 @@ void dae::Renderer::Render() const
 	SDL_RenderClear(m_renderer);
 
 	SceneManager::GetInstance().Render();
+
+	GuiManager::GetInstance().OnGui();
 	
 	SDL_RenderPresent(m_renderer);
 }

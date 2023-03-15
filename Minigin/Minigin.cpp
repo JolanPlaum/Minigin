@@ -12,6 +12,7 @@
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "TimeManager.h"
+#include "GuiManager.h"
 
 SDL_Window* g_pWindow{};
 
@@ -67,6 +68,8 @@ dae::Minigin::Minigin(const std::string &dataPath)
 		throw std::runtime_error(std::string("SDL_CreateWindow Error: ") + SDL_GetError());
 	}
 
+	GuiManager::GetInstance().Init(g_pWindow);
+
 	Renderer::GetInstance().Init(g_pWindow);
 
 	ResourceManager::GetInstance().Init(dataPath);
@@ -74,6 +77,7 @@ dae::Minigin::Minigin(const std::string &dataPath)
 
 dae::Minigin::~Minigin()
 {
+	GuiManager::GetInstance().Destroy();
 	Renderer::GetInstance().Destroy();
 	SDL_DestroyWindow(g_pWindow);
 	g_pWindow = nullptr;
