@@ -92,6 +92,7 @@ void dae::Minigin::Run()
 	auto& sceneManager = SceneManager::GetInstance();
 	auto& input = InputManager::GetInstance();
 	auto& time = TimeManager::GetInstance();
+	auto& gui = GuiManager::GetInstance();
 
 	sceneManager.Init();
 
@@ -103,6 +104,9 @@ void dae::Minigin::Run()
 
 		//Input Events
 		isRunning = input.ProcessInput();
+
+		//Handle GUI
+		gui.UpdateGui();
 
 		//Game Logic
 		sceneManager.Update();

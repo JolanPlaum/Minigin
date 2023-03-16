@@ -36,7 +36,7 @@ void dae::Renderer::Render() const
 
 	SceneManager::GetInstance().Render();
 
-	GuiManager::GetInstance().OnGui();
+	GuiManager::GetInstance().RenderGui();
 	
 	SDL_RenderPresent(m_renderer);
 }

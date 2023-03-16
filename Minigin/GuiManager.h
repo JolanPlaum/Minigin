@@ -24,8 +24,10 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		void Init(SDL_Window* pWindow);
-		void OnGui();
 		void Destroy();
+
+		void UpdateGui();
+		void RenderGui() const;
 	
 	
 	private:

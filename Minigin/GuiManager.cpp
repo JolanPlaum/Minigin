@@ -37,7 +37,7 @@ void GuiManager::Destroy()
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
-void GuiManager::OnGui()
+void GuiManager::UpdateGui()
 {
 	// New Frame
 	ImGui_ImplOpenGL2_NewFrame();
@@ -49,7 +49,10 @@ void GuiManager::OnGui()
 	{
 		ImGui::ShowDemoWindow(&m_IsDemoWindow);
 	}
+}
 
+void GuiManager::RenderGui() const
+{
 	// Render
 	ImGui::Render();
 	ImGui_ImplOpenGL2_RenderDrawData(ImGui::GetDrawData());
