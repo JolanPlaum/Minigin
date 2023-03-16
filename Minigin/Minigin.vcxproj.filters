@@ -140,6 +140,9 @@
     <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h">
       <Filter>Engine Files\imgui</Filter>
     </ClInclude>
+    <ClInclude Include="TrashTheCache.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -219,6 +222,9 @@
     </ClCompile>
     <ClCompile Include="..\3rdParty\imgui\imgui_widgets.cpp">
       <Filter>Engine Files\imgui</Filter>
+    </ClCompile>
+    <ClCompile Include="TrashTheCache.cpp">
+      <Filter>Game Files\Components</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

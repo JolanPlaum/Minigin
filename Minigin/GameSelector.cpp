@@ -16,6 +16,9 @@
 #include "AssignmentBackground.h"
 #include "FPS.h"
 #include "RotationMovement.h"
+#elif defined(DearImGui)
+#include "AssignmentBackground.h"
+#include "TrashTheCache.h"
 #endif
 
 void dae::LoadGame()
@@ -72,5 +75,12 @@ void dae::LoadGame()
 	rotator->SetSpeedDegrees(-360.f);
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
 	child->SetParent(parent, false);
+#elif defined(DearImGui)
+	auto& scene = SceneManager::GetInstance().CreateScene("DearImGui - Trash the cache");
+	AssignmentBackground::LoadScene(scene);
+
+	auto go = std::make_shared<GameObject>();
+	go->AddComponent<TrashTheCache>();
+	scene.Add(go);
 #endif
 }
