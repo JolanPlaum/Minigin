@@ -21,6 +21,7 @@ namespace dae
 
 		// Public Member Functions
 		virtual void Init() {};
+		virtual void UpdateGui() {};
 		virtual void Update() {};
 		virtual void Render() const {};
 
@@ -29,7 +30,7 @@ namespace dae
 
 	private:
 		// Member variables
-		friend GameObject;
+		friend class GameObject;
 		GameObject* m_pGameObject = nullptr;
 	};
 }

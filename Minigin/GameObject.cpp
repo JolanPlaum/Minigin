@@ -46,6 +46,19 @@ void GameObject::Init()
 	}
 }
 
+void GameObject::UpdateGui()
+{
+	for (const auto& component : m_Components)
+	{
+		component->UpdateGui();
+	}
+
+	for (const auto& child : m_Children)
+	{
+		child->UpdateGui();
+	}
+}
+
 void GameObject::Update()
 {
 	for (const auto& component : m_Components)

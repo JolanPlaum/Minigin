@@ -30,6 +30,14 @@ void Scene::Init()
 	}
 }
 
+void Scene::UpdateGui()
+{
+	for (const auto& go : m_Objects)
+	{
+		go->UpdateGui();
+	}
+}
+
 void Scene::Update()
 {
 	for (const auto& go : m_Objects)

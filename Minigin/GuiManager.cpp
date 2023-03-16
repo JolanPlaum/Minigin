@@ -5,6 +5,7 @@
 #include <imgui.h>
 #include <backends/imgui_impl_sdl2.h>
 #include <backends/imgui_impl_opengl2.h>
+#include "SceneManager.h"
 
 using namespace dae;
 
@@ -45,6 +46,7 @@ void GuiManager::UpdateGui()
 	ImGui::NewFrame();
 
 	// Update GUI
+	SceneManager::GetInstance().UpdateGui();
 	if (m_IsDemoWindow)
 	{
 		ImGui::ShowDemoWindow(&m_IsDemoWindow);

@@ -41,6 +41,7 @@ namespace dae
 		template <typename Comp> bool HasComponent() const;
 
 		void Init();
+		void UpdateGui();
 		void Update();
 		void Render() const;
 

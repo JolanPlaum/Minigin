@@ -9,6 +9,14 @@ void dae::SceneManager::Init()
 	}
 }
 
+void dae::SceneManager::UpdateGui()
+{
+	for (auto& scene : m_scenes)
+	{
+		scene->UpdateGui();
+	}
+}
+
 void dae::SceneManager::Update()
 {
 	for (auto& scene : m_scenes)
