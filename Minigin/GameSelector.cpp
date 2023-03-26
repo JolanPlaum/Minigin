@@ -19,6 +19,13 @@
 #elif defined(DearImGui)
 #include "AssignmentBackground.h"
 #include "TrashTheCache.h"
+#elif defined(Commands)
+#include "AssignmentBackground.h"
+#include "GameObject.h"
+#include "CTextTexture.h"
+#include "CTextureRenderer.h"
+#include "InputManager.h"
+#include "MoveCommand.h"
 #endif
 
 void dae::LoadGame()
@@ -81,6 +88,41 @@ void dae::LoadGame()
 
 	auto go = std::make_shared<GameObject>();
 	go->AddComponent<TrashTheCache>();
+	scene.Add(go);
+#elif defined(Commands)
+	auto& scene = SceneManager::GetInstance().CreateScene("Exercise - Scenegraph");
+	AssignmentBackground::LoadScene(scene);
+
+	auto& input = InputManager::GetInstance();
+
+	//Controller input object
+	auto go = std::make_shared<GameObject>();
+	auto textureRenderer = go->AddComponent<CTextureRenderer>();
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
+	float speed = 100.f;
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadUp, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadDown, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadLeft, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadRight, InputState::Active, ControllerID::One });
+	scene.Add(go);
+
+	//Keyboard input object
+	go = std::make_shared<GameObject>();
+	textureRenderer = go->AddComponent<CTextureRenderer>();
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
+	speed *= 2;
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active });
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Active });
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Active });
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active });
 	scene.Add(go);
 #endif
 }

@@ -4,7 +4,8 @@
 //#define UpdatingGameObjects
 //#define SceneGraphDemo
 //#define Scenegraph
-#define DearImGui
+//#define DearImGui
+#define Commands
 
 namespace dae
 {

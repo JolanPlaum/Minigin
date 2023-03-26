@@ -48,6 +48,9 @@
     <Filter Include="Engine Files\imgui\plugins">
       <UniqueIdentifier>{3dbe6393-b75a-495d-8f00-13be67635b6d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Game Files\Commands">
+      <UniqueIdentifier>{f2990db9-55fb-48d2-a413-307fda43eda2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -143,6 +146,18 @@
     <ClInclude Include="TrashTheCache.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Engine Files\Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="Gamepad.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Keyboard.h">
+      <Filter>Engine Files\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Game Files\Commands</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -225,6 +240,15 @@
     </ClCompile>
     <ClCompile Include="TrashTheCache.cpp">
       <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Gamepad.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Keyboard.cpp">
+      <Filter>Engine Files\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Game Files\Commands</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
