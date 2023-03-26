@@ -108,6 +108,15 @@ void dae::LoadGame()
 		InputGamepadBinding{ Gamepad::Button::DpadLeft, InputState::Active, ControllerID::One });
 	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadRight, InputState::Active, ControllerID::One });
+
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbUp, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbDown, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbLeft, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbRight, InputState::Active, ControllerID::One });
 	scene.Add(go);
 
 	//Keyboard input object
