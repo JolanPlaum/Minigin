@@ -41,7 +41,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		TrashTheCache() = default;
+		TrashTheCache(GameObject* pGameObject) :Component(pGameObject) {};
 		~TrashTheCache() = default;
 		
 		// Copy and Move semantics

@@ -12,7 +12,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		FPS() = default;
+		FPS(GameObject* pGameObject) :Component(pGameObject) {};
 		~FPS() = default;
 		
 		// Copy and Move semantics

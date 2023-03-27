@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "TrashTheCache.h"
+#include "GameObject.h"
 #include <glm/gtc/constants.hpp>
 #include <plugins/imgui_plot.h>
 #include <imgui.h>

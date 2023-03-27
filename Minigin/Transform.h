@@ -1,7 +1,7 @@
 #pragma once
 // Includes
-#include <glm/glm.hpp>
 #include "Component.h"
+#include <glm/glm.hpp>
 
 namespace dae
 {
@@ -12,7 +12,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		Transform() = default;
+		Transform(GameObject* pGameObject) :Component(pGameObject) {};
 		~Transform() = default;
 		
 		// Copy and Move semantics

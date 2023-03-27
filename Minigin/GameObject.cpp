@@ -13,8 +13,7 @@ using namespace dae;
 //-----------------------------------------------------------------
 GameObject::GameObject()
 {
-	m_pTransform = std::make_unique<Transform>();
-	m_pTransform->m_pGameObject = this;
+	m_pTransform = std::make_unique<Transform>(this);
 }
 
 
@@ -23,10 +22,6 @@ GameObject::GameObject()
 //-----------------------------------------------------------------
 GameObject::~GameObject()
 {
-	for (const auto& component : m_Components)
-	{
-		component->m_pGameObject = nullptr;
-	}
 }
 
 

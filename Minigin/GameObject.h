@@ -89,8 +89,7 @@ namespace dae
 			return nullptr;
 		}
 
-		m_Components.emplace_back(std::make_unique<Comp>());
-		m_Components.back()->m_pGameObject = this;
+		m_Components.emplace_back(std::make_unique<Comp>(this));
 		return static_cast<Comp*>(m_Components.back().get());
 	}
 

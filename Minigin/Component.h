@@ -1,8 +1,9 @@
 #pragma once
-#include "GameObject.h"
 
 namespace dae
 {
+	class GameObject;
+
 	//=============================
 	// Base Component Class
 	//=============================
@@ -10,7 +11,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		Component() = default;
+		Component(GameObject* pGameObject) :m_pGameObject{ pGameObject } {};
 		virtual ~Component() = default;
 
 		// Copy and Move semantics
@@ -30,7 +31,6 @@ namespace dae
 
 	private:
 		// Member variables
-		friend class GameObject;
 		GameObject* m_pGameObject = nullptr;
 	};
 }

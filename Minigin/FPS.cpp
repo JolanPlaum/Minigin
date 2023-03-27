@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "FPS.h"
+#include "GameObject.h"
 #include "CTextTexture.h"
 #include "TimeManager.h"
 

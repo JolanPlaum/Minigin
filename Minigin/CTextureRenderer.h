@@ -13,7 +13,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		CTextureRenderer() = default;
+		CTextureRenderer(GameObject* pGameObject) :Component(pGameObject) {};
 		virtual ~CTextureRenderer() = default;
 		
 		// Copy and Move semantics

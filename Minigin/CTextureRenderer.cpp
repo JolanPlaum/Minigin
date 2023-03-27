@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "CTextureRenderer.h"
+#include "GameObject.h"
 #include "Renderer.h"
 #include "Transform.h"
 

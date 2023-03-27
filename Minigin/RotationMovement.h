@@ -12,7 +12,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		RotationMovement() = default;
+		RotationMovement(GameObject* pGameObject) :Component(pGameObject) {};
 		virtual ~RotationMovement() = default;
 		
 		// Copy and Move semantics

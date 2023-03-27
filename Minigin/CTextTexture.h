@@ -16,7 +16,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		CTextTexture() = default;
+		CTextTexture(GameObject* pGameObject) :Component(pGameObject) {};
 		virtual ~CTextTexture() = default;
 		
 		// Copy and Move semantics

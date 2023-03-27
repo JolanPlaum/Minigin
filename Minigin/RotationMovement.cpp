@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "RotationMovement.h"
+#include "GameObject.h"
 #include <glm/glm.hpp>
 #include "TimeManager.h"
 #include "Transform.h"

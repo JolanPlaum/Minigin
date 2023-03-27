@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "CTextTexture.h"
+#include "GameObject.h"
 #include <SDL_ttf.h>
 #include "Font.h"
 #include "Renderer.h"

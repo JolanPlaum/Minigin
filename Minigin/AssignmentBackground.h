@@ -1,5 +1,6 @@
 #pragma once
 #include "Scene.h"
+#include "GameObject.h"
 #include "Transform.h"
 #include "CTextTexture.h"
 #include "CTextureRenderer.h"
