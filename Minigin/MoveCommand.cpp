@@ -13,7 +13,7 @@ using namespace dae;
 // Constructors
 //-----------------------------------------------------------------
 MoveCommand::MoveCommand(GameObject* pGameObject, const glm::vec3& direction, float speed)
-	: Command(pGameObject)
+	: GameObjectCommand(pGameObject)
 	, m_Direction(direction)
 	, m_Speed(speed)
 {

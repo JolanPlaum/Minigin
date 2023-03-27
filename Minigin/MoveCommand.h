@@ -8,7 +8,7 @@ namespace dae
 	// Class Forward Declarations
 	
 	// Class Declaration
-	class MoveCommand final : public Command
+	class MoveCommand final : public GameObjectCommand
 	{
 	public:
 		// Constructors and Destructor
