@@ -1,5 +1,6 @@
 #include "GameSelector.h"
 #include "SceneManager.h"
+#include "AssignmentBackground.h"
 
 #ifdef Demo
 #include "AssignmentBackground.h"
@@ -26,6 +27,14 @@
 #include "CTextureRenderer.h"
 #include "InputManager.h"
 #include "MoveCommand.h"
+#elif defined(ObserverEventQueues)
+#include "ExerciseObserverPrefabs.h"
+#include "ResourceManager.h"
+#include "SDL_pixels.h"
+#include "Subject.h"
+#include "Observer.h"
+#include "InputManager.h"
+#include "ObserverExerciseCommands.h"
 #endif
 
 void dae::LoadGame()
@@ -90,7 +99,7 @@ void dae::LoadGame()
 	go->AddComponent<TrashTheCache>();
 	scene.Add(go);
 #elif defined(Commands)
-	auto& scene = SceneManager::GetInstance().CreateScene("Exercise - Scenegraph");
+	auto& scene = SceneManager::GetInstance().CreateScene("Exercise - Commands");
 	AssignmentBackground::LoadScene(scene);
 
 	auto& input = InputManager::GetInstance();
@@ -133,5 +142,42 @@ void dae::LoadGame()
 	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active });
 	scene.Add(go);
+
+#elif defined(ObserverEventQueues)
+	auto& scene = SceneManager::GetInstance().CreateScene("Exercise - Observer");
+	AssignmentBackground::LoadScene(scene);
+
+	std::shared_ptr<GameObject> go{};
+	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	SDL_Color color{};
+	auto& input = InputManager::GetInstance();
+
+	//Player 1
+	//========
+	ExerciseObserver::CreatePlayer(go);
+	auto lives = go->GetComponent<Lives>();
+	auto score = go->GetComponent<Score>();
+	input.AddGamepadCommand(std::make_unique<ScoreCommand>(go.get(), 50),
+		InputGamepadBinding{ Gamepad::Button::ButtonDown, InputState::Pressed, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<DieCommand>(go.get()),
+		InputGamepadBinding{ Gamepad::Button::ButtonRight, InputState::Pressed, ControllerID::One });
+	scene.Add(go);
+
+	color = { 255, 255, 0 };
+	auto parentUI = std::make_shared<GameObject>();
+	parentUI->GetTransform().SetWorldPosition(5, 200, 0);
+	scene.Add(parentUI);
+
+	ExerciseObserver::CreateLivesDisplay(go, font, color);
+	go->GetComponent<CTextTexture>()->SetText("Lives: " + std::to_string(lives->GetLives()));
+	lives->GetSubject()->AddObserver(go->GetComponent<LivesDisplay>()->GetObserver());
+	go->SetParent(parentUI, false);
+
+	ExerciseObserver::CreateScoreDisplay(go, font, color);
+	go->GetTransform().SetLocalPosition(0, 30, 0);
+	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
+	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
+	go->SetParent(parentUI, false);
+
 #endif
 }

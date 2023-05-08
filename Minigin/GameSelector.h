@@ -5,7 +5,8 @@
 //#define SceneGraphDemo
 //#define Scenegraph
 //#define DearImGui
-#define Commands
+//#define Commands
+#define ObserverEventQueues
 
 namespace dae
 {
