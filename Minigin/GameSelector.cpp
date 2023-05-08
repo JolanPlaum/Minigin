@@ -35,6 +35,7 @@
 #include "Observer.h"
 #include "InputManager.h"
 #include "ObserverExerciseCommands.h"
+#include "AchievementManager.h"
 #endif
 
 void dae::LoadGame()
@@ -177,6 +178,7 @@ void dae::LoadGame()
 	go->GetTransform().SetLocalPosition(0, 30, 0);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
 	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
+	score->GetSubject()->AddObserver(AchievementManager::GetInstance().GetObserver());
 	go->SetParent(parentUI, false);
 
 
