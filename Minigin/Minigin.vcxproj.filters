@@ -51,6 +51,15 @@
     <Filter Include="Game Files\Commands">
       <UniqueIdentifier>{f2990db9-55fb-48d2-a413-307fda43eda2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Utils">
+      <UniqueIdentifier>{32156177-0927-4dbb-b3b2-f0f47980a4c7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Game Files\Scene Helpers\Prefabs">
+      <UniqueIdentifier>{54490a64-4295-4666-a03c-131b372ac8bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Engine Files\Achievements">
+      <UniqueIdentifier>{12116abe-ad56-4181-98c3-8136f0199977}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -146,9 +155,6 @@
     <ClInclude Include="TrashTheCache.h">
       <Filter>Game Files\Components</Filter>
     </ClInclude>
-    <ClInclude Include="Command.h">
-      <Filter>Engine Files\Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="Gamepad.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
@@ -157,6 +163,48 @@
     </ClInclude>
     <ClInclude Include="MoveCommand.h">
       <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="Command.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Events.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Subject.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Observer.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Lives.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesDisplay.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplay.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ExerciseObserverPrefabs.h">
+      <Filter>Game Files\Scene Helpers\Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="ObserverExerciseCommands.h">
+      <Filter>Game Files\Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlsDisplay.h">
+      <Filter>Game Files\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="SteamAchievements.h">
+      <Filter>Engine Files\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="Achievements.h">
+      <Filter>Engine Files\Achievements</Filter>
+    </ClInclude>
+    <ClInclude Include="AchievementManager.h">
+      <Filter>Engine Files\Achievements</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -249,6 +297,27 @@
     </ClCompile>
     <ClCompile Include="MoveCommand.cpp">
       <Filter>Game Files\Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Lives.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesDisplay.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplay.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlsDisplay.cpp">
+      <Filter>Game Files\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="SteamAchievements.cpp">
+      <Filter>Engine Files\Achievements</Filter>
+    </ClCompile>
+    <ClCompile Include="AchievementManager.cpp">
+      <Filter>Engine Files\Achievements</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

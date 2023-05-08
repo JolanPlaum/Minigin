@@ -20,22 +20,22 @@ namespace dae
 		FPS& operator=(const FPS& other)		= delete;
 		FPS(FPS&& other) noexcept				= delete;
 		FPS& operator=(FPS&& other) noexcept	= delete;
-	
+		
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
 		void Init() override;
 		void Update() override;
-	
-	
+		
+		
 	private:
 		// Member variables
 		CTextTexture* m_pTextComponent{};
-	
+		
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-	
+		
 	};
 }
 

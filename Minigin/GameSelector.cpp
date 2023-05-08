@@ -35,6 +35,7 @@
 #include "Observer.h"
 #include "InputManager.h"
 #include "ObserverExerciseCommands.h"
+#include "ControlsDisplay.h"
 #include "AchievementManager.h"
 #endif
 
@@ -208,6 +209,12 @@ void dae::LoadGame()
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
 	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
 	go->SetParent(parentUI, false);
+
+
+	//Controls Display
+	go = std::make_shared<GameObject>();
+	go->AddComponent<ControlsDisplay>();
+	scene.Add(go);
 
 #endif
 }
