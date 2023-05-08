@@ -179,5 +179,33 @@ void dae::LoadGame()
 	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
 	go->SetParent(parentUI, false);
 
+
+	//Player 2
+	//========
+	ExerciseObserver::CreatePlayer(go);
+	lives = go->GetComponent<Lives>();
+	score = go->GetComponent<Score>();
+	input.AddGamepadCommand(std::make_unique<DieCommand>(go.get()),
+		InputGamepadBinding{ Gamepad::Button::ButtonUp, InputState::Pressed, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<ScoreCommand>(go.get(), 25),
+		InputGamepadBinding{ Gamepad::Button::ButtonLeft, InputState::Pressed, ControllerID::One });
+	scene.Add(go);
+
+	color = { 0, 255, 0 };
+	parentUI = std::make_shared<GameObject>();
+	parentUI->GetTransform().SetWorldPosition(5, 300, 0);
+	scene.Add(parentUI);
+
+	ExerciseObserver::CreateLivesDisplay(go, font, color);
+	go->GetComponent<CTextTexture>()->SetText("Lives: " + std::to_string(lives->GetLives()));
+	lives->GetSubject()->AddObserver(go->GetComponent<LivesDisplay>()->GetObserver());
+	go->SetParent(parentUI, false);
+
+	ExerciseObserver::CreateScoreDisplay(go, font, color);
+	go->GetTransform().SetLocalPosition(0, 30, 0);
+	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
+	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
+	go->SetParent(parentUI, false);
+
 #endif
 }
