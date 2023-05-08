@@ -4,7 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-#include <steam_api.h>
+//#include <steam_api.h>
 #include "Minigin.h"
 #include "GameSelector.h"
 
@@ -14,7 +14,7 @@
 #include "ResourceManager.h"
 #include "TimeManager.h"
 #include "GuiManager.h"
-#include "SteamAchievements.h"
+//#include "SteamAchievements.h"
 #include "Achievements.h"
 
 SDL_Window* g_pWindow{};
@@ -77,12 +77,12 @@ dae::Minigin::Minigin(const std::string &dataPath)
 
 	ResourceManager::GetInstance().Init(dataPath);
 
-	SteamAchievements::GetInstance().Init({
-		_ACH_ID(ACH_WIN_ONE_GAME, "Winner"),
-		_ACH_ID(ACH_WIN_100_GAMES, "Champion"),
-		_ACH_ID(ACH_TRAVEL_FAR_ACCUM, "Interstellar"),
-		_ACH_ID(ACH_TRAVEL_FAR_SINGLE, "Orbiter")
-		});
+	//SteamAchievements::GetInstance().Init({
+	//	_ACH_ID(ACH_WIN_ONE_GAME, "Winner"),
+	//	_ACH_ID(ACH_WIN_100_GAMES, "Champion"),
+	//	_ACH_ID(ACH_TRAVEL_FAR_ACCUM, "Interstellar"),
+	//	_ACH_ID(ACH_TRAVEL_FAR_SINGLE, "Orbiter")
+	//	});
 }
 
 dae::Minigin::~Minigin()
@@ -113,7 +113,7 @@ void dae::Minigin::Run()
 		time.Tick();
 
 		//Steam Callback
-		SteamAPI_RunCallbacks();
+		//SteamAPI_RunCallbacks();
 
 		//Input Events
 		isRunning = input.ProcessInput();
