@@ -4,9 +4,7 @@
 #include <SDL.h>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
-//#include <steam_api.h>
 #include "Minigin.h"
-#include "GameSelector.h"
 
 #include "InputManager.h"
 #include "SceneManager.h"
@@ -14,8 +12,6 @@
 #include "ResourceManager.h"
 #include "TimeManager.h"
 #include "GuiManager.h"
-//#include "SteamAchievements.h"
-#include "Achievements.h"
 
 SDL_Window* g_pWindow{};
 
@@ -94,9 +90,9 @@ dae::Minigin::~Minigin()
 	SDL_Quit();
 }
 
-void dae::Minigin::Run()
+void dae::Minigin::Run(const std::function<void()>& load)
 {
-	LoadGame();
+	load();
 	
 	auto& renderer = Renderer::GetInstance();
 	auto& sceneManager = SceneManager::GetInstance();

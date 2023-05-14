@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
+      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
+    </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{7fcdda6d-9c74-4999-89e7-2cfa1f195746}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Components">
+      <UniqueIdentifier>{ac42de79-25ac-4d4c-88f9-6d135f5b5e3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Scene Helpers">
+      <UniqueIdentifier>{357a2cfc-d7fb-4e5e-818e-a26be08a382e}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Main.cpp" />
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="ControlsDisplay.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="FPS.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Lives.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="LivesDisplay.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="RotationMovement.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="ScoreDisplay.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="TrashTheCache.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="GameSelector.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="AssignmentBackground.h">
+      <Filter>Scene Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="TestSceneGraph.h">
+      <Filter>Scene Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="ObserverExerciseCommands.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="ExerciseObserverPrefabs.h">
+      <Filter>Scene Helpers</Filter>
+    </ClInclude>
+    <ClInclude Include="ControlsDisplay.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="FPS.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Lives.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="LivesDisplay.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="RotationMovement.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="ScoreDisplay.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="TrashTheCache.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="GameSelector.h" />
+  </ItemGroup>
+</Project>

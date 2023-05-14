@@ -8,10 +8,6 @@
     <Filter Include="Engine Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx;h;hh;hpp;hxx;hm;inl;inc;xsd</Extensions>
-    </Filter>
     <Filter Include="Engine Files\Scene">
       <UniqueIdentifier>{97cb70a1-f7ae-46b6-8070-17f82646cef5}</UniqueIdentifier>
     </Filter>
@@ -33,12 +29,6 @@
     <Filter Include="Engine Files\Components\Behaviour">
       <UniqueIdentifier>{34e4a5d0-e246-46cc-9472-a587cc7557db}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Files\Scene Helpers">
-      <UniqueIdentifier>{4bca6ec4-88e9-4377-bc72-c45336d1d99f}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Files\Components">
-      <UniqueIdentifier>{790b3f46-9132-4a07-ae2d-bf10756d517e}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine Files\imgui">
       <UniqueIdentifier>{2f14474d-735b-401e-b2f2-6d645130e5ba}</UniqueIdentifier>
     </Filter>
@@ -48,17 +38,8 @@
     <Filter Include="Engine Files\imgui\plugins">
       <UniqueIdentifier>{3dbe6393-b75a-495d-8f00-13be67635b6d}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Game Files\Commands">
-      <UniqueIdentifier>{f2990db9-55fb-48d2-a413-307fda43eda2}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Engine Files\Utils">
       <UniqueIdentifier>{32156177-0927-4dbb-b3b2-f0f47980a4c7}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Game Files\Scene Helpers\Prefabs">
-      <UniqueIdentifier>{54490a64-4295-4666-a03c-131b372ac8bf}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Engine Files\Achievements">
-      <UniqueIdentifier>{12116abe-ad56-4181-98c3-8136f0199977}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -104,23 +85,8 @@
     <ClInclude Include="CTextTexture.h">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClInclude>
-    <ClInclude Include="GameSelector.h">
-      <Filter>Game Files</Filter>
-    </ClInclude>
-    <ClInclude Include="AssignmentBackground.h">
-      <Filter>Game Files\Scene Helpers</Filter>
-    </ClInclude>
     <ClInclude Include="CTextureRenderer.h">
       <Filter>Engine Files\Components\Render</Filter>
-    </ClInclude>
-    <ClInclude Include="FPS.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="TestSceneGraph.h">
-      <Filter>Game Files\Scene Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="RotationMovement.h">
-      <Filter>Game Files\Components</Filter>
     </ClInclude>
     <ClInclude Include="GuiManager.h">
       <Filter>Engine Files\imgui</Filter>
@@ -152,17 +118,11 @@
     <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h">
       <Filter>Engine Files\imgui</Filter>
     </ClInclude>
-    <ClInclude Include="TrashTheCache.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
     <ClInclude Include="Gamepad.h">
       <Filter>Engine Files\Input</Filter>
     </ClInclude>
     <ClInclude Include="Keyboard.h">
       <Filter>Engine Files\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="MoveCommand.h">
-      <Filter>Game Files\Commands</Filter>
     </ClInclude>
     <ClInclude Include="Command.h">
       <Filter>Engine Files\Utils</Filter>
@@ -175,36 +135,6 @@
     </ClInclude>
     <ClInclude Include="Observer.h">
       <Filter>Engine Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Lives.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="LivesDisplay.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="Score.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ScoreDisplay.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="ExerciseObserverPrefabs.h">
-      <Filter>Game Files\Scene Helpers\Prefabs</Filter>
-    </ClInclude>
-    <ClInclude Include="ObserverExerciseCommands.h">
-      <Filter>Game Files\Commands</Filter>
-    </ClInclude>
-    <ClInclude Include="ControlsDisplay.h">
-      <Filter>Game Files\Components</Filter>
-    </ClInclude>
-    <ClInclude Include="SteamAchievements.h">
-      <Filter>Engine Files\Achievements</Filter>
-    </ClInclude>
-    <ClInclude Include="Achievements.h">
-      <Filter>Engine Files\Achievements</Filter>
-    </ClInclude>
-    <ClInclude Include="AchievementManager.h">
-      <Filter>Engine Files\Achievements</Filter>
     </ClInclude>
     <ClInclude Include="Delegate.h">
       <Filter>Engine Files\Utils</Filter>
@@ -235,9 +165,6 @@
     <ClCompile Include="SceneManager.cpp">
       <Filter>Engine Files\Scene</Filter>
     </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>Engine Files</Filter>
-    </ClCompile>
     <ClCompile Include="Minigin.cpp">
       <Filter>Engine Files</Filter>
     </ClCompile>
@@ -256,17 +183,8 @@
     <ClCompile Include="CTextTexture.cpp">
       <Filter>Engine Files\Components\Behaviour</Filter>
     </ClCompile>
-    <ClCompile Include="GameSelector.cpp">
-      <Filter>Game Files</Filter>
-    </ClCompile>
     <ClCompile Include="CTextureRenderer.cpp">
       <Filter>Engine Files\Components\Render</Filter>
-    </ClCompile>
-    <ClCompile Include="FPS.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="RotationMovement.cpp">
-      <Filter>Game Files\Components</Filter>
     </ClCompile>
     <ClCompile Include="GuiManager.cpp">
       <Filter>Engine Files\imgui</Filter>
@@ -295,38 +213,11 @@
     <ClCompile Include="..\3rdParty\imgui\imgui_widgets.cpp">
       <Filter>Engine Files\imgui</Filter>
     </ClCompile>
-    <ClCompile Include="TrashTheCache.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
     <ClCompile Include="Gamepad.cpp">
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="Keyboard.cpp">
       <Filter>Engine Files\Input</Filter>
-    </ClCompile>
-    <ClCompile Include="MoveCommand.cpp">
-      <Filter>Game Files\Commands</Filter>
-    </ClCompile>
-    <ClCompile Include="Lives.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="LivesDisplay.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="Score.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ScoreDisplay.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="ControlsDisplay.cpp">
-      <Filter>Game Files\Components</Filter>
-    </ClCompile>
-    <ClCompile Include="SteamAchievements.cpp">
-      <Filter>Engine Files\Achievements</Filter>
-    </ClCompile>
-    <ClCompile Include="AchievementManager.cpp">
-      <Filter>Engine Files\Achievements</Filter>
     </ClCompile>
     <ClCompile Include="DelegateHandle.cpp">
       <Filter>Engine Files\Utils</Filter>

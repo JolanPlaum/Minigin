@@ -36,7 +36,6 @@
 #include "InputManager.h"
 #include "ObserverExerciseCommands.h"
 #include "ControlsDisplay.h"
-#include "AchievementManager.h"
 #include "Delegate.h"
 #include "Event.h"
 #endif
@@ -185,7 +184,6 @@ void dae::LoadGame()
 	go->GetTransform().SetLocalPosition(0, 30, 0);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
 	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
-	AchievementManager::GetInstance().SetScoreComponent(score);
 	go->SetParent(parentUI, false);
 
 

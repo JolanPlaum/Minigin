@@ -15,6 +15,6 @@ namespace dae
 		Minigin& operator=(const Minigin& other)	= delete;
 		Minigin& operator=(Minigin&& other)			= delete;
 
-		void Run();
+		void Run(const std::function<void()>& load);
 	};
 }
