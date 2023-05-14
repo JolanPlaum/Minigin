@@ -1,5 +1,6 @@
 #pragma once
 // Includes
+#include <memory>
 
 namespace dae
 {
@@ -32,7 +33,7 @@ namespace dae
 		
 	private:
 		// Member variables
-		unsigned long long m_ID;
+		std::shared_ptr<unsigned long long> m_pID;
 		
 		//---------------------------
 		// Private Member Functions

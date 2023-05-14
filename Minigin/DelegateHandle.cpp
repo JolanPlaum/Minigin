@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "DelegateHandle.h"
+#include <cassert>
 
 using namespace dae;
 
@@ -15,9 +16,9 @@ DelegateHandle::DelegateHandle()
 }
 
 DelegateHandle::DelegateHandle(bool generateNewID)
-	: m_ID{ 0 }
+	: m_pID{ std::make_shared<unsigned long long>() }
 {
-	m_ID = generateNewID ? GenerateNewID() : 0;
+	(*m_pID) = generateNewID ? GenerateNewID() : 0;
 }
 
 
@@ -31,21 +32,23 @@ DelegateHandle::DelegateHandle(bool generateNewID)
 //-----------------------------------------------------------------
 void DelegateHandle::Reset()
 {
-	m_ID = 0;
+	(*m_pID) = 0;
 }
 
 bool DelegateHandle::IsValid() const
 {
-	return m_ID != 0;
+	return (*m_pID) != 0;
 }
 
 bool DelegateHandle::operator==(const DelegateHandle& rh)
 {
-	return m_ID == rh.m_ID;
+	assert(!(m_pID != rh.m_pID && (*m_pID) == (*rh.m_pID)) && "ID's match up but they're not the same pointer.");
+	return m_pID == rh.m_pID;
 }
 bool DelegateHandle::operator!=(const DelegateHandle& rh)
 {
-	return m_ID != rh.m_ID;
+	assert(!(m_pID != rh.m_pID && (*m_pID) == (*rh.m_pID)) && "ID's match up but they're not the same pointer.");
+	return m_pID != rh.m_pID;
 }
 
 

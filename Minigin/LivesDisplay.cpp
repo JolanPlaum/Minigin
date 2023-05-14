@@ -38,7 +38,7 @@ LivesDisplay::~LivesDisplay()
 //-----------------------------------------------------------------
 void LivesDisplay::SetLivesComponent(Lives* pLives)
 {
-	if (m_pLives)
+	if (m_pLives && m_PlayerDiedHandle.IsValid())
 		m_pLives->Died.Remove(m_PlayerDiedHandle);
 
 	m_pLives = pLives;

@@ -38,7 +38,7 @@ ScoreDisplay::~ScoreDisplay()
 //-----------------------------------------------------------------
 void ScoreDisplay::SetScoreComponent(Score* pScore)
 {
-	if (m_pScore)
+	if (m_pScore && m_ScoreChangedHandle.IsValid())
 		m_pScore->ScoreChanged.Remove(m_ScoreChangedHandle);
 
 	m_pScore = pScore;

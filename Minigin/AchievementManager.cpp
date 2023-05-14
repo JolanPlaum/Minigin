@@ -31,7 +31,7 @@ AchievementManager::~AchievementManager()
 //-----------------------------------------------------------------
 void AchievementManager::SetScoreComponent(Score* pScore)
 {
-	if (m_pScore)
+	if (m_pScore && m_ScoreChanged.IsBound())
 		m_pScore->ScoreChanged.Remove(m_ScoreChanged.GetHandle());
 
 	m_pScore = pScore;

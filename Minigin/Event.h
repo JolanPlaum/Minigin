@@ -14,7 +14,7 @@ namespace dae
 	public:
 		// Constructors and Destructor
 		explicit Event() = default;
-		~Event() = default;
+		~Event() { Clear(); }
 		
 		// Copy and Move semantics
 		Event(const Event& other)					= delete;
@@ -25,7 +25,7 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
-		DelegateHandle Add(const Delegate<Args...>& delegate);
+		DelegateHandle Add(const Delegate<Args...>& delegate); // Temporarily not usable outside of event class
 		DelegateHandle AddFunction(const std::function<void(Args...)>& fn);
 		void Remove(DelegateHandle handle);
 
@@ -84,6 +84,11 @@ namespace dae
 	template<typename... Args>
 	inline void Event<Args...>::Clear()
 	{
+		for (Delegate<Args...>& delg : m_Delegates)
+		{
+			delg.Unbind();
+		}
+
 		m_Delegates.clear();
 	}
 }

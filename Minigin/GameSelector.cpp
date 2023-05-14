@@ -165,6 +165,8 @@ void dae::LoadGame()
 		InputGamepadBinding{ Gamepad::Button::ButtonDown, InputState::Pressed, ControllerID::One });
 	input.AddGamepadCommand(std::make_unique<DieCommand>(go.get()),
 		InputGamepadBinding{ Gamepad::Button::ButtonRight, InputState::Pressed, ControllerID::One });
+	input.AddKeyboardCommand(std::make_unique<ScoreCommand>(go.get(), 50),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_R, InputState::Pressed });
 	input.AddKeyboardCommand(std::make_unique<DieCommand>(go.get()),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Pressed });
 	scene.Add(go);
