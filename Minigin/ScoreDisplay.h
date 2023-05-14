@@ -2,12 +2,13 @@
 // Includes
 #include "Component.h"
 #include <memory>
+#include "DelegateHandle.h"
 
 namespace dae
 {
 	// Class Forward Declarations
 	class CTextTexture;
-	class Observer;
+	class Score;
 	
 	// Class Declaration
 	class ScoreDisplay final : public Component
@@ -15,7 +16,7 @@ namespace dae
 	public:
 		// Constructors and Destructor
 		ScoreDisplay(GameObject* pGameObject);
-		~ScoreDisplay() = default;
+		~ScoreDisplay();
 		
 		// Copy and Move semantics
 		ScoreDisplay(const ScoreDisplay& other)					= delete;
@@ -28,19 +29,19 @@ namespace dae
 		//---------------------------
 		void Init() override;
 
-		void OnScoreChanged(int score);
-
-		Observer* GetObserver() const { return m_pObserver.get(); }
+		void SetScoreComponent(Score* pScore);
 		
 		
 	private:
 		// Member variables
 		CTextTexture* m_pText{};
-		const std::unique_ptr<Observer> m_pObserver{};
+		Score* m_pScore{};
+		DelegateHandle m_ScoreChangedHandle;
 		
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
+		void OnScoreChanged(int score);
 		
 	};
 }

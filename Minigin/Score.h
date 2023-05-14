@@ -1,12 +1,12 @@
 #pragma once
 // Includes
 #include "Component.h"
+#include "Event.h"
 #include <memory>
 
 namespace dae
 {
 	// Class Forward Declarations
-	class Subject;
 	
 	// Class Declaration
 	class Score final : public Component
@@ -28,13 +28,13 @@ namespace dae
 		void AddPoints(int amount);
 
 		int GetScore() const { return m_Score; }
-		Subject* GetSubject() const { return m_pSubject.get(); }
+
+		Event<int> ScoreChanged;
 		
 		
 	private:
 		// Member variables
 		int m_Score{ 0 };
-		const std::unique_ptr<Subject> m_pSubject{};
 		
 		//---------------------------
 		// Private Member Functions

@@ -2,7 +2,6 @@
 // Includes
 //-----------------------------------------------------------------
 #include "Score.h"
-#include "Subject.h"
 
 using namespace dae;
 
@@ -12,7 +11,6 @@ using namespace dae;
 //-----------------------------------------------------------------
 Score::Score(GameObject* pGameObject)
 	: Component(pGameObject)
-	, m_pSubject{ std::make_unique<Subject>() }
 {
 }
 
@@ -29,7 +27,7 @@ void Score::AddPoints(int amount)
 {
 	m_Score += amount;
 
-	m_pSubject->NotifyObservers(EventType::SCORE_CHANGED, m_Score);
+	ScoreChanged.Notify(m_Score);
 }
 
 

@@ -206,6 +206,15 @@
     <ClInclude Include="AchievementManager.h">
       <Filter>Engine Files\Achievements</Filter>
     </ClInclude>
+    <ClInclude Include="Delegate.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="DelegateHandle.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="Event.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -318,6 +327,9 @@
     </ClCompile>
     <ClCompile Include="AchievementManager.cpp">
       <Filter>Engine Files\Achievements</Filter>
+    </ClCompile>
+    <ClCompile Include="DelegateHandle.cpp">
+      <Filter>Engine Files\Utils</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

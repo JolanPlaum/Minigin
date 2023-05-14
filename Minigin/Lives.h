@@ -1,12 +1,12 @@
 #pragma once
 // Includes
 #include "Component.h"
+#include "Event.h"
 #include <memory>
 
 namespace dae
 {
 	// Class Forward Declarations
-	class Subject;
 	
 	// Class Declaration
 	class Lives final : public Component
@@ -28,13 +28,13 @@ namespace dae
 		void Kill();
 
 		int GetLives() const { return m_NrLives; }
-		Subject* GetSubject() const { return m_pSubject.get(); }
 		
+		Event<int> Died;
+
 		
 	private:
 		// Member variables
 		int m_NrLives{ 3 };
-		const std::unique_ptr<Subject> m_pSubject{};
 		
 		//---------------------------
 		// Private Member Functions

@@ -4,9 +4,10 @@
 #include "ScoreDisplay.h"
 #include "GameObject.h"
 #include "CTextTexture.h"
-#include "Observer.h"
+#include "Score.h"
 
 using namespace dae;
+using namespace std::placeholders;
 
 
 //-----------------------------------------------------------------
@@ -14,10 +15,7 @@ using namespace dae;
 //-----------------------------------------------------------------
 ScoreDisplay::ScoreDisplay(GameObject* pGameObject)
 	: Component(pGameObject)
-	, m_pObserver{ std::make_unique<Observer>() }
 {
-	m_pObserver->AddEventFunction<int>(EventType::SCORE_CHANGED,
-		std::bind(&ScoreDisplay::OnScoreChanged, this, std::placeholders::_1));
 }
 
 void ScoreDisplay::Init()
@@ -29,18 +27,34 @@ void ScoreDisplay::Init()
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
+ScoreDisplay::~ScoreDisplay()
+{
+	SetScoreComponent(nullptr);
+}
 
 
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
-void ScoreDisplay::OnScoreChanged(int score)
+void ScoreDisplay::SetScoreComponent(Score* pScore)
 {
-	if (m_pText) m_pText->SetText("Score: " + std::to_string(score));
+	if (m_pScore)
+		m_pScore->ScoreChanged.Remove(m_ScoreChangedHandle);
+
+	m_pScore = pScore;
+
+	if (m_pScore)
+		m_ScoreChangedHandle = m_pScore->ScoreChanged.AddFunction(
+			std::bind(&ScoreDisplay::OnScoreChanged, this, _1)
+		);
 }
 
 
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
+void ScoreDisplay::OnScoreChanged(int score)
+{
+	if (m_pText) m_pText->SetText("Score: " + std::to_string(score));
+}
 

@@ -3,7 +3,7 @@
 //-----------------------------------------------------------------
 #include "AchievementManager.h"
 #include "SteamAchievements.h"
-#include "Observer.h"
+#include "Score.h"
 
 using namespace dae;
 
@@ -12,20 +12,37 @@ using namespace dae;
 // Constructors
 //-----------------------------------------------------------------
 AchievementManager::AchievementManager()
-	: m_pObserver{ std::make_unique<Observer>() }
 {
-	m_pObserver->AddEventFunction<int>(EventType::SCORE_CHANGED,
-		std::bind(&AchievementManager::OnScoreChanged, this, std::placeholders::_1));
+	m_ScoreChanged.BindFunction(std::bind(&AchievementManager::OnScoreChanged, this, std::placeholders::_1));
 }
 
 
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
+AchievementManager::~AchievementManager()
+{
+	SetScoreComponent(nullptr);
+}
 
 
 //-----------------------------------------------------------------
 // Public Member Functions
+//-----------------------------------------------------------------
+void AchievementManager::SetScoreComponent(Score* pScore)
+{
+	if (m_pScore)
+		m_pScore->ScoreChanged.Remove(m_ScoreChanged.GetHandle());
+
+	m_pScore = pScore;
+
+	if (m_pScore)
+		m_pScore->ScoreChanged.Add(m_ScoreChanged);
+}
+
+
+//-----------------------------------------------------------------
+// Private Member Functions
 //-----------------------------------------------------------------
 void AchievementManager::OnScoreChanged(int score)
 {
@@ -37,10 +54,6 @@ void AchievementManager::OnScoreChanged(int score)
 	}
 }
 
-
-//-----------------------------------------------------------------
-// Private Member Functions
-//-----------------------------------------------------------------
 void AchievementManager::Unlock(Achievement achievement)
 {
 	switch (achievement)

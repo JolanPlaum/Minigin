@@ -2,7 +2,6 @@
 // Includes
 //-----------------------------------------------------------------
 #include "Lives.h"
-#include "Subject.h"
 
 using namespace dae;
 
@@ -12,7 +11,6 @@ using namespace dae;
 //-----------------------------------------------------------------
 Lives::Lives(GameObject* pGameObject)
 	: Component(pGameObject)
-	, m_pSubject{ std::make_unique<Subject>() }
 {
 }
 
@@ -29,7 +27,7 @@ void Lives::Kill()
 {
 	--m_NrLives;
 
-	m_pSubject->NotifyObservers(EventType::PLAYER_DIED, m_NrLives);
+	Died.Notify(m_NrLives);
 }
 
 

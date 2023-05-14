@@ -225,6 +225,9 @@ xcopy $(SolutionDir)3rdParty\steamworks\steam_appid.txt $(OutputPath) /Y</Comman
     <ClInclude Include="ControlsDisplay.h" />
     <ClInclude Include="CTextTexture.h" />
     <ClInclude Include="CTextureRenderer.h" />
+    <ClInclude Include="Delegate.h" />
+    <ClInclude Include="DelegateHandle.h" />
+    <ClInclude Include="Event.h" />
     <ClInclude Include="Events.h" />
     <ClInclude Include="ExerciseObserverPrefabs.h" />
     <ClInclude Include="Font.h" />
@@ -270,6 +273,7 @@ xcopy $(SolutionDir)3rdParty\steamworks\steam_appid.txt $(OutputPath) /Y</Comman
     <ClCompile Include="ControlsDisplay.cpp" />
     <ClCompile Include="CTextTexture.cpp" />
     <ClCompile Include="CTextureRenderer.cpp" />
+    <ClCompile Include="DelegateHandle.cpp" />
     <ClCompile Include="Font.cpp" />
     <ClCompile Include="FPS.cpp" />
     <ClCompile Include="GameObject.cpp" />

@@ -37,6 +37,8 @@
 #include "ObserverExerciseCommands.h"
 #include "ControlsDisplay.h"
 #include "AchievementManager.h"
+#include "Delegate.h"
+#include "Event.h"
 #endif
 
 void dae::LoadGame()
@@ -163,6 +165,8 @@ void dae::LoadGame()
 		InputGamepadBinding{ Gamepad::Button::ButtonDown, InputState::Pressed, ControllerID::One });
 	input.AddGamepadCommand(std::make_unique<DieCommand>(go.get()),
 		InputGamepadBinding{ Gamepad::Button::ButtonRight, InputState::Pressed, ControllerID::One });
+	input.AddKeyboardCommand(std::make_unique<DieCommand>(go.get()),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Pressed });
 	scene.Add(go);
 
 	color = { 255, 255, 0 };
@@ -172,14 +176,14 @@ void dae::LoadGame()
 
 	ExerciseObserver::CreateLivesDisplay(go, font, color);
 	go->GetComponent<CTextTexture>()->SetText("Lives: " + std::to_string(lives->GetLives()));
-	lives->GetSubject()->AddObserver(go->GetComponent<LivesDisplay>()->GetObserver());
+	go->GetComponent<LivesDisplay>()->SetLivesComponent(lives);
 	go->SetParent(parentUI, false);
 
 	ExerciseObserver::CreateScoreDisplay(go, font, color);
 	go->GetTransform().SetLocalPosition(0, 30, 0);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
-	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
-	score->GetSubject()->AddObserver(AchievementManager::GetInstance().GetObserver());
+	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
+	AchievementManager::GetInstance().SetScoreComponent(score);
 	go->SetParent(parentUI, false);
 
 
@@ -201,13 +205,13 @@ void dae::LoadGame()
 
 	ExerciseObserver::CreateLivesDisplay(go, font, color);
 	go->GetComponent<CTextTexture>()->SetText("Lives: " + std::to_string(lives->GetLives()));
-	lives->GetSubject()->AddObserver(go->GetComponent<LivesDisplay>()->GetObserver());
+	go->GetComponent<LivesDisplay>()->SetLivesComponent(lives);
 	go->SetParent(parentUI, false);
 
 	ExerciseObserver::CreateScoreDisplay(go, font, color);
 	go->GetTransform().SetLocalPosition(0, 30, 0);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
-	score->GetSubject()->AddObserver(go->GetComponent<ScoreDisplay>()->GetObserver());
+	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
 	go->SetParent(parentUI, false);
 
 

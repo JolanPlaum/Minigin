@@ -4,9 +4,10 @@
 #include "LivesDisplay.h"
 #include "GameObject.h"
 #include "CTextTexture.h"
-#include "Observer.h"
+#include "Lives.h"
 
 using namespace dae;
+using namespace std::placeholders;
 
 
 //-----------------------------------------------------------------
@@ -14,10 +15,7 @@ using namespace dae;
 //-----------------------------------------------------------------
 LivesDisplay::LivesDisplay(GameObject* pGameObject)
 	: Component(pGameObject)
-	, m_pObserver{ std::make_unique<Observer>() }
 {
-	m_pObserver->AddEventFunction<int>(EventType::PLAYER_DIED,
-		std::bind(&LivesDisplay::OnPlayerDied, this, std::placeholders::_1));
 }
 
 void LivesDisplay::Init()
@@ -29,18 +27,34 @@ void LivesDisplay::Init()
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
+LivesDisplay::~LivesDisplay()
+{
+	SetLivesComponent(nullptr);
+}
 
 
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
-void LivesDisplay::OnPlayerDied(int lives)
+void LivesDisplay::SetLivesComponent(Lives* pLives)
 {
-	if (m_pText) m_pText->SetText("Lives: " + std::to_string(lives));
+	if (m_pLives)
+		m_pLives->Died.Remove(m_PlayerDiedHandle);
+
+	m_pLives = pLives;
+
+	if (m_pLives)
+		m_PlayerDiedHandle = m_pLives->Died.AddFunction(
+			std::bind(&LivesDisplay::OnPlayerDied, this, _1)
+		);
 }
 
 
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
+void LivesDisplay::OnPlayerDied(int lives)
+{
+	if (m_pText) m_pText->SetText("Lives: " + std::to_string(lives));
+}
 
