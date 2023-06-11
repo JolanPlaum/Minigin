@@ -1,10 +1,12 @@
 #include <stdexcept>
 #include <SDL_image.h>
 #include <SDL_ttf.h>
+#include <SDL_mixer.h>
 #include "ResourceManager.h"
 #include "Renderer.h"
 #include "Texture2D.h"
 #include "Font.h"
+#include "AudioChunk.h"
 
 void dae::ResourceManager::Init(const std::string& dataPath)
 {
@@ -30,4 +32,9 @@ std::shared_ptr<dae::Texture2D> dae::ResourceManager::LoadTexture(const std::str
 std::shared_ptr<dae::Font> dae::ResourceManager::LoadFont(const std::string& file, unsigned int size) const
 {
 	return std::make_shared<Font>(m_dataPath + file, size);
+}
+
+std::shared_ptr<dae::AudioChunk> dae::ResourceManager::LoadAudio(const std::string& file) const
+{
+	return std::make_shared<AudioChunk>(m_dataPath + file);
 }
