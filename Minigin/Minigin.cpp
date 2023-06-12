@@ -12,6 +12,7 @@
 #include "ResourceManager.h"
 #include "TimeManager.h"
 #include "GuiManager.h"
+#include "ServiceLocator.h"
 
 SDL_Window* g_pWindow{};
 
@@ -46,6 +47,8 @@ void PrintSDLVersion()
 dae::Minigin::Minigin(const std::string &dataPath)
 {
 	TimeManager::GetInstance();
+
+	Locator::RegisterSoundSystem(std::make_unique<SDLSoundSystem>());
 
 	PrintSDLVersion();
 	
@@ -107,6 +110,9 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	{
 		//Update Time
 		time.Tick();
+
+		//Sound Requests
+		Locator::GetSoundSystem().Update();
 
 		//Steam Callback
 		//SteamAPI_RunCallbacks();

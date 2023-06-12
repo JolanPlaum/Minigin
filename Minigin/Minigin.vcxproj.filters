@@ -41,6 +41,9 @@
     <Filter Include="Engine Files\Utils">
       <UniqueIdentifier>{32156177-0927-4dbb-b3b2-f0f47980a4c7}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Audio">
+      <UniqueIdentifier>{2d0e3d54-1de0-4ab7-903c-d35cf94251d0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -57,9 +60,6 @@
     </ClInclude>
     <ClInclude Include="Singleton.h">
       <Filter>Engine Files\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="ResourceManager.h">
-      <Filter>Engine Files\Rendering</Filter>
     </ClInclude>
     <ClInclude Include="SceneManager.h">
       <Filter>Engine Files\Scene</Filter>
@@ -145,6 +145,21 @@
     <ClInclude Include="Event.h">
       <Filter>Engine Files\Utils</Filter>
     </ClInclude>
+    <ClInclude Include="RingBuffer.h">
+      <Filter>Engine Files\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="AudioChunk.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ServiceLocator.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="SoundSystem.h">
+      <Filter>Engine Files\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="ResourceManager.h">
+      <Filter>Engine Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -157,9 +172,6 @@
       <Filter>Engine Files\Input</Filter>
     </ClCompile>
     <ClCompile Include="Renderer.cpp">
-      <Filter>Engine Files\Rendering</Filter>
-    </ClCompile>
-    <ClCompile Include="ResourceManager.cpp">
       <Filter>Engine Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="SceneManager.cpp">
@@ -221,6 +233,15 @@
     </ClCompile>
     <ClCompile Include="DelegateHandle.cpp">
       <Filter>Engine Files\Utils</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioChunk.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="SoundSystem.cpp">
+      <Filter>Engine Files\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
