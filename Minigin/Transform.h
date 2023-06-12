@@ -56,8 +56,8 @@ namespace dae
 	private:
 		// Member variables
 		bool m_IsPositionDirty{ false }, m_IsRotationDirty{ false }, m_IsScaleDirty{ false };
-		glm::vec3 m_LocalPosition{}, m_LocalRotation{}, m_LocalScale{};
-		glm::vec3 m_WorldPosition{}, m_WorldRotation{}, m_WorldScale{};
+		glm::vec3 m_LocalPosition{}, m_LocalRotation{}, m_LocalScale{1};
+		glm::vec3 m_WorldPosition{}, m_WorldRotation{}, m_WorldScale{1};
 	
 		//---------------------------
 		// Private Member Functions
