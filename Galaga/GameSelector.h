@@ -6,7 +6,8 @@
 //#define Scenegraph
 //#define DearImGui
 //#define Commands
-#define ObserverEventQueues
+//#define ObserverEventQueues
+#define FinalGame
 
 namespace dae
 {

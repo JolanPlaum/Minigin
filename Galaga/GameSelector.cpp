@@ -38,6 +38,9 @@
 #include "ControlsDisplay.h"
 #include "Delegate.h"
 #include "Event.h"
+#elif defined(FinalGame)
+#include "ServiceLocator.h"
+#include "InputManager.h"
 #endif
 
 void dae::LoadGame()
@@ -219,6 +222,21 @@ void dae::LoadGame()
 	go = std::make_shared<GameObject>();
 	go->AddComponent<ControlsDisplay>();
 	scene.Add(go);
+
+#elif defined(FinalGame)
+	auto& scene = SceneManager::GetInstance().CreateScene("FinalGame");
+	AssignmentBackground::LoadScene(scene);
+
+	//auto& input = InputManager::GetInstance();
+	
+	// Load all the sounds
+	Locator::GetSoundSystem().Load("Audio/BossDeath.mp3", 0);
+	Locator::GetSoundSystem().Load("Audio/CapturedShip.mp3", 1);
+	Locator::GetSoundSystem().Load("Audio/EnemyDies.mp3", 2);
+	Locator::GetSoundSystem().Load("Audio/PlayerDies.mp3", 3);
+	Locator::GetSoundSystem().Load("Audio/PlayerShoot.mp3", 4);
+	Locator::GetSoundSystem().Load("Audio/Start.mp3", 5);
+	Locator::GetSoundSystem().Load("Audio/TractorBeam.mp3", 6);
 
 #endif
 }
