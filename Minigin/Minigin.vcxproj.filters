@@ -127,15 +127,6 @@
     <ClInclude Include="Command.h">
       <Filter>Engine Files\Utils</Filter>
     </ClInclude>
-    <ClInclude Include="Events.h">
-      <Filter>Engine Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Subject.h">
-      <Filter>Engine Files\Utils</Filter>
-    </ClInclude>
-    <ClInclude Include="Observer.h">
-      <Filter>Engine Files\Utils</Filter>
-    </ClInclude>
     <ClInclude Include="Delegate.h">
       <Filter>Engine Files\Utils</Filter>
     </ClInclude>
