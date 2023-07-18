@@ -15,7 +15,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		LivesDisplay(GameObject* pGameObject);
+		LivesDisplay(GameObject* pGameObject) :Component(pGameObject) {};
 		~LivesDisplay();
 		
 		// Copy and Move semantics

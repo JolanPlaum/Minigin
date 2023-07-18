@@ -13,7 +13,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		Score(GameObject* pGameObject);
+		Score(GameObject* pGameObject) :Component(pGameObject) {};
 		~Score() = default;
 		
 		// Copy and Move semantics

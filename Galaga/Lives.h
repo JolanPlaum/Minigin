@@ -13,7 +13,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		Lives(GameObject* pGameObject);
+		Lives(GameObject* pGameObject) :Component(pGameObject) {};
 		~Lives() = default;
 		
 		// Copy and Move semantics

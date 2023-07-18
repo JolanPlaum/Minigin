@@ -13,11 +13,6 @@ using namespace std::placeholders;
 //-----------------------------------------------------------------
 // Constructors
 //-----------------------------------------------------------------
-LivesDisplay::LivesDisplay(GameObject* pGameObject)
-	: Component(pGameObject)
-{
-}
-
 void LivesDisplay::Init()
 {
 	m_pText = GetGameObject()->GetComponent<CTextTexture>();

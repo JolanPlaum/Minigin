@@ -15,7 +15,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		ScoreDisplay(GameObject* pGameObject);
+		ScoreDisplay(GameObject* pGameObject) :Component(pGameObject) {};
 		~ScoreDisplay();
 		
 		// Copy and Move semantics
