@@ -26,6 +26,7 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		virtual void Play(unsigned int id, float volume) = 0;
+		virtual void Play(const std::string& path, float volume) = 0;
 		virtual void MasterVolume(float volume) = 0;
 		virtual void Update() = 0;
 		virtual void Load(const std::string& path, unsigned int id) = 0;
@@ -44,6 +45,7 @@ namespace dae
 	{
 	public:
 		void Play(unsigned int, float) override {};
+		void Play(const std::string&, float) override {};
 		void MasterVolume(float) override {};
 		void Update() override {};
 		void Load(const std::string&, unsigned int) override {};
@@ -55,6 +57,7 @@ namespace dae
 		SDLSoundSystem();
 		~SDLSoundSystem();
 		void Play(unsigned int id, float volume) override;
+		void Play(const std::string& path, float volume) override;
 		void MasterVolume(float volume) override;
 		void Update() override;
 		void Load(const std::string& path, unsigned int id) override;
