@@ -2,6 +2,7 @@
 // Includes
 #include "Component.h"
 #include <glm/glm.hpp>
+#include "Event.h"
 
 namespace dae
 {
@@ -51,6 +52,8 @@ namespace dae
 		const glm::vec3& GetWorldScale();
 		//todo: currently world position is not affected by owner rotation/scale
 		//		make it so that it does take that into mind
+
+		Event<> GotDirty;
 	
 	
 	private:

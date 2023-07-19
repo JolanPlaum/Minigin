@@ -134,6 +134,7 @@ const glm::vec3& Transform::GetWorldScale()
 void Transform::SetPositionDirty()
 {
 	m_IsPositionDirty = true;
+	GotDirty.Notify();
 
 	for (const auto& child : GetGameObject()->GetChildren())
 	{
@@ -143,6 +144,7 @@ void Transform::SetPositionDirty()
 void Transform::SetRotationDirty()
 {
 	m_IsRotationDirty = true;
+	GotDirty.Notify();
 
 	for (const auto& child : GetGameObject()->GetChildren())
 	{
@@ -152,6 +154,7 @@ void Transform::SetRotationDirty()
 void Transform::SetScaleDirty()
 {
 	m_IsScaleDirty = true;
+	GotDirty.Notify();
 
 	for (const auto& child : GetGameObject()->GetChildren())
 	{
