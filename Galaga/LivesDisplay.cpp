@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "LivesDisplay.h"
+#include <functional>
 #include "GameObject.h"
 #include "CTextTexture.h"
 #include "Lives.h"

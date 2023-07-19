@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "ScoreDisplay.h"
+#include <functional>
 #include "GameObject.h"
 #include "CTextTexture.h"
 #include "Score.h"

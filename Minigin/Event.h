@@ -1,6 +1,7 @@
 #pragma once
 // Includes
 #include <vector>
+#include <functional>
 #include "Delegate.h"
 
 namespace dae
