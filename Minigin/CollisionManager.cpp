@@ -35,8 +35,8 @@ void CollisionManager::Update()
 		{
 			if (IsCollision(boundaries, m_Colliders[idx2]->GetBoxBoundaries()))
 			{
-				m_Colliders[idx1]->Collision(m_Colliders[idx2]);
-				m_Colliders[idx2]->Collision(m_Colliders[idx1]);
+				m_Colliders[idx1]->Collision(m_Colliders[idx2]->GetGameObject());
+				m_Colliders[idx2]->Collision(m_Colliders[idx1]->GetGameObject());
 			}
 		}
 	}

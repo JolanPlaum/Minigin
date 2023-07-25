@@ -82,7 +82,7 @@ void BoxCollider2D::SetDirty()
 	m_IsDirty = true;
 }
 
-void BoxCollider2D::Collision(BoxCollider2D* pOther)
+void BoxCollider2D::Collision(GameObject* pOther)
 {
 	OnCollision.Notify(pOther);
 }

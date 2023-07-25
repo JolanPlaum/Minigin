@@ -7,6 +7,7 @@
 namespace dae
 {
 	// Class Forward Declarations
+	class GameObject;
 	
 	// Class Declaration
 	class BoxCollider2D final : public Component
@@ -32,7 +33,7 @@ namespace dae
 
 		const glm::vec4& GetBoxBoundaries();
 
-		Event<BoxCollider2D*> OnCollision;
+		Event<GameObject*> OnCollision;
 
 
 	private:
@@ -49,7 +50,7 @@ namespace dae
 		void SetDirty();
 
 		friend class CollisionManager;
-		void Collision(BoxCollider2D* pOther);
+		void Collision(GameObject* pOther);
 		
 	};
 }
