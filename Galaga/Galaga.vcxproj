@@ -168,6 +168,7 @@
   <ItemGroup>
     <ClCompile Include="ControlsDisplay.cpp" />
     <ClCompile Include="FPS.cpp" />
+    <ClCompile Include="GalagaPlayer.cpp" />
     <ClCompile Include="GameSelector.cpp" />
     <ClCompile Include="Lives.cpp" />
     <ClCompile Include="LivesDisplay.cpp" />
@@ -183,6 +184,7 @@
     <ClInclude Include="ControlsDisplay.h" />
     <ClInclude Include="ExerciseObserverPrefabs.h" />
     <ClInclude Include="FPS.h" />
+    <ClInclude Include="GalagaPlayer.h" />
     <ClInclude Include="GameSelector.h" />
     <ClInclude Include="Lives.h" />
     <ClInclude Include="LivesDisplay.h" />

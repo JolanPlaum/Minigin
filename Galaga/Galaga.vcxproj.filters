@@ -45,6 +45,9 @@
       <Filter>Components</Filter>
     </ClCompile>
     <ClCompile Include="GameSelector.cpp" />
+    <ClCompile Include="GalagaPlayer.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="AssignmentBackground.h">
@@ -87,5 +90,8 @@
       <Filter>Components</Filter>
     </ClInclude>
     <ClInclude Include="GameSelector.h" />
+    <ClInclude Include="GalagaPlayer.h">
+      <Filter>Components</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
