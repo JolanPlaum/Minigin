@@ -56,6 +56,8 @@ void CTextTexture::SetText(const std::string& text)
 {
 	m_Text = text;
 	m_NeedsUpdate = true;
+
+	if (m_Text.empty()) m_Text = ' ';
 }
 
 void CTextTexture::SetFont(std::shared_ptr<Font> font)
