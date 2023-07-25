@@ -123,6 +123,12 @@ void GameObject::SetParent(const std::shared_ptr<GameObject>& pParent, bool keep
 	SetParent(pParent.get(), keepWorldPosition);
 }
 
+void GameObject::SetTag(const std::string& tag)
+{
+	if (tag.empty()) m_Tag = "Untagged";
+	else m_Tag = tag;
+}
+
 
 //-----------------------------------------------------------------
 // Private Member Functions

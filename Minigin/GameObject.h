@@ -47,11 +47,13 @@ namespace dae
 
 		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
 		void SetParent(const std::shared_ptr<GameObject>& pParent, bool keepWorldPosition = true);
+		void SetTag(const std::string& tag);
 
 		bool GetDestroyed() const { return m_IsDestroyed; }
 		Transform& GetTransform() const { return *m_pTransform; }
 		GameObject* GetParent() const { return m_pParent; }
 		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
+		std::string GetTag() const { return m_Tag; }
 
 
 	private:
@@ -60,6 +62,7 @@ namespace dae
 		friend Scene;
 		bool m_IsDestroyed{ false };
 		Scene* m_pScene{ nullptr };
+		std::string m_Tag{ "Untagged" };
 
 		GameObject* m_pParent{};
 		std::vector<std::shared_ptr<GameObject>> m_Children{};
