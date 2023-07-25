@@ -22,6 +22,8 @@ void BoxCollider2D::Init()
 	);
 
 	CollisionManager::GetInstance().AddCollider(this);
+
+	SetDirty();
 }
 
 
@@ -61,8 +63,8 @@ const glm::vec4& BoxCollider2D::GetBoxBoundaries()
 		
 		float x1 = pos.x + m_Offset.x * scale.x;
 		float y1 = pos.y + m_Offset.y * scale.y;
-		float x2 = m_BoxBoundaries.x + m_Size.x * scale.x;
-		float y2 = m_BoxBoundaries.y + m_Size.y * scale.y;
+		float x2 = x1 + m_Size.x * scale.x;
+		float y2 = y1 + m_Size.y * scale.y;
 
 		m_BoxBoundaries.x = std::min(x1, x2);
 		m_BoxBoundaries.y = std::min(y1, y2);
@@ -84,7 +86,7 @@ void BoxCollider2D::SetDirty()
 	m_IsDirty = true;
 }
 
-void BoxCollider2D::Collision(GameObject* pOther)
+void BoxCollider2D::CollisionNotify(GameObject* pOther)
 {
 	OnCollision.Notify(pOther);
 }

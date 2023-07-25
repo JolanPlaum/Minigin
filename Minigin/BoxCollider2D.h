@@ -50,7 +50,7 @@ namespace dae
 		void SetDirty();
 
 		friend class CollisionManager;
-		void Collision(GameObject* pOther);
+		void CollisionNotify(GameObject* pOther);
 		
 	};
 }

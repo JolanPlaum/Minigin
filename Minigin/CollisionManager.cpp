@@ -35,8 +35,8 @@ void CollisionManager::Update()
 		{
 			if (IsCollision(boundaries, m_Colliders[idx2]->GetBoxBoundaries()))
 			{
-				m_Colliders[idx1]->Collision(m_Colliders[idx2]->GetGameObject());
-				m_Colliders[idx2]->Collision(m_Colliders[idx1]->GetGameObject());
+				m_Colliders[idx1]->CollisionNotify(m_Colliders[idx2]->GetGameObject());
+				m_Colliders[idx2]->CollisionNotify(m_Colliders[idx1]->GetGameObject());
 			}
 		}
 	}
@@ -51,6 +51,8 @@ void CollisionManager::AddCollider(BoxCollider2D* pCollider)
 
 void CollisionManager::RemoveCollider(BoxCollider2D* pCollider)
 {
+	if (m_Colliders.empty()) return;
+
 	std::erase(m_Colliders, pCollider);
 }
 
