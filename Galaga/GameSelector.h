@@ -7,7 +7,8 @@
 //#define DearImGui
 //#define Commands
 //#define ObserverEventQueues
-#define FinalGame
+#define Collision
+//#define FinalGame
 
 namespace dae
 {

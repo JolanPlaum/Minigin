@@ -38,6 +38,16 @@
 #include "ControlsDisplay.h"
 #include "Delegate.h"
 #include "Event.h"
+#elif defined(Collision)
+#include "InputManager.h"
+#include "ResourceManager.h"
+#include "ServiceLocator.h"
+#include "Event.h"
+#include "ExerciseObserverPrefabs.h"
+#include "ObserverExerciseCommands.h"
+#include "MoveCommand.h"
+#include "BoxCollider2D.h"
+#include "GalagaPlayer.h"
 #elif defined(FinalGame)
 #include "ServiceLocator.h"
 #include "InputManager.h"
@@ -223,6 +233,86 @@ void dae::LoadGame()
 	go->AddComponent<ControlsDisplay>();
 	scene.Add(go);
 
+#elif defined(Collision)
+	auto& scene = SceneManager::GetInstance().CreateScene("Collision");
+	AssignmentBackground::LoadScene(scene);
+
+	std::shared_ptr<GameObject> go{};
+	auto font = ResourceManager::GetInstance().LoadFont("Lingua.otf", 20);
+	SDL_Color color{};
+	auto& input = InputManager::GetInstance();
+
+
+	//Player 1
+	//========
+	go = std::make_shared<GameObject>();
+	go->SetTag("Friendly");
+	go->GetTransform().SetWorldPosition(200, 100, 0);
+	auto lives = go->AddComponent<Lives>();
+	auto score = go->AddComponent<Score>();
+	auto textureRenderer = go->AddComponent<CTextureRenderer>();
+	auto collider = go->AddComponent<BoxCollider2D>();
+	go->AddComponent<GalagaPlayer>();
+
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
+	collider->SetSize(textureRenderer->GetSize());
+	float speed = 100.f;
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadUp, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadDown, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadLeft, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::DpadRight, InputState::Active, ControllerID::One });
+
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbUp, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbDown, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbLeft, InputState::Active, ControllerID::One });
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
+		InputGamepadBinding{ Gamepad::Button::LeftThumbRight, InputState::Active, ControllerID::One });
+	scene.Add(go);
+
+	color = { 255, 255, 0 };
+	auto parentUI = std::make_shared<GameObject>();
+	parentUI->GetTransform().SetWorldPosition(5, 200, 0);
+	scene.Add(parentUI);
+
+	ExerciseObserver::CreateLivesDisplay(go, font, color);
+	go->GetComponent<CTextTexture>()->SetText("Lives: " + std::to_string(lives->GetLives()));
+	go->GetComponent<LivesDisplay>()->SetLivesComponent(lives);
+	go->SetParent(parentUI, false);
+
+	ExerciseObserver::CreateScoreDisplay(go, font, color);
+	go->GetTransform().SetLocalPosition(0, 30, 0);
+	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
+	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
+	go->SetParent(parentUI, false);
+
+
+	//Player 2
+	//========
+	go = std::make_shared<GameObject>();
+	go->SetTag("Enemy");
+	collider = go->AddComponent<BoxCollider2D>();
+	textureRenderer = go->AddComponent<CTextureRenderer>();
+
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
+	collider->SetSize(textureRenderer->GetSize());
+	speed *= 2;
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, -1, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active });
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 0, 1, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Active });
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ -1, 0, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Active });
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go.get(), glm::vec3{ 1, 0, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active });
+	scene.Add(go);
+	
 #elif defined(FinalGame)
 	auto& scene = SceneManager::GetInstance().CreateScene("FinalGame");
 	AssignmentBackground::LoadScene(scene);
