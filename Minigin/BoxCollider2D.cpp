@@ -30,7 +30,8 @@ void BoxCollider2D::Init()
 //-----------------------------------------------------------------
 BoxCollider2D::~BoxCollider2D()
 {
-	GetGameObject()->GetTransform().GotDirty.Remove(m_SetDirtyHandle);
+	if (m_SetDirtyHandle.IsValid())
+		GetGameObject()->GetTransform().GotDirty.Remove(m_SetDirtyHandle);
 
 	CollisionManager::GetInstance().RemoveCollider(this);
 }
