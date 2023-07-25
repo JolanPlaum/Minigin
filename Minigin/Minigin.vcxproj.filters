@@ -151,6 +151,12 @@
     <ClInclude Include="ResourceManager.h">
       <Filter>Engine Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="BoxCollider2D.h">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClInclude>
+    <ClInclude Include="CollisionManager.h">
+      <Filter>Engine Files\Helpers</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -232,6 +238,12 @@
       <Filter>Engine Files\Audio</Filter>
     </ClCompile>
     <ClCompile Include="ResourceManager.cpp">
+      <Filter>Engine Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="BoxCollider2D.cpp">
+      <Filter>Engine Files\Components\Behaviour</Filter>
+    </ClCompile>
+    <ClCompile Include="CollisionManager.cpp">
       <Filter>Engine Files\Helpers</Filter>
     </ClCompile>
   </ItemGroup>

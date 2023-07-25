@@ -223,6 +223,8 @@
     <ClInclude Include="..\3rdParty\imgui\imstb_truetype.h" />
     <ClInclude Include="..\3rdParty\imgui\plugins\imgui_plot.h" />
     <ClInclude Include="AudioChunk.h" />
+    <ClInclude Include="BoxCollider2D.h" />
+    <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
     <ClInclude Include="CTextTexture.h" />
@@ -259,6 +261,8 @@
     <ClCompile Include="..\3rdParty\imgui\imgui_widgets.cpp" />
     <ClCompile Include="..\3rdParty\imgui\plugins\imgui_plot.cpp" />
     <ClCompile Include="AudioChunk.cpp" />
+    <ClCompile Include="BoxCollider2D.cpp" />
+    <ClCompile Include="CollisionManager.cpp" />
     <ClCompile Include="CTextTexture.cpp" />
     <ClCompile Include="CTextureRenderer.cpp" />
     <ClCompile Include="DelegateHandle.cpp" />

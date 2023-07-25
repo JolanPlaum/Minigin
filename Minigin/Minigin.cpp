@@ -8,6 +8,7 @@
 
 #include "InputManager.h"
 #include "SceneManager.h"
+#include "CollisionManager.h"
 #include "Renderer.h"
 #include "ResourceManager.h"
 #include "TimeManager.h"
@@ -102,6 +103,7 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& input = InputManager::GetInstance();
 	auto& time = TimeManager::GetInstance();
 	auto& gui = GuiManager::GetInstance();
+	auto& collision = CollisionManager::GetInstance();
 
 	sceneManager.Init();
 
@@ -120,11 +122,14 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		//Input Events
 		isRunning = input.ProcessInput();
 
-		//Handle GUI
-		gui.UpdateGui();
-
 		//Game Logic
 		sceneManager.Update();
+
+		//Handle Collision
+		collision.Update();
+
+		//Handle GUI
+		gui.UpdateGui();
 
 		//Render
 		renderer.Render();
