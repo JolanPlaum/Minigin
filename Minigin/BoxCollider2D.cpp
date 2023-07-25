@@ -68,6 +68,8 @@ const glm::vec4& BoxCollider2D::GetBoxBoundaries()
 		m_BoxBoundaries.y = std::min(y1, y2);
 		m_BoxBoundaries.z = std::max(x1, x2);
 		m_BoxBoundaries.w = std::max(y1, y2);
+
+		m_IsDirty = false;
 	}
 
 	return m_BoxBoundaries;
