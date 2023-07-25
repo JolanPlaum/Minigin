@@ -39,6 +39,12 @@ void CTextureRenderer::SetTexture(std::shared_ptr<Texture2D> pTexture)
 	m_pTexture = pTexture;
 }
 
+glm::ivec2 CTextureRenderer::GetSize() const
+{
+	if (m_pTexture) return m_pTexture->GetSize();
+	else return {};
+}
+
 
 //-----------------------------------------------------------------
 // Private Member Functions

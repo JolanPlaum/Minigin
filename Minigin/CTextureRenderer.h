@@ -2,6 +2,7 @@
 // Includes
 #include "Component.h"
 #include <memory>
+#include <glm/glm.hpp>
 
 namespace dae
 {
@@ -29,6 +30,8 @@ namespace dae
 		void Render() const override;
 
 		void SetTexture(std::shared_ptr<Texture2D> pTexture);
+
+		glm::ivec2 GetSize() const;
 		
 		
 	private:
