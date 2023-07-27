@@ -56,7 +56,7 @@ void Scene::Render() const
 
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
-	if (object->m_pScene == nullptr)
+	if (object->m_pScene == nullptr && object->GetParent() == nullptr)
 	{
 		object->m_pScene = this;
 		m_Objects.emplace_back(std::move(object));

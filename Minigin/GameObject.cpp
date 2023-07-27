@@ -82,25 +82,30 @@ void GameObject::Render() const
 
 void GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 {
+	// Ensure this GameObject stays alive
+	auto pThis = shared_from_this();
+
 	// Update world transformations to the latest
 	m_pTransform->ClearDirtyFlags();
 
-	// Remove/Add self from/to scene it's currently in
-	Scene* pScene = GetScene();
-	if (pScene)
-	{
-		if (pParent) pScene->Remove(shared_from_this());
-		else pScene->Add(shared_from_this());
-	}
+	// Keep reference to scene of previous parent
+	Scene* pOldScene = GetScene();
 
 	// Remove self as a child from previous parent
-	if (m_pParent) m_pParent->RemoveChild(shared_from_this());
+	if (m_pParent) m_pParent->RemoveChild(pThis);
 
 	// Set given parent on self
 	m_pParent = pParent;
 
 	// Add self as a child to given parent
-	if (m_pParent) m_pParent->AddChild(shared_from_this());
+	if (m_pParent) m_pParent->AddChild(pThis);
+
+	// Remove/Add self from/to scene it was previously in
+	if (pOldScene)
+	{
+		if (m_pParent) pOldScene->Remove(pThis);
+		else pOldScene->Add(pThis);
+	}
 
 	// Update transform
 	if (keepWorldPosition)
