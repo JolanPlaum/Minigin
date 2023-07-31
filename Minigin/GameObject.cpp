@@ -80,6 +80,17 @@ void GameObject::Render() const
 	}
 }
 
+void GameObject::Cleanup()
+{
+	CleanupComponents();
+	CleanupChildren();
+
+	for (const auto& child : m_Children)
+	{
+		child->Cleanup();
+	}
+}
+
 void GameObject::OnDestroy()
 {
 	for (const auto& component : m_Components)
@@ -159,6 +170,30 @@ void GameObject::AddChild(std::shared_ptr<GameObject> pChild)
 void GameObject::RemoveChild(std::shared_ptr<GameObject> pChild)
 {
 	std::erase(m_Children, pChild);
+}
+
+void GameObject::CleanupComponents()
+{
+	for (const auto& component : m_Components)
+	{
+		if (component->IsDestroyed()) component->OnDestroy();
+	}
+
+	std::erase_if(m_Components, [](const std::unique_ptr<Component>& component) {
+			return component->IsDestroyed();
+		});
+}
+
+void GameObject::CleanupChildren()
+{
+	for (const auto& child : m_Children)
+	{
+		if (child->IsDestroyed()) child->OnDestroy();
+	}
+
+	std::erase_if(m_Children, [](const std::shared_ptr<GameObject>& child) {
+		return child->IsDestroyed();
+		});
 }
 
 Scene* GameObject::GetScene() const

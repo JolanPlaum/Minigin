@@ -131,6 +131,9 @@ void dae::Minigin::Run(const std::function<void()>& load)
 		//Handle GUI
 		gui.UpdateGui();
 
+		//Remove Objects
+		sceneManager.Cleanup();
+
 		//Render
 		renderer.Render();
 

@@ -45,6 +45,7 @@ namespace dae
 		void UpdateGui();
 		void Update();
 		void Render() const;
+		void Cleanup();
 
 		void OnDestroy() override;
 
@@ -76,6 +77,9 @@ namespace dae
 		//---------------------------
 		void AddChild(std::shared_ptr<GameObject> pChild);
 		void RemoveChild(std::shared_ptr<GameObject> pChild);
+
+		void CleanupComponents();
+		void CleanupChildren();
 
 		Scene* GetScene() const;
 

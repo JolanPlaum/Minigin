@@ -4,6 +4,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Component.h"
+#include <iostream>
 
 using namespace dae;
 
@@ -54,12 +55,33 @@ void Scene::Render() const
 	}
 }
 
+void Scene::Cleanup()
+{
+	for (const auto& go : m_Objects)
+	{
+		if (go->IsDestroyed()) go->OnDestroy();
+	}
+
+	std::erase_if(m_Objects, [](const std::shared_ptr<GameObject>& go) {
+		return go->IsDestroyed();
+		});
+
+	for (const auto& go : m_Objects)
+	{
+		go->Cleanup();
+	}
+}
+
 void Scene::Add(std::shared_ptr<GameObject> object)
 {
 	if (object->m_pScene == nullptr && object->GetParent() == nullptr)
 	{
 		object->m_pScene = this;
 		m_Objects.emplace_back(std::move(object));
+	}
+	else
+	{
+		std::cout << "Failed to add object to scene.\n";
 	}
 }
 
