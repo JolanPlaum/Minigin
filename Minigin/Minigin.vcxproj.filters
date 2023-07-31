@@ -157,6 +157,9 @@
     <ClInclude Include="CollisionManager.h">
       <Filter>Engine Files\Helpers</Filter>
     </ClInclude>
+    <ClInclude Include="Object.h">
+      <Filter>Engine Files\Scene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -245,6 +248,9 @@
     </ClCompile>
     <ClCompile Include="CollisionManager.cpp">
       <Filter>Engine Files\Helpers</Filter>
+    </ClCompile>
+    <ClCompile Include="Object.cpp">
+      <Filter>Engine Files\Scene</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

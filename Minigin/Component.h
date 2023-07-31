@@ -1,4 +1,5 @@
 #pragma once
+#include "Object.h"
 
 namespace dae
 {
@@ -7,7 +8,7 @@ namespace dae
 	//=============================
 	// Base Component Class
 	//=============================
-	class Component
+	class Component : public Object
 	{
 	public:
 		// Constructors and Destructor
@@ -25,6 +26,7 @@ namespace dae
 		virtual void UpdateGui() {};
 		virtual void Update() {};
 		virtual void Render() const {};
+		virtual void OnDestroy() override {};
 
 		GameObject* GetGameObject() const { return m_pGameObject; }
 

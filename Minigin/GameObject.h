@@ -1,5 +1,6 @@
 #pragma once
 // Includes
+#include "Object.h"
 #include <iostream>
 #include <vector>
 #include <memory>
@@ -14,7 +15,7 @@ namespace dae
 	class Transform;
 
 	// Class Declaration
-	class GameObject final : public std::enable_shared_from_this<GameObject>
+	class GameObject final : public Object, std::enable_shared_from_this<GameObject>
 	{
 	public:
 		// Constructors and Destructor
@@ -45,11 +46,12 @@ namespace dae
 		void Update();
 		void Render() const;
 
+		void OnDestroy() override;
+
 		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
 		void SetParent(const std::shared_ptr<GameObject>& pParent, bool keepWorldPosition = true);
 		void SetTag(const std::string& tag);
 
-		bool GetDestroyed() const { return m_IsDestroyed; }
 		Transform& GetTransform() const { return *m_pTransform; }
 		GameObject* GetParent() const { return m_pParent; }
 		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
@@ -60,7 +62,6 @@ namespace dae
 		// Member variables
 		//todo: get rid of friend
 		friend Scene;
-		bool m_IsDestroyed{ false };
 		Scene* m_pScene{ nullptr };
 		std::string m_Tag{ "Untagged" };
 

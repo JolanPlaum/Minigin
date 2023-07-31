@@ -80,6 +80,19 @@ void GameObject::Render() const
 	}
 }
 
+void GameObject::OnDestroy()
+{
+	for (const auto& component : m_Components)
+	{
+		component->OnDestroy();
+	}
+
+	for (const auto& child : m_Children)
+	{
+		child->OnDestroy();
+	}
+}
+
 void GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 {
 	// Ensure this GameObject stays alive
