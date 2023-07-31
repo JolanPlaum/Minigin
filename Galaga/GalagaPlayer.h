@@ -37,7 +37,7 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-		void OnCollisionNotify(const GameObject* pOther) const;
+		void OnCollisionNotify(GameObject* pOther) const;
 		
 	};
 }

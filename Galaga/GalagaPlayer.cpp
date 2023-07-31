@@ -41,7 +41,7 @@ GalagaPlayer::~GalagaPlayer()
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
-void GalagaPlayer::OnCollisionNotify(const GameObject* pOther) const
+void GalagaPlayer::OnCollisionNotify(GameObject* pOther) const
 {
 	if (pOther->GetTag() == "Enemy")
 	{
@@ -49,6 +49,8 @@ void GalagaPlayer::OnCollisionNotify(const GameObject* pOther) const
 		{
 			m_pLivesComp->Kill();
 		}
+
+		pOther->Destroy();
 	}
 }
 
