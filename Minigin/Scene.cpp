@@ -4,7 +4,6 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Component.h"
-#include <iostream>
 
 using namespace dae;
 
@@ -78,10 +77,6 @@ void Scene::Add(std::shared_ptr<GameObject> object)
 	{
 		object->m_pScene = this;
 		m_Objects.emplace_back(std::move(object));
-	}
-	else
-	{
-		std::cout << "Failed to add object to scene.\n";
 	}
 }
 
