@@ -11,18 +11,14 @@ namespace dae
 {
 	namespace ExerciseObserver
 	{
-		void CreatePlayer(std::shared_ptr<GameObject>& go)
+		void CreatePlayer(GameObject* go)
 		{
-			go = std::make_shared<GameObject>();
-
 			go->AddComponent<Lives>();
 			go->AddComponent<Score>();
 		}
 
-		void CreateLivesDisplay(std::shared_ptr<GameObject>& go, std::shared_ptr<Font> font, const SDL_Color& color)
+		void CreateLivesDisplay(GameObject* go, std::shared_ptr<Font> font, const SDL_Color& color)
 		{
-			go = std::make_shared<GameObject>();
-
 			go->AddComponent<CTextureRenderer>();
 			go->AddComponent<LivesDisplay>();
 			auto text = go->AddComponent<CTextTexture>();
@@ -30,10 +26,8 @@ namespace dae
 			text->SetColor(color);
 		}
 
-		void CreateScoreDisplay(std::shared_ptr<GameObject>& go, std::shared_ptr<Font> font, const SDL_Color& color)
+		void CreateScoreDisplay(GameObject* go, std::shared_ptr<Font> font, const SDL_Color& color)
 		{
-			go = std::make_shared<GameObject>();
-
 			go->AddComponent<CTextureRenderer>();
 			go->AddComponent<ScoreDisplay>();
 			auto text = go->AddComponent<CTextTexture>();

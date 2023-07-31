@@ -2,7 +2,6 @@
 // Includes
 //-----------------------------------------------------------------
 #include "Scene.h"
-#include "GameObject.h"
 #include "Component.h"
 
 using namespace dae;
@@ -61,7 +60,7 @@ void Scene::Cleanup()
 		if (go->IsDestroyed()) go->OnDestroy();
 	}
 
-	std::erase_if(m_Objects, [](const std::shared_ptr<GameObject>& go) {
+	std::erase_if(m_Objects, [](const std::unique_ptr<GameObject>& go) {
 		return go->IsDestroyed();
 		});
 
@@ -71,22 +70,40 @@ void Scene::Cleanup()
 	}
 }
 
-void Scene::Add(std::shared_ptr<GameObject> object)
+GameObject* Scene::CreateObject()
 {
-	if (object->m_pScene == nullptr && object->GetParent() == nullptr)
-	{
-		object->m_pScene = this;
-		m_Objects.emplace_back(std::move(object));
-	}
+	return Add(std::move(std::make_unique<GameObject>()));
 }
 
-void Scene::Remove(std::shared_ptr<GameObject> object)
+GameObject* Scene::Add(std::unique_ptr<GameObject> pObject)
 {
-	if (object->m_pScene == this)
+	if (pObject == nullptr) return nullptr;
+
+	if (pObject->m_pScene == nullptr && pObject->GetParent() == nullptr)
 	{
-		object->m_pScene = nullptr;
+		pObject->m_pScene = this;
+		m_Objects.emplace_back(std::move(pObject));
+		return m_Objects.back().get();
 	}
-	std::erase(m_Objects, object);
+
+	return nullptr;
+}
+
+std::unique_ptr<GameObject> Scene::Remove(GameObject* pObject)
+{
+	auto it = std::find_if(m_Objects.begin(), m_Objects.end(),
+		[pObject](const std::unique_ptr<GameObject>& go) {
+			return go.get() == pObject;
+		});
+
+	std::unique_ptr<GameObject> pTemp;
+	if (it != m_Objects.end())
+	{
+		pTemp = std::move(*it);
+		pTemp->m_pScene = nullptr;
+		m_Objects.erase(it);
+	}
+	return std::move(pTemp);
 }
 
 void Scene::RemoveAll()

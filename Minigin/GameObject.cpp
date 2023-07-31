@@ -106,8 +106,8 @@ void GameObject::OnDestroy()
 
 void GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 {
-	// Ensure this GameObject stays alive
-	auto pThis = shared_from_this();
+	// Exit early if nothing changes
+	if (pParent == this || pParent == m_pParent || GetScene() == nullptr) return;
 
 	// Update world transformations to the latest
 	m_pTransform->ClearDirtyFlags();
@@ -115,21 +115,17 @@ void GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 	// Keep reference to scene of previous parent
 	Scene* pOldScene = GetScene();
 
-	// Remove self as a child from previous parent
-	if (m_pParent) m_pParent->RemoveChild(pThis);
+	// Remove self as a child from previous parent/scene
+	std::unique_ptr<GameObject> pThis;
+	if (m_pParent) pThis = m_pParent->RemoveChild(this);
+	else pThis = pOldScene->Remove(this);
 
 	// Set given parent on self
 	m_pParent = pParent;
 
-	// Add self as a child to given parent
-	if (m_pParent) m_pParent->AddChild(pThis);
-
-	// Remove/Add self from/to scene it was previously in
-	if (pOldScene)
-	{
-		if (m_pParent) pOldScene->Remove(pThis);
-		else pOldScene->Add(pThis);
-	}
+	// Add self as a child to given parent/scene
+	if (m_pParent) m_pParent->AddChild(std::move(pThis));
+	else pOldScene->Add(std::move(pThis));
 
 	// Update transform
 	if (keepWorldPosition)
@@ -147,11 +143,6 @@ void GameObject::SetParent(GameObject* pParent, bool keepWorldPosition)
 	}
 }
 
-void GameObject::SetParent(const std::shared_ptr<GameObject>& pParent, bool keepWorldPosition)
-{
-	SetParent(pParent.get(), keepWorldPosition);
-}
-
 void GameObject::SetTag(const std::string& tag)
 {
 	if (tag.empty()) m_Tag = "Untagged";
@@ -162,14 +153,25 @@ void GameObject::SetTag(const std::string& tag)
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
-void GameObject::AddChild(std::shared_ptr<GameObject> pChild)
+void GameObject::AddChild(std::unique_ptr<GameObject> pChild)
 {
-	m_Children.push_back(pChild);
+	m_Children.emplace_back(std::move(pChild));
 }
 
-void GameObject::RemoveChild(std::shared_ptr<GameObject> pChild)
+std::unique_ptr<GameObject> GameObject::RemoveChild(GameObject* pChild)
 {
-	std::erase(m_Children, pChild);
+	auto it = std::find_if(m_Children.begin(), m_Children.end(),
+		[pChild](const std::unique_ptr<GameObject>& go) {
+			return go.get() == pChild;
+		});
+
+	std::unique_ptr<GameObject> pTemp;
+	if (it != m_Children.end())
+	{
+		pTemp = std::move(*it);
+		m_Children.erase(it);
+	}
+	return std::move(pTemp);
 }
 
 void GameObject::CleanupComponents()
@@ -191,7 +193,7 @@ void GameObject::CleanupChildren()
 		if (child->IsDestroyed()) child->OnDestroy();
 	}
 
-	std::erase_if(m_Children, [](const std::shared_ptr<GameObject>& child) {
+	std::erase_if(m_Children, [](const std::unique_ptr<GameObject>& child) {
 		return child->IsDestroyed();
 		});
 }

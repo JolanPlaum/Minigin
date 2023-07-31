@@ -1,13 +1,11 @@
 #pragma once
 // Includes
 #include "SceneManager.h"
+#include "GameObject.h"
 
 namespace dae
 {
 	// Class Forward Declarations
-	class GameObject;
-	class RenderComponent;
-	class BehaviourComponent;
 
 	// Class Declaration
 	class Scene final
@@ -31,15 +29,16 @@ namespace dae
 		void Render() const;
 		void Cleanup();
 
-		void Add(std::shared_ptr<GameObject> object);
-		void Remove(std::shared_ptr<GameObject> object);
+		GameObject* CreateObject();
+		GameObject* Add(std::unique_ptr<GameObject> pObject);
+		std::unique_ptr<GameObject> Remove(GameObject* pObject);
 		void RemoveAll();
 
 
 	private:
 		// Member variables
 		std::string m_Name;
-		std::vector<std::shared_ptr<GameObject>> m_Objects{};
+		std::vector<std::unique_ptr<GameObject>> m_Objects{};
 
 		static unsigned int m_IdCounter; 
 

@@ -6,16 +6,16 @@
 #include <memory>
 #include <algorithm>
 #include <typeinfo>
+#include "Component.h"
 
 namespace dae
 {
 	// Class Forward Declarations
-	class Component;
 	class Scene;
 	class Transform;
 
 	// Class Declaration
-	class GameObject final : public Object, std::enable_shared_from_this<GameObject>
+	class GameObject final : public Object
 	{
 	public:
 		// Constructors and Destructor
@@ -50,12 +50,11 @@ namespace dae
 		void OnDestroy() override;
 
 		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
-		void SetParent(const std::shared_ptr<GameObject>& pParent, bool keepWorldPosition = true);
 		void SetTag(const std::string& tag);
 
 		Transform& GetTransform() const { return *m_pTransform; }
 		GameObject* GetParent() const { return m_pParent; }
-		const std::vector<std::shared_ptr<GameObject>>& GetChildren() const { return m_Children; }
+		const std::vector<std::unique_ptr<GameObject>>& GetChildren() const { return m_Children; }
 		std::string GetTag() const { return m_Tag; }
 
 
@@ -67,7 +66,7 @@ namespace dae
 		std::string m_Tag{ "Untagged" };
 
 		GameObject* m_pParent{};
-		std::vector<std::shared_ptr<GameObject>> m_Children{};
+		std::vector<std::unique_ptr<GameObject>> m_Children{};
 
 		std::unique_ptr<Transform> m_pTransform{};
 		std::vector<std::unique_ptr<Component>> m_Components{};
@@ -75,8 +74,8 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-		void AddChild(std::shared_ptr<GameObject> pChild);
-		void RemoveChild(std::shared_ptr<GameObject> pChild);
+		void AddChild(std::unique_ptr<GameObject> pChild);
+		std::unique_ptr<GameObject> RemoveChild(GameObject* pChild);
 
 		void CleanupComponents();
 		void CleanupChildren();
