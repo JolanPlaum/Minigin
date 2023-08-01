@@ -94,7 +94,7 @@ void dae::LoadGame()
 	auto rotator = parent->AddComponent<RotationMovement>();
 	rotator->SetRadius(16.f);
 	rotator->SetSpeedDegrees(180.f);
-	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy1.png"));
 	parent->SetParent(go);
 
 	//Child object
@@ -103,7 +103,7 @@ void dae::LoadGame()
 	rotator = child->AddComponent<RotationMovement>();
 	rotator->SetRadius(16.f);
 	rotator->SetSpeedDegrees(-360.f);
-	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy2.png"));
 	child->SetParent(parent, false);
 #elif defined(DearImGui)
 	auto& scene = SceneManager::GetInstance().CreateScene("DearImGui - Trash the cache");
@@ -120,7 +120,7 @@ void dae::LoadGame()
 	//Controller input object
 	auto go = scene.CreateObject();
 	auto textureRenderer = go->AddComponent<CTextureRenderer>();
-	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy1.png"));
 	float speed = 100.f;
 	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadUp, InputState::Active, ControllerID::One });
@@ -143,7 +143,7 @@ void dae::LoadGame()
 	//Keyboard input object
 	go = scene.CreateObject();
 	textureRenderer = go->AddComponent<CTextureRenderer>();
-	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy2.png"));
 	speed *= 2;
 	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active });
@@ -251,7 +251,7 @@ void dae::LoadGame()
 	auto collider = go->AddComponent<BoxCollider2D>();
 	go->AddComponent<GalagaPlayer>();
 
-	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy1.png"));
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy1.png"));
 	collider->SetSize(textureRenderer->GetSize());
 	float speed = 100.f;
 	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
@@ -298,7 +298,7 @@ void dae::LoadGame()
 	textureRenderer = go->AddComponent<CTextureRenderer>();
 	auto enemy = go->AddComponent<GalagaEnemy>();
 
-	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
+	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy2.png"));
 	collider->SetSize(textureRenderer->GetSize());
 	speed *= 2;
 	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
@@ -317,13 +317,13 @@ void dae::LoadGame()
 	//auto& input = InputManager::GetInstance();
 	
 	// Load all the sounds
-	Locator::GetSoundSystem().Load("Audio/BossDeath.mp3", 0);
-	Locator::GetSoundSystem().Load("Audio/CapturedShip.mp3", 1);
-	Locator::GetSoundSystem().Load("Audio/EnemyDies.mp3", 2);
-	Locator::GetSoundSystem().Load("Audio/PlayerDies.mp3", 3);
-	Locator::GetSoundSystem().Load("Audio/PlayerShoot.mp3", 4);
-	Locator::GetSoundSystem().Load("Audio/Start.mp3", 5);
-	Locator::GetSoundSystem().Load("Audio/TractorBeam.mp3", 6);
+	Locator::GetSoundSystem().Load("Galaga/Audio/BossDeath.mp3", 0);
+	Locator::GetSoundSystem().Load("Galaga/Audio/CapturedShip.mp3", 1);
+	Locator::GetSoundSystem().Load("Galaga/Audio/EnemyDies.mp3", 2);
+	Locator::GetSoundSystem().Load("Galaga/Audio/PlayerDies.mp3", 3);
+	Locator::GetSoundSystem().Load("Galaga/Audio/PlayerShoot.mp3", 4);
+	Locator::GetSoundSystem().Load("Galaga/Audio/Start.mp3", 5);
+	Locator::GetSoundSystem().Load("Galaga/Audio/TractorBeam.mp3", 6);
 
 #endif
 }
