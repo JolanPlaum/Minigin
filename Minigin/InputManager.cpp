@@ -56,18 +56,78 @@ bool InputManager::ProcessInput()
 	return true;
 }
 
-void InputManager::AddKeyboardCommand(std::unique_ptr<Command> pCommand, const InputKeyboardBinding& binding)
+Command* InputManager::AddKeyboardCommand(std::unique_ptr<Command> pCommand, const InputKeyboardBinding& binding)
 {
-	if (pCommand == nullptr) return;
+	if (pCommand == nullptr) return nullptr;
 
 	m_KeyboardCommands.push_back(KeyboardCommand{ binding, std::move(pCommand) });
+
+	return m_KeyboardCommands.back().second.get();
 }
 
-void InputManager::AddGamepadCommand(std::unique_ptr<Command> pCommand, const InputGamepadBinding& binding)
+Command* InputManager::AddGamepadCommand(std::unique_ptr<Command> pCommand, const InputGamepadBinding& binding)
 {
-	if (pCommand == nullptr) return;
+	if (pCommand == nullptr) return nullptr;
 
 	m_GamepadCommands.push_back(GamepadCommand{ binding, std::move(pCommand) });
+
+	return m_GamepadCommands.back().second.get();
+}
+
+std::unique_ptr<Command> InputManager::RemoveKeyboardCommand(Command* pCommand)
+{
+	auto it = std::find_if(m_KeyboardCommands.begin(), m_KeyboardCommands.end(),
+		[pCommand](const auto& command) {
+			return command.second.get() == pCommand;
+		});
+
+	std::unique_ptr<Command> pResult;
+	if (it != m_KeyboardCommands.end())
+	{
+		pResult = std::move(it->second);
+		m_KeyboardCommands.erase(it);
+	}
+	return pResult;
+}
+
+std::unique_ptr<Command> InputManager::RemoveGamepadCommand(Command* pCommand)
+{
+	auto it = std::find_if(m_GamepadCommands.begin(), m_GamepadCommands.end(),
+		[pCommand](const auto& command) {
+			return command.second.get() == pCommand;
+		});
+
+	std::unique_ptr<Command> pResult;
+	if (it != m_GamepadCommands.end())
+	{
+		pResult = std::move(it->second);
+		m_GamepadCommands.erase(it);
+	}
+	return pResult;
+}
+
+InputKeyboardBinding* InputManager::GetKeyboardBinding(Command* pCommand)
+{
+	auto it = std::find_if(m_KeyboardCommands.begin(), m_KeyboardCommands.end(),
+		[pCommand](const auto& command) {
+			return command.second.get() == pCommand;
+		});
+
+	if (it != m_KeyboardCommands.end()) return &it->first;
+
+	return nullptr;
+}
+
+InputGamepadBinding* InputManager::GetGamepadBinding(Command* pCommand)
+{
+	auto it = std::find_if(m_GamepadCommands.begin(), m_GamepadCommands.end(),
+		[pCommand](const auto& command) {
+			return command.second.get() == pCommand;
+		});
+
+	if (it != m_GamepadCommands.end()) return &it->first;
+
+	return nullptr;
 }
  
 

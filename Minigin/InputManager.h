@@ -53,8 +53,14 @@ namespace dae
 		//---------------------------
 		bool ProcessInput();
 
-		void AddKeyboardCommand(std::unique_ptr<Command> pCommand, const InputKeyboardBinding& binding);
-		void AddGamepadCommand(std::unique_ptr<Command> pCommand, const InputGamepadBinding& binding);
+		Command* AddKeyboardCommand(std::unique_ptr<Command> pCommand, const InputKeyboardBinding& binding);
+		Command* AddGamepadCommand(std::unique_ptr<Command> pCommand, const InputGamepadBinding& binding);
+
+		std::unique_ptr<Command> RemoveKeyboardCommand(Command* pCommand);
+		std::unique_ptr<Command> RemoveGamepadCommand(Command* pCommand);
+
+		InputKeyboardBinding* GetKeyboardBinding(Command* pCommand);
+		InputGamepadBinding* GetGamepadBinding(Command* pCommand);
 		
 		
 	private:
