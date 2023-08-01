@@ -48,6 +48,7 @@
 #include "MoveCommand.h"
 #include "BoxCollider2D.h"
 #include "GalagaPlayer.h"
+#include "GalagaEnemy.h"
 #elif defined(FinalGame)
 #include "ServiceLocator.h"
 #include "InputManager.h"
@@ -243,6 +244,7 @@ void dae::LoadGame()
 	go = scene.CreateObject();
 	go->SetTag("Friendly");
 	go->GetTransform().SetWorldPosition(200, 100, 0);
+	go->GetTransform().SetWorldScale(3);
 	auto lives = go->AddComponent<Lives>();
 	auto score = go->AddComponent<Score>();
 	auto textureRenderer = go->AddComponent<CTextureRenderer>();
@@ -294,18 +296,19 @@ void dae::LoadGame()
 	go->SetTag("Enemy");
 	collider = go->AddComponent<BoxCollider2D>();
 	textureRenderer = go->AddComponent<CTextureRenderer>();
+	auto enemy = go->AddComponent<GalagaEnemy>();
 
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Enemy2.png"));
 	collider->SetSize(textureRenderer->GetSize());
 	speed *= 2;
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
-		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active });
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
-		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Active });
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
-		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Active });
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
-		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active });
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active }));
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Active }));
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Active }));
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active }));
 	
 #elif defined(FinalGame)
 	auto& scene = SceneManager::GetInstance().CreateScene("FinalGame");
