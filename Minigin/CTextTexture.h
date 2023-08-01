@@ -12,12 +12,12 @@ namespace dae
 	class CTextureRenderer;
 	
 	// Class Declaration
-	class CTextTexture : public Component
+	class CTextTexture final : public Component
 	{
 	public:
 		// Constructors and Destructor
 		CTextTexture(GameObject* pGameObject) :Component(pGameObject) {};
-		virtual ~CTextTexture() = default;
+		~CTextTexture() = default;
 		
 		// Copy and Move semantics
 		CTextTexture(const CTextTexture& other)					= delete;

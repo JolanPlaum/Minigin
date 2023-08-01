@@ -16,7 +16,7 @@ namespace dae
 	public:
 		// Constructors and Destructor
 		ScoreDisplay(GameObject* pGameObject) :Component(pGameObject) {};
-		~ScoreDisplay();
+		~ScoreDisplay() = default;
 		
 		// Copy and Move semantics
 		ScoreDisplay(const ScoreDisplay& other)					= delete;
@@ -28,6 +28,7 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		void Init() override;
+		void OnDestroy() override;
 
 		void SetScoreComponent(Score* pScore);
 		

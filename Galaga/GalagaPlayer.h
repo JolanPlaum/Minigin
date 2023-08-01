@@ -15,7 +15,7 @@ namespace dae
 	public:
 		// Constructors and Destructor
 		GalagaPlayer(GameObject* pGameObject) :Component(pGameObject) {};
-		~GalagaPlayer();
+		~GalagaPlayer() = default;
 		
 		// Copy and Move semantics
 		GalagaPlayer(const GalagaPlayer& other)					= delete;
@@ -27,6 +27,7 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		void Init() override;
+		void OnDestroy() override;
 		
 		
 	private:

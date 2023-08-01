@@ -16,7 +16,7 @@ namespace dae
 	public:
 		// Constructors and Destructor
 		LivesDisplay(GameObject* pGameObject) :Component(pGameObject) {};
-		~LivesDisplay();
+		~LivesDisplay() = default;
 		
 		// Copy and Move semantics
 		LivesDisplay(const LivesDisplay& other)					= delete;
@@ -27,7 +27,8 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
-		void Init() override;		
+		void Init() override;
+		void OnDestroy() override;
 
 		void SetLivesComponent(Lives* pLives);
 		

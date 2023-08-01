@@ -8,12 +8,12 @@ namespace dae
 	// Class Forward Declarations
 	
 	// Class Declaration
-	class RotationMovement : public Component
+	class RotationMovement final : public Component
 	{
 	public:
 		// Constructors and Destructor
 		RotationMovement(GameObject* pGameObject) :Component(pGameObject) {};
-		virtual ~RotationMovement() = default;
+		~RotationMovement() = default;
 		
 		// Copy and Move semantics
 		RotationMovement(const RotationMovement& other)					= delete;

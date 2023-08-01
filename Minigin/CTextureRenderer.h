@@ -10,12 +10,12 @@ namespace dae
 	class Texture2D;
 	
 	// Class Declaration
-	class CTextureRenderer : public Component
+	class CTextureRenderer final : public Component
 	{
 	public:
 		// Constructors and Destructor
 		CTextureRenderer(GameObject* pGameObject) :Component(pGameObject) {};
-		virtual ~CTextureRenderer() = default;
+		~CTextureRenderer() = default;
 		
 		// Copy and Move semantics
 		CTextureRenderer(const CTextureRenderer& other)					= delete;
@@ -26,7 +26,6 @@ namespace dae
 		//---------------------------
 		// Public Member Functions
 		//---------------------------
-		void Init() override;
 		void Render() const override;
 
 		void SetTexture(std::shared_ptr<Texture2D> pTexture);

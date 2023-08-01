@@ -26,7 +26,7 @@ void GalagaPlayer::Init()
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
-GalagaPlayer::~GalagaPlayer()
+void GalagaPlayer::OnDestroy()
 {
 	if (m_CollisionHandle.IsValid())
 		GetGameObject()->GetComponent<BoxCollider2D>()->OnCollision.Remove(m_CollisionHandle);

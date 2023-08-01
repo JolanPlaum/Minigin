@@ -23,7 +23,7 @@ void ScoreDisplay::Init()
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
-ScoreDisplay::~ScoreDisplay()
+void ScoreDisplay::OnDestroy()
 {
 	SetScoreComponent(nullptr);
 }

@@ -15,7 +15,7 @@ namespace dae
 	public:
 		// Constructors and Destructor
 		BoxCollider2D(GameObject* pGameObject) :Component(pGameObject) {};
-		~BoxCollider2D();
+		~BoxCollider2D() = default;
 		
 		// Copy and Move semantics
 		BoxCollider2D(const BoxCollider2D& other)					= delete;
@@ -27,6 +27,7 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		void Init() override;
+		void OnDestroy() override;
 
 		void SetOffset(const glm::vec2& offset);
 		void SetSize(const glm::vec2& size);

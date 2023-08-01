@@ -23,7 +23,7 @@ void LivesDisplay::Init()
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
-LivesDisplay::~LivesDisplay()
+void LivesDisplay::OnDestroy()
 {
 	SetLivesComponent(nullptr);
 }

@@ -30,7 +30,7 @@ void BoxCollider2D::Init()
 //-----------------------------------------------------------------
 // Destructor
 //-----------------------------------------------------------------
-BoxCollider2D::~BoxCollider2D()
+void BoxCollider2D::OnDestroy()
 {
 	if (m_SetDirtyHandle.IsValid())
 		GetGameObject()->GetTransform().GotDirty.Remove(m_SetDirtyHandle);
