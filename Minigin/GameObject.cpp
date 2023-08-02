@@ -30,10 +30,12 @@ GameObject::~GameObject()
 //-----------------------------------------------------------------
 void GameObject::Init()
 {
-	for (const auto& component : m_Components)
+	for (const auto& component : m_NewComponents)
 	{
 		component->Init();
+		m_ActiveComponents.push_back(component);
 	}
+	m_NewComponents.clear();
 
 	for (const auto& child : m_Children)
 	{
@@ -56,7 +58,7 @@ void GameObject::UpdateGui()
 
 void GameObject::Update()
 {
-	for (const auto& component : m_Components)
+	for (const auto& component : m_ActiveComponents)
 	{
 		component->Update();
 	}
@@ -69,7 +71,7 @@ void GameObject::Update()
 
 void GameObject::Render() const
 {
-	for (const auto& component : m_Components)
+	for (const auto& component : m_ActiveComponents)
 	{
 		component->Render();
 	}
@@ -176,14 +178,28 @@ std::unique_ptr<GameObject> GameObject::RemoveChild(GameObject* pChild)
 
 void GameObject::CleanupComponents()
 {
+	bool needsCleanup{ false };
 	for (const auto& component : m_Components)
 	{
-		if (component->IsDestroyed()) component->OnDestroy();
+		if (component->IsDestroyed())
+		{
+			component->OnDestroy();
+			needsCleanup = true;
+		}
 	}
 
-	std::erase_if(m_Components, [](const std::unique_ptr<Component>& component) {
+	if (needsCleanup)
+	{
+		std::erase_if(m_NewComponents, [](Component* pComponent) {
+			return pComponent->IsDestroyed();
+			});
+		std::erase_if(m_ActiveComponents, [](Component* pComponent) {
+			return pComponent->IsDestroyed();
+			});
+		std::erase_if(m_Components, [](const std::unique_ptr<Component>& component) {
 			return component->IsDestroyed();
-		});
+			});
+	};
 }
 
 void GameObject::CleanupChildren()

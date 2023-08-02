@@ -105,13 +105,14 @@ void dae::Minigin::Run(const std::function<void()>& load)
 	auto& gui = GuiManager::GetInstance();
 	auto& collision = CollisionManager::GetInstance();
 
-	sceneManager.Init();
-
 	bool isRunning = true;
 	while (isRunning)
 	{
 		//Update Time
 		time.Tick();
+
+		//Initialize new Objects
+		sceneManager.Init();
 
 		//Sound Requests
 		Locator::GetSoundSystem().Update();

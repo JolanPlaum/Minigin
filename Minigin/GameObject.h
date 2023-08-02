@@ -70,6 +70,8 @@ namespace dae
 
 		std::unique_ptr<Transform> m_pTransform{};
 		std::vector<std::unique_ptr<Component>> m_Components{};
+		std::vector<Component*> m_NewComponents{};
+		std::vector<Component*> m_ActiveComponents{};
 
 		//---------------------------
 		// Private Member Functions
@@ -97,6 +99,7 @@ namespace dae
 		}
 
 		m_Components.emplace_back(std::make_unique<Comp>(this));
+		m_NewComponents.push_back(m_Components.back().get());
 		return static_cast<Comp*>(m_Components.back().get());
 	}
 
@@ -155,6 +158,8 @@ namespace dae
 		if (it != m_Components.end())
 		{
 			//todo: swap with last element and remove the last element from vector
+			std::erase(m_NewComponents, it->get());
+			std::erase(m_ActiveComponents, it->get());
 			m_Components.erase(it);
 		}
 	}
