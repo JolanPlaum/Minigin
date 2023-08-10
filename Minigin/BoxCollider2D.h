@@ -3,6 +3,7 @@
 #include "Component.h"
 #include <glm/glm.hpp>
 #include "Event.h"
+#include "Rectangle.h"
 
 namespace dae
 {
@@ -32,7 +33,7 @@ namespace dae
 		void SetOffset(const glm::vec2& offset);
 		void SetSize(const glm::vec2& size);
 
-		const glm::vec4& GetBoxBoundaries();
+		const Boundaries& GetBoxBoundaries();
 
 		Event<GameObject*> OnCollision;
 
@@ -42,7 +43,7 @@ namespace dae
 		bool m_IsDirty{ false };
 		glm::vec2 m_Offset{};
 		glm::vec2 m_Size{};
-		glm::vec4 m_BoxBoundaries{};
+		Boundaries m_BoxBoundaries{};
 		DelegateHandle m_SetDirtyHandle{};
 		
 		//---------------------------

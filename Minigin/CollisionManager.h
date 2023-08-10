@@ -3,6 +3,7 @@
 #include "Singleton.h"
 #include <vector>
 #include <glm/glm.hpp>
+#include "Rectangle.h"
 
 namespace dae
 {
@@ -41,7 +42,7 @@ namespace dae
 		friend class Singleton<CollisionManager>;
 		explicit CollisionManager();
 
-		bool IsCollision(const glm::vec4& bounds1, const glm::vec4& bounds2) const;
+		bool IsCollision(const Boundaries& bounds1, const Boundaries& bounds2) const;
 		
 	};
 }

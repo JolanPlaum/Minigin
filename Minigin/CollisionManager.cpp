@@ -60,16 +60,16 @@ void CollisionManager::RemoveCollider(BoxCollider2D* pCollider)
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
-bool CollisionManager::IsCollision(const glm::vec4& bounds1, const glm::vec4& bounds2) const
+bool CollisionManager::IsCollision(const Boundaries& bounds1, const Boundaries& bounds2) const
 {
 	// If one rectangle is on left side of the other
-	if (bounds1.z < bounds2.x || bounds2.z < bounds1.x)
+	if (bounds1.x2 < bounds2.x1 || bounds2.x2 < bounds1.x1)
 	{
 		return false;
 	}
 
 	// If one rectangle is under the other
-	if (bounds1.w < bounds2.y || bounds2.w < bounds1.y)
+	if (bounds1.y2 < bounds2.y1 || bounds2.y2 < bounds1.y1)
 	{
 		return false;
 	}

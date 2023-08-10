@@ -54,7 +54,7 @@ void BoxCollider2D::SetSize(const glm::vec2& size)
 	SetDirty();
 }
 
-const glm::vec4& BoxCollider2D::GetBoxBoundaries()
+const Boundaries& BoxCollider2D::GetBoxBoundaries()
 {
 	if (m_IsDirty)
 	{
@@ -66,10 +66,10 @@ const glm::vec4& BoxCollider2D::GetBoxBoundaries()
 		float x2 = x1 + m_Size.x * scale.x;
 		float y2 = y1 + m_Size.y * scale.y;
 
-		m_BoxBoundaries.x = std::min(x1, x2);
-		m_BoxBoundaries.y = std::min(y1, y2);
-		m_BoxBoundaries.z = std::max(x1, x2);
-		m_BoxBoundaries.w = std::max(y1, y2);
+		m_BoxBoundaries.x1 = std::min(x1, x2);
+		m_BoxBoundaries.y1 = std::min(y1, y2);
+		m_BoxBoundaries.x2 = std::max(x1, x2);
+		m_BoxBoundaries.y2 = std::max(y1, y2);
 
 		m_IsDirty = false;
 	}
