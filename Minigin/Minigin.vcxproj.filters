@@ -44,6 +44,9 @@
     <Filter Include="Engine Files\Audio">
       <UniqueIdentifier>{2d0e3d54-1de0-4ab7-903c-d35cf94251d0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Engine Files\Utils\Shapes">
+      <UniqueIdentifier>{d1494917-7102-4dd8-89f6-b2b6735a4978}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameObject.h">
@@ -160,6 +163,9 @@
     <ClInclude Include="Object.h">
       <Filter>Engine Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Rectangle.h">
+      <Filter>Engine Files\Utils\Shapes</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -251,6 +257,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Engine Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Rectangle.cpp">
+      <Filter>Engine Files\Utils\Shapes</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
