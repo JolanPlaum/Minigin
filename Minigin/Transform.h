@@ -48,8 +48,6 @@ namespace dae
 		glm::vec2 GetWorldPosition();
 		double GetWorldRotation();
 		glm::vec2 GetWorldScale();
-		//todo: currently world position is not affected by owner rotation/scale
-		//		make it so that it does take that into mind
 
 		Event<> GotDirty;
 	

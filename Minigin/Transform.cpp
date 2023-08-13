@@ -57,10 +57,21 @@ void Transform::SetLocalScale(float s)
 
 void Transform::SetWorldPosition(glm::vec2 pos)
 {
-	SetLocalPosition(pos);
-
 	GameObject* parent = GetGameObject()->GetParent();
-	if (parent)	m_LocalPosition -= parent->GetTransform().GetWorldPosition();
+	if (parent)
+	{
+		glm::vec2 localPos = pos - parent->GetTransform().GetWorldPosition();
+		double angle = -parent->GetTransform().GetWorldRotation();
+
+		double x = localPos.x * cos(angle) - localPos.y * sin(angle);
+		double y = localPos.x * sin(angle) + localPos.y * cos(angle);
+
+		SetLocalPosition(glm::vec2{ x, y } / parent->GetTransform().GetWorldScale());
+	}
+	else
+	{
+		SetLocalPosition(pos);
+	}
 }
 void Transform::SetWorldPosition(float x, float y)
 {
@@ -157,10 +168,21 @@ void Transform::ClearDirtyPosition()
 {
 	if (m_IsPositionDirty)
 	{
-		m_WorldPosition = m_LocalPosition;
-
 		GameObject* parent = GetGameObject()->GetParent();
-		if (parent)	m_WorldPosition += parent->GetTransform().GetWorldPosition();
+		if (parent)
+		{
+			auto scaledPos = m_LocalPosition * parent->GetTransform().GetWorldScale();
+			double angle = parent->GetTransform().GetWorldRotation();
+
+			double x = scaledPos.x * cos(angle) - scaledPos.y * sin(angle);
+			double y = scaledPos.x * sin(angle) + scaledPos.y * cos(angle);
+
+			m_WorldPosition = parent->GetTransform().GetWorldPosition() + glm::vec2{ x, y };
+		}
+		else
+		{
+			m_WorldPosition = m_LocalPosition;
+		}
 
 		m_IsPositionDirty = false;
 	}
