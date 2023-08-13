@@ -163,6 +163,9 @@
     <ClInclude Include="Object.h">
       <Filter>Engine Files\Scene</Filter>
     </ClInclude>
+    <ClInclude Include="Sprite2D.h">
+      <Filter>Engine Files\Rendering</Filter>
+    </ClInclude>
     <ClInclude Include="Rectangle.h">
       <Filter>Engine Files\Utils\Shapes</Filter>
     </ClInclude>
@@ -257,6 +260,9 @@
     </ClCompile>
     <ClCompile Include="Object.cpp">
       <Filter>Engine Files\Scene</Filter>
+    </ClCompile>
+    <ClCompile Include="Sprite2D.cpp">
+      <Filter>Engine Files\Rendering</Filter>
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Engine Files\Utils\Shapes</Filter>
