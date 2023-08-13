@@ -1,7 +1,7 @@
 #pragma once
 // Includes
 #include "Command.h"
-#include <glm/glm.hpp>
+#include <glm/vec2.hpp>
 
 namespace dae
 {
@@ -12,7 +12,7 @@ namespace dae
 	{
 	public:
 		// Constructors and Destructor
-		explicit MoveCommand(GameObject* pGameObject, const glm::vec3& direction, float speed);
+		explicit MoveCommand(GameObject* pGameObject, glm::vec2 direction, float speed);
 		~MoveCommand() = default;
 		
 		// Copy and Move semantics
@@ -29,7 +29,7 @@ namespace dae
 		
 	private:
 		// Member variables
-		glm::vec3 m_Direction;
+		glm::vec2 m_Direction;
 		float m_Speed;
 		
 		//---------------------------

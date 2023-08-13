@@ -49,7 +49,7 @@ namespace dae
 
 		void OnDestroy() override;
 
-		void SetParent(GameObject* pParent, bool keepWorldPosition = true);
+		void SetParent(GameObject* pParent, bool keepWorldPosition = false);
 		void SetTag(const std::string& tag);
 
 		Transform& GetTransform() const { return *m_pTransform; }

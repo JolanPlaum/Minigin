@@ -28,7 +28,7 @@ void dae::LoadGame()
 	textureRenderer = go->AddComponent<CTextureRenderer>();
 
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("logo.tga"));
-	go->GetTransform().SetLocalPosition(216, 180, 0);
+	go->GetTransform().SetLocalPosition(216, 180);
 
 
 	//Course title
@@ -38,6 +38,6 @@ void dae::LoadGame()
 
 	textTexture->SetText("Programming 4 Assignment");
 	textTexture->SetFont(ResourceManager::GetInstance().LoadFont("Lingua.otf", 36));
-	go->GetTransform().SetLocalPosition(80, 20, 0);
+	go->GetTransform().SetLocalPosition(80, 20);
 #endif
 }

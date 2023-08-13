@@ -1,7 +1,7 @@
 #pragma once
 // Includes
 #include "Component.h"
-#include <glm/glm.hpp>
+#include <glm/vec2.hpp>
 #include "Event.h"
 
 namespace dae
@@ -27,29 +27,27 @@ namespace dae
 		//---------------------------
 		void ClearDirtyFlags();
 
-		void SetLocalPosition(const glm::vec3& pos);
-		void SetLocalPosition(float x, float y, float z);
-		void SetLocalRotation(const glm::vec3& rot);
-		void SetLocalRotation(float x, float y, float z);
-		void SetLocalScale(const glm::vec3& s);
-		void SetLocalScale(float x, float y, float z);
+		void SetLocalPosition(glm::vec2 pos);
+		void SetLocalPosition(float x, float y);
+		void SetLocalRotation(double rot);
+		void SetLocalScale(glm::vec2 s);
+		void SetLocalScale(float x, float y);
 		void SetLocalScale(float s);
 
-		void SetWorldPosition(const glm::vec3& pos);
-		void SetWorldPosition(float x, float y, float z);
-		void SetWorldRotation(const glm::vec3& rot);
-		void SetWorldRotation(float x, float y, float z);
-		void SetWorldScale(const glm::vec3& s);
-		void SetWorldScale(float x, float y, float z);
+		void SetWorldPosition(glm::vec2 pos);
+		void SetWorldPosition(float x, float y);
+		void SetWorldRotation(double rot);
+		void SetWorldScale(glm::vec2 s);
+		void SetWorldScale(float x, float y);
 		void SetWorldScale(float s);
 
-		const glm::vec3& GetLocalPosition();
-		const glm::vec3& GetLocalRotation();
-		const glm::vec3& GetLocalScale();
+		glm::vec2 GetLocalPosition();
+		double GetLocalRotation();
+		glm::vec2 GetLocalScale();
 
-		const glm::vec3& GetWorldPosition();
-		const glm::vec3& GetWorldRotation();
-		const glm::vec3& GetWorldScale();
+		glm::vec2 GetWorldPosition();
+		double GetWorldRotation();
+		glm::vec2 GetWorldScale();
 		//todo: currently world position is not affected by owner rotation/scale
 		//		make it so that it does take that into mind
 
@@ -59,9 +57,10 @@ namespace dae
 	private:
 		// Member variables
 		bool m_IsPositionDirty{ false }, m_IsRotationDirty{ false }, m_IsScaleDirty{ false };
-		glm::vec3 m_LocalPosition{}, m_LocalRotation{}, m_LocalScale{1};
-		glm::vec3 m_WorldPosition{}, m_WorldRotation{}, m_WorldScale{1};
-	
+		glm::vec2 m_LocalPosition{}, m_WorldPosition{};
+		glm::vec2 m_LocalScale{1}, m_WorldScale{1};
+		double m_LocalRotation{}, m_WorldRotation{};
+
 		//---------------------------
 		// Private Member Functions
 		//---------------------------

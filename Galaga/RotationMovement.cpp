@@ -31,7 +31,7 @@ void RotationMovement::Update()
 	float x = glm::cos(m_CurrentAngle) * m_Radius;
 	float y = glm::sin(m_CurrentAngle) * m_Radius;
 
-	GetGameObject()->GetTransform().SetLocalPosition(x, y, 0);
+	GetGameObject()->GetTransform().SetLocalPosition(x, y);
 }
 
 void RotationMovement::SetRadius(float radius)

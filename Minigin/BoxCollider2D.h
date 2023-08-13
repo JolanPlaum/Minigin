@@ -1,7 +1,7 @@
 #pragma once
 // Includes
 #include "Component.h"
-#include <glm/glm.hpp>
+#include <glm/vec2.hpp>
 #include "Event.h"
 #include "Rectangle.h"
 
@@ -30,8 +30,8 @@ namespace dae
 		void Init() override;
 		void OnDestroy() override;
 
-		void SetOffset(const glm::vec2& offset);
-		void SetSize(const glm::vec2& size);
+		void SetOffset(glm::vec2 offset);
+		void SetSize(glm::vec2 size);
 
 		const Boundaries& GetBoxBoundaries();
 

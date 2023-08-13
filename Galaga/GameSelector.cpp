@@ -86,7 +86,7 @@ void dae::LoadGame()
 
 	//Emtpy root object
 	go = scene.CreateObject();
-	go->GetTransform().SetLocalPosition(320, 280, 0);
+	go->GetTransform().SetLocalPosition(320, 280);
 
 	//Parent object
 	auto parent = scene.CreateObject();
@@ -122,22 +122,22 @@ void dae::LoadGame()
 	auto textureRenderer = go->AddComponent<CTextureRenderer>();
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy1.png"));
 	float speed = 100.f;
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, -1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadUp, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, 1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadDown, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ -1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadLeft, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadRight, InputState::Active, ControllerID::One });
 
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, -1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbUp, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, 1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbDown, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ -1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbLeft, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbRight, InputState::Active, ControllerID::One });
 
 	//Keyboard input object
@@ -145,13 +145,13 @@ void dae::LoadGame()
 	textureRenderer = go->AddComponent<CTextureRenderer>();
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy2.png"));
 	speed *= 2;
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, -1 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active });
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, 1 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Active });
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ -1, 0 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Active });
-	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+	input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 1, 0 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active });
 
 #elif defined(ObserverEventQueues)
@@ -180,7 +180,7 @@ void dae::LoadGame()
 
 	color = { 255, 255, 0 };
 	auto parentUI = scene.CreateObject();
-	parentUI->GetTransform().SetWorldPosition(5, 200, 0);
+	parentUI->GetTransform().SetWorldPosition(5, 200);
 
 	go = scene.CreateObject();
 	ExerciseObserver::CreateLivesDisplay(go, font, color);
@@ -190,7 +190,7 @@ void dae::LoadGame()
 
 	go = scene.CreateObject();
 	ExerciseObserver::CreateScoreDisplay(go, font, color);
-	go->GetTransform().SetLocalPosition(0, 30, 0);
+	go->GetTransform().SetLocalPosition(0, 30);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
 	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
 	go->SetParent(parentUI, false);
@@ -209,7 +209,7 @@ void dae::LoadGame()
 
 	color = { 0, 255, 0 };
 	parentUI = scene.CreateObject();
-	parentUI->GetTransform().SetWorldPosition(5, 300, 0);
+	parentUI->GetTransform().SetWorldPosition(5, 300);
 
 	go = scene.CreateObject();
 	ExerciseObserver::CreateLivesDisplay(go, font, color);
@@ -219,7 +219,7 @@ void dae::LoadGame()
 
 	go = scene.CreateObject();
 	ExerciseObserver::CreateScoreDisplay(go, font, color);
-	go->GetTransform().SetLocalPosition(0, 30, 0);
+	go->GetTransform().SetLocalPosition(0, 30);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
 	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
 	go->SetParent(parentUI, false);
@@ -243,7 +243,7 @@ void dae::LoadGame()
 	//========
 	go = scene.CreateObject();
 	go->SetTag("Friendly");
-	go->GetTransform().SetWorldPosition(200, 100, 0);
+	go->GetTransform().SetWorldPosition(200, 100);
 	go->GetTransform().SetWorldScale(3);
 	auto lives = go->AddComponent<Lives>();
 	auto score = go->AddComponent<Score>();
@@ -254,27 +254,27 @@ void dae::LoadGame()
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy1.png"));
 	collider->SetSize(textureRenderer->GetSize());
 	float speed = 100.f;
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, -1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadUp, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, 1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadDown, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ -1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadLeft, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::DpadRight, InputState::Active, ControllerID::One });
 
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, -1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbUp, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, 1 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbDown, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ -1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbLeft, InputState::Active, ControllerID::One });
-	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+	input.AddGamepadCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 1, 0 }, speed),
 		InputGamepadBinding{ Gamepad::Button::LeftThumbRight, InputState::Active, ControllerID::One });
 
 	color = { 255, 255, 0 };
 	auto parentUI = scene.CreateObject();
-	parentUI->GetTransform().SetWorldPosition(5, 200, 0);
+	parentUI->GetTransform().SetWorldPosition(5, 200);
 
 	go = scene.CreateObject();
 	ExerciseObserver::CreateLivesDisplay(go, font, color);
@@ -284,7 +284,7 @@ void dae::LoadGame()
 
 	go = scene.CreateObject();
 	ExerciseObserver::CreateScoreDisplay(go, font, color);
-	go->GetTransform().SetLocalPosition(0, 30, 0);
+	go->GetTransform().SetLocalPosition(0, 30);
 	go->GetComponent<CTextTexture>()->SetText("Score: " + std::to_string(score->GetScore()));
 	go->GetComponent<ScoreDisplay>()->SetScoreComponent(score);
 	go->SetParent(parentUI, false);
@@ -301,13 +301,13 @@ void dae::LoadGame()
 	textureRenderer->SetTexture(ResourceManager::GetInstance().LoadTexture("Galaga/Enemy2.png"));
 	collider->SetSize(textureRenderer->GetSize());
 	speed *= 2;
-	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, -1, 0 }, speed),
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, -1 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Active }));
-	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 0, 1, 0 }, speed),
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 0, 1 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Active }));
-	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ -1, 0, 0 }, speed),
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ -1, 0 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Active }));
-	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec3{ 1, 0, 0 }, speed),
+	enemy->AddCommand(input.AddKeyboardCommand(std::make_unique<MoveCommand>(go, glm::vec2{ 1, 0 }, speed),
 		InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_D, InputState::Active }));
 	
 #elif defined(FinalGame)

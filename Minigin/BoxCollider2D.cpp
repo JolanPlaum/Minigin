@@ -42,13 +42,13 @@ void BoxCollider2D::OnDestroy()
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
-void BoxCollider2D::SetOffset(const glm::vec2& offset)
+void BoxCollider2D::SetOffset(glm::vec2 offset)
 {
 	m_Offset = offset;
 	SetDirty();
 }
 
-void BoxCollider2D::SetSize(const glm::vec2& size)
+void BoxCollider2D::SetSize(glm::vec2 size)
 {
 	m_Size = size;
 	SetDirty();
