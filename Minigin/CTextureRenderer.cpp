@@ -25,6 +25,8 @@ using namespace dae;
 //-----------------------------------------------------------------
 void CTextureRenderer::Render() const
 {
+	if (m_pTexture == nullptr) return;
+
 	const auto& pos = GetGameObject()->GetTransform().GetWorldPosition();
 	const auto& scale = GetGameObject()->GetTransform().GetWorldScale();
 	const auto& size = m_pTexture->GetSize();
