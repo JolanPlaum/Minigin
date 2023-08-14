@@ -169,6 +169,9 @@
     <ClInclude Include="Rectangle.h">
       <Filter>Engine Files\Utils\Shapes</Filter>
     </ClInclude>
+    <ClInclude Include="CSpriteRenderer.h">
+      <Filter>Engine Files\Components\Render</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="GameObject.cpp">
@@ -266,6 +269,9 @@
     </ClCompile>
     <ClCompile Include="Rectangle.cpp">
       <Filter>Engine Files\Utils\Shapes</Filter>
+    </ClCompile>
+    <ClCompile Include="CSpriteRenderer.cpp">
+      <Filter>Engine Files\Components\Render</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

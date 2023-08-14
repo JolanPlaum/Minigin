@@ -227,6 +227,7 @@
     <ClInclude Include="CollisionManager.h" />
     <ClInclude Include="Command.h" />
     <ClInclude Include="Component.h" />
+    <ClInclude Include="CSpriteRenderer.h" />
     <ClInclude Include="CTextTexture.h" />
     <ClInclude Include="CTextureRenderer.h" />
     <ClInclude Include="Delegate.h" />
@@ -266,6 +267,7 @@
     <ClCompile Include="AudioChunk.cpp" />
     <ClCompile Include="BoxCollider2D.cpp" />
     <ClCompile Include="CollisionManager.cpp" />
+    <ClCompile Include="CSpriteRenderer.cpp" />
     <ClCompile Include="CTextTexture.cpp" />
     <ClCompile Include="CTextureRenderer.cpp" />
     <ClCompile Include="DelegateHandle.cpp" />
