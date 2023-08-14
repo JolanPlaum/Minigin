@@ -8,12 +8,17 @@
     <Filter Include="Components">
       <UniqueIdentifier>{19604a66-7b48-4bc9-adfc-fd02fccefb8e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Commands">
+      <UniqueIdentifier>{74ead332-618f-420d-aa39-d5893d831e3d}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameSelector.cpp" />
+    <ClCompile Include="SpriteTestingCommands.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSelector.h" />
+    <ClInclude Include="SpriteTestingCommands.h" />
   </ItemGroup>
 </Project>
