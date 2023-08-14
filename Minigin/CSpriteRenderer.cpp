@@ -144,6 +144,12 @@ void CSpriteRenderer::SetRowIdx(const std::string& name)
 	if (m_pSprite) SetRowIdx(m_pSprite->GetRowIdx(name));
 }
 
+glm::ivec2 dae::CSpriteRenderer::GetSize() const
+{
+	if (m_pSprite) return m_pSprite->GetTexture()->GetSize();
+	else return {};
+}
+
 
 //-----------------------------------------------------------------
 // Private Member Functions

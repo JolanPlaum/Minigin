@@ -3,6 +3,7 @@
 #include "Component.h"
 #include <memory>
 #include <string>
+#include <glm/vec2.hpp>
 #include "Event.h"
 
 namespace dae
@@ -44,12 +45,14 @@ namespace dae
 		void Play();
 		void Restart();
 
-		void SetSprite(std::shared_ptr<Sprite2D> pSprite, float secondsPerFrame);
+		void SetSprite(std::shared_ptr<Sprite2D> pSprite, float secondsPerFrame = FLT_MAX);
 		void SetSettings(SpriteRenderSettings settings);
 		void SetColIdx(unsigned int idx);
 		void SetColIdx(const std::string& name);
 		void SetRowIdx(unsigned int idx);
 		void SetRowIdx(const std::string& name);
+
+		glm::ivec2 GetSize() const;
 
 		Event<> Restarted{};
 		Event<> AnimationLooped{}; //todo: add the amount of loops as a parameter
