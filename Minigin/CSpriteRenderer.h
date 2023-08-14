@@ -77,7 +77,13 @@ namespace dae
 		//---------------------------
 		// Private Member Functions
 		//---------------------------
-		constexpr SpriteRenderSettings DefaultSettings() const;
+		constexpr SpriteRenderSettings DefaultSettings() const
+		{
+			return static_cast<SpriteRenderSettings>(
+				static_cast<unsigned char>(SpriteRenderSettings::IterateColumn) |
+				static_cast<unsigned char>(SpriteRenderSettings::IterateRow)
+				);
+		}
 
 		void UpdateFrame();
 		bool UpdateCol();

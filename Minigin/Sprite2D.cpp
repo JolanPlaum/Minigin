@@ -3,7 +3,6 @@
 //-----------------------------------------------------------------
 #include "Sprite2D.h"
 #include "Texture2D.h"
-#include <glm/vec2.hpp>
 
 using namespace dae;
 
@@ -19,7 +18,7 @@ Sprite2D::Sprite2D(std::shared_ptr<Texture2D> pTexture, unsigned int cols, unsig
 		m_ColNames[i] = std::to_string(i);
 	}
 
-	for (unsigned int i{}; i < m_ColNames.size(); ++i)
+	for (unsigned int i{}; i < m_RowNames.size(); ++i)
 	{
 		m_RowNames[i] = std::to_string(i);
 	}
@@ -31,8 +30,8 @@ Sprite2D::Sprite2D(std::shared_ptr<Texture2D> pTexture, std::vector<std::string>
 	, m_RowNames{ rowNames }
 {
 	const glm::ivec2& textureSize{ m_pTexture->GetSize() };
-	m_TileWidth = textureSize.x / GetNrCols();
-	m_TileHeight = textureSize.y / GetNrRows();
+	m_TileSize.x = textureSize.x / GetNrCols();
+	m_TileSize.y = textureSize.y / GetNrRows();
 }
 
 
@@ -88,10 +87,10 @@ Rectangle Sprite2D::GetSrcRect(unsigned int colIdx, unsigned int rowIdx) const
 	rowIdx %= GetNrRows();
 
 	Rectangle srcRect{};
-	srcRect.x = static_cast<float>(colIdx * m_TileWidth);
-	srcRect.y = static_cast<float>(rowIdx * m_TileHeight);
-	srcRect.w = static_cast<float>(m_TileWidth);
-	srcRect.h = static_cast<float>(m_TileHeight);
+	srcRect.x = static_cast<float>(colIdx * m_TileSize.x);
+	srcRect.y = static_cast<float>(rowIdx * m_TileSize.y);
+	srcRect.w = static_cast<float>(m_TileSize.x);
+	srcRect.h = static_cast<float>(m_TileSize.y);
 
 	return srcRect;
 }

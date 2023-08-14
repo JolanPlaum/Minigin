@@ -4,6 +4,7 @@
 #include <string>
 #include <vector>
 #include "Rectangle.h"
+#include <glm/vec2.hpp>
 
 namespace dae
 {
@@ -31,6 +32,7 @@ namespace dae
 		void SetColName(unsigned int idx, const std::string& name);
 		void SetRowName(unsigned int idx, const std::string& name);
 
+		glm::ivec2 GetTileSize() const { return m_TileSize; }
 		Texture2D* GetTexture() const { return m_pTexture.get(); }
 		unsigned int GetNrCols() const { return static_cast<unsigned int>(m_ColNames.size()); }
 		unsigned int GetNrRows() const { return static_cast<unsigned int>(m_RowNames.size()); }
@@ -45,8 +47,7 @@ namespace dae
 		
 	private:
 		// Member variables
-		int m_TileWidth{};
-		int m_TileHeight{};
+		glm::ivec2 m_TileSize{};
 		std::shared_ptr<Texture2D> m_pTexture{};
 
 		std::vector<std::string> m_ColNames{};

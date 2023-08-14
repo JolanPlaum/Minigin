@@ -54,7 +54,7 @@ void CSpriteRenderer::Render() const
 
 	glm::vec2 pos = GetGameObject()->GetTransform().GetWorldPosition();
 	glm::vec2 scale = GetGameObject()->GetTransform().GetWorldScale();
-	glm::vec2 size = m_pSprite->GetTexture()->GetSize();
+	glm::vec2 size = m_pSprite->GetTileSize();
 
 	Rectangle dstRect{ pos.x, pos.y, size.x * scale.x, size.y * scale.y };
 	Rectangle srcRect{ m_pSprite->GetSrcRect(m_ColIdx, m_RowIdx) };
@@ -146,7 +146,7 @@ void CSpriteRenderer::SetRowIdx(const std::string& name)
 
 glm::ivec2 dae::CSpriteRenderer::GetSize() const
 {
-	if (m_pSprite) return m_pSprite->GetTexture()->GetSize();
+	if (m_pSprite) return m_pSprite->GetTileSize();
 	else return {};
 }
 
@@ -154,14 +154,6 @@ glm::ivec2 dae::CSpriteRenderer::GetSize() const
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
-constexpr SpriteRenderSettings CSpriteRenderer::DefaultSettings() const
-{
-	return static_cast<SpriteRenderSettings>(
-		static_cast<unsigned char>(SpriteRenderSettings::IterateColumn) |
-		static_cast<unsigned char>(SpriteRenderSettings::IterateRow)
-		);
-}
-
 void CSpriteRenderer::UpdateFrame()
 {
 	if (m_Settings == SpriteRenderSettings::IterateNone || m_pSprite == nullptr) return;
