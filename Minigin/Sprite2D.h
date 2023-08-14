@@ -29,14 +29,14 @@ namespace dae
 		// Public Member Functions
 		//---------------------------
 		void SetColName(unsigned int idx, const std::string& name);
-		void SetRowNames(unsigned int idx, const std::string& name);
+		void SetRowName(unsigned int idx, const std::string& name);
 
 		Texture2D* GetTexture() const { return m_pTexture.get(); }
 		unsigned int GetNrCols() const { return static_cast<unsigned int>(m_ColNames.size()); }
 		unsigned int GetNrRows() const { return static_cast<unsigned int>(m_RowNames.size()); }
 
-		int GetColIdx(const std::string& name) const;
-		int GetRowIdx(const std::string& name) const;
+		unsigned int GetColIdx(const std::string& name) const;
+		unsigned int GetRowIdx(const std::string& name) const;
 
 		Rectangle GetSrcRect(unsigned int colIdx, unsigned int rowIdx) const;
 		Rectangle GetSrcRect(unsigned int idx) const;

@@ -52,7 +52,7 @@ void Sprite2D::SetColName(unsigned int idx, const std::string& name)
 	m_ColNames[idx] = name;
 }
 
-void Sprite2D::SetRowNames(unsigned int idx, const std::string& name)
+void Sprite2D::SetRowName(unsigned int idx, const std::string& name)
 {
 	if (idx >= GetNrRows()) return;
 	if (std::find(m_RowNames.begin(), m_RowNames.end(), name) != m_RowNames.end()) return;
@@ -60,29 +60,32 @@ void Sprite2D::SetRowNames(unsigned int idx, const std::string& name)
 	m_RowNames[idx] = name;
 }
 
-int Sprite2D::GetColIdx(const std::string& name) const
+unsigned int Sprite2D::GetColIdx(const std::string& name) const
 {
-	for (int i{}; i < m_ColNames.size(); ++i)
+	for (unsigned int i{}; i < m_ColNames.size(); ++i)
 	{
 		if (m_ColNames[i] == name) return i;
 	}
 
-	return -1;
+	return UINT_MAX;
 }
 
-int Sprite2D::GetRowIdx(const std::string& name) const
+unsigned int Sprite2D::GetRowIdx(const std::string& name) const
 {
-	for (int i{}; i < m_RowNames.size(); ++i)
+	for (unsigned int i{}; i < m_RowNames.size(); ++i)
 	{
 		if (m_RowNames[i] == name) return i;
 	}
 
-	return -1;
+	return UINT_MAX;
 }
 
 Rectangle Sprite2D::GetSrcRect(unsigned int colIdx, unsigned int rowIdx) const
 {
-	if (colIdx < 0 || rowIdx < 0) return {};
+	if (colIdx == UINT_MAX || rowIdx == UINT_MAX) return {};
+
+	colIdx %= GetNrCols();
+	rowIdx %= GetNrRows();
 
 	Rectangle srcRect{};
 	srcRect.x = static_cast<float>(colIdx * m_TileWidth);
