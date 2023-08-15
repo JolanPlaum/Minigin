@@ -67,10 +67,10 @@ void dae::LoadGame()
 		sprite->SetSettings(SpriteRenderSettings::IterateNone);
 		go->GetTransform().SetLocalPosition(-sprite->GetSize().x / 2.f, 0.f);
 
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, true, 1), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_Q, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, true, 7), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, false, 1), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, false, 7), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Pressed });
+		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::col, 1), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_Q, InputState::Pressed });
+		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::col, 7), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Pressed });
+		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::row, 1), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Pressed });
+		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::row, 7), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Pressed });
 	}
 
 	{
@@ -86,6 +86,14 @@ void dae::LoadGame()
 		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 2.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_2, InputState::Pressed });
 		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 5.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_3, InputState::Pressed });
 		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 10.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_4, InputState::Pressed });
+		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_5, InputState::Pressed });
+
+		Sprite2D& s = *spriteTexture;
+		s.SetTileName(6, 1, "Watermelon");
+		s.SetTileName(3, 2, "FrenchFries");
+
+		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::tile, "Watermelon"), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Pressed });
+		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::tile, "FrenchFries"), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Released });
 	}
 
 

@@ -12,10 +12,20 @@ using namespace dae;
 //-----------------------------------------------------------------
 // Constructors
 //-----------------------------------------------------------------
-SetSpriteIdxCommand::SetSpriteIdxCommand(GameObject* pGameObject, bool isColIdx, int idx)
+SetSpriteIdxCommand::SetSpriteIdxCommand(GameObject* pGameObject, Index indexType, int idx)
 	: GameObjectCommand(pGameObject)
-	, m_IsColIdx{ isColIdx }
+	, m_IsUsingName{ false }
+	, m_IndexType{ indexType }
 	, m_Idx{ idx }
+	, m_Name{}
+{
+}
+SetSpriteIdxCommand::SetSpriteIdxCommand(GameObject* pGameObject, Index indexType, const std::string& name)
+	: GameObjectCommand(pGameObject)
+	, m_IsUsingName{ true }
+	, m_IndexType{ indexType }
+	, m_Idx{}
+	, m_Name{ name }
 {
 }
 
@@ -44,8 +54,23 @@ void SetSpriteIdxCommand::Execute()
 {
 	CSpriteRenderer* pSpriteRenderer = GetGameObject()->GetComponent<CSpriteRenderer>();
 
-	if (m_IsColIdx) pSpriteRenderer->SetColIdx(m_Idx);
-	else pSpriteRenderer->SetRowIdx(m_Idx);
+	switch (m_IndexType)
+	{
+	case Index::col:
+		if (m_IsUsingName) pSpriteRenderer->SetColIdx(m_Name);
+		else pSpriteRenderer->SetColIdx(m_Idx);
+		break;
+
+	case Index::row:
+		if (m_IsUsingName) pSpriteRenderer->SetRowIdx(m_Name);
+		else pSpriteRenderer->SetRowIdx(m_Idx);
+		break;
+
+	case Index::tile:
+		if (m_IsUsingName) pSpriteRenderer->SetTileIdx(m_Name);
+		else pSpriteRenderer->SetTileIdx(m_Idx);
+		break;
+	}
 }
 
 void PauseSpriteCommand::Execute()

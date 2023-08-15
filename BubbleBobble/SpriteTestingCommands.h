@@ -2,6 +2,7 @@
 // Includes
 #include "Command.h"
 #include <glm/vec2.hpp>
+#include <string>
 
 namespace dae
 {
@@ -11,8 +12,16 @@ namespace dae
 	class SetSpriteIdxCommand final : public GameObjectCommand
 	{
 	public:
+		enum class Index
+		{
+			col,
+			row,
+			tile,
+		};
+
 		// Constructors and Destructor
-		explicit SetSpriteIdxCommand(GameObject* pGameObject, bool isColIdx, int idx);
+		explicit SetSpriteIdxCommand(GameObject* pGameObject, Index indexType, int idx);
+		explicit SetSpriteIdxCommand(GameObject* pGameObject, Index indexType, const std::string& name);
 		~SetSpriteIdxCommand() = default;
 		
 		// Copy and Move semantics
@@ -29,8 +38,10 @@ namespace dae
 		
 	private:
 		// Member variables
-		bool m_IsColIdx;
+		bool m_IsUsingName;
+		Index m_IndexType;
 		int m_Idx;
+		std::string m_Name;
 		
 		//---------------------------
 		// Private Member Functions
