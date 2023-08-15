@@ -7,6 +7,8 @@
 #include "CollisionManager.h"
 #include "GameObject.h"
 #include "Transform.h"
+#include "CTextureRenderer.h"
+#include "CSpriteRenderer.h"
 
 using namespace dae;
 using namespace std::placeholders;
@@ -17,6 +19,18 @@ using namespace std::placeholders;
 //-----------------------------------------------------------------
 void BoxCollider2D::Init()
 {
+	if (!m_IsDirty)
+	{
+		if (CTextureRenderer* pTexture{ GetGameObject()->GetComponent<CTextureRenderer>() }; pTexture)
+		{
+			m_Size = pTexture->GetSize();
+		}
+		else if (CSpriteRenderer* pSprite{ GetGameObject()->GetComponent<CSpriteRenderer>() }; pSprite)
+		{
+			m_Size = pSprite->GetSize();
+		}
+	}
+
 	m_SetDirtyHandle = GetGameObject()->GetTransform().GotDirty.AddFunction(
 		std::bind(&BoxCollider2D::SetDirty, this)
 	);
