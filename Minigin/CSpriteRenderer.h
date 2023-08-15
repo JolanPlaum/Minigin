@@ -51,6 +51,8 @@ namespace dae
 		void SetColIdx(const std::string& name);
 		void SetRowIdx(unsigned int idx);
 		void SetRowIdx(const std::string& name);
+		void SetTileIdx(unsigned int idx);
+		void SetTileIdx(const std::string& name);
 
 		glm::ivec2 GetSize() const;
 

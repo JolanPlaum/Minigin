@@ -3,6 +3,7 @@
 #include <memory>
 #include <string>
 #include <vector>
+#include <unordered_map>
 #include "Rectangle.h"
 #include <glm/vec2.hpp>
 
@@ -31,18 +32,27 @@ namespace dae
 		//---------------------------
 		void SetColName(unsigned int idx, const std::string& name);
 		void SetRowName(unsigned int idx, const std::string& name);
+		void SetTileName(unsigned int idx, const std::string& name);
+		void SetTileName(unsigned int colIdx, unsigned int rowIdx, const std::string& name);
 
 		glm::ivec2 GetTileSize() const { return m_TileSize; }
 		Texture2D* GetTexture() const { return m_pTexture.get(); }
 		unsigned int GetNrCols() const { return static_cast<unsigned int>(m_ColNames.size()); }
 		unsigned int GetNrRows() const { return static_cast<unsigned int>(m_RowNames.size()); }
+		unsigned int GetNrTiles() const { return GetNrCols() * GetNrRows(); }
 
 		unsigned int GetColIdx(const std::string& name) const;
 		unsigned int GetRowIdx(const std::string& name) const;
+		unsigned int GetTileIdx(const std::string& name) const;
 
 		Rectangle GetSrcRect(unsigned int colIdx, unsigned int rowIdx) const;
 		Rectangle GetSrcRect(unsigned int idx) const;
 		Rectangle GetSrcRect(const std::string& colName, const std::string& rowName) const;
+		Rectangle GetSrcRect(const std::string& tileName) const;
+
+		unsigned int TileToCol(unsigned int idx) const;
+		unsigned int TileToRow(unsigned int idx) const;
+		unsigned int ColRowToTile(unsigned int colIdx, unsigned int rowIdx) const;
 		
 		
 	private:
@@ -52,6 +62,7 @@ namespace dae
 
 		std::vector<std::string> m_ColNames{};
 		std::vector<std::string> m_RowNames{};
+		std::unordered_map<std::string, unsigned int> m_TileNames{};
 		
 		//---------------------------
 		// Private Member Functions

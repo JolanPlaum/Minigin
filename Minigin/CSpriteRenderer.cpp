@@ -143,8 +143,19 @@ void CSpriteRenderer::SetRowIdx(const std::string& name)
 {
 	if (m_pSprite) SetRowIdx(m_pSprite->GetRowIdx(name));
 }
+void CSpriteRenderer::SetTileIdx(unsigned int idx)
+{
+	if (m_pSprite == nullptr) return;
 
-glm::ivec2 dae::CSpriteRenderer::GetSize() const
+	SetColIdx(m_pSprite->TileToCol(idx));
+	SetRowIdx(m_pSprite->TileToRow(idx));
+}
+void CSpriteRenderer::SetTileIdx(const std::string& name)
+{
+	if (m_pSprite) SetTileIdx(m_pSprite->GetTileIdx(name));
+}
+
+glm::ivec2 CSpriteRenderer::GetSize() const
 {
 	if (m_pSprite) return m_pSprite->GetTileSize();
 	else return {};

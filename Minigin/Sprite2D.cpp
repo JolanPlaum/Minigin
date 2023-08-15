@@ -59,6 +59,26 @@ void Sprite2D::SetRowName(unsigned int idx, const std::string& name)
 	m_RowNames[idx] = name;
 }
 
+void Sprite2D::SetTileName(unsigned int idx, const std::string& name)
+{
+	if (idx >= GetNrCols() * GetNrRows()) return;
+	if (m_TileNames.find(name) != m_TileNames.end()) return;
+
+	auto it = std::find_if(m_TileNames.begin(), m_TileNames.end(), [idx](const std::pair<std::string, unsigned int>& tileName)
+		{
+			return tileName.second == idx;
+		});
+	if (it != m_TileNames.end()) m_TileNames.erase(it);
+	m_TileNames[name] = idx;
+}
+
+void Sprite2D::SetTileName(unsigned int colIdx, unsigned int rowIdx, const std::string& name)
+{
+	if (colIdx >= GetNrCols() || rowIdx >= GetNrRows()) return;
+
+	SetTileName(ColRowToTile(colIdx, rowIdx) , name);
+}
+
 unsigned int Sprite2D::GetColIdx(const std::string& name) const
 {
 	for (unsigned int i{}; i < m_ColNames.size(); ++i)
@@ -79,6 +99,14 @@ unsigned int Sprite2D::GetRowIdx(const std::string& name) const
 	return UINT_MAX;
 }
 
+unsigned int Sprite2D::GetTileIdx(const std::string& name) const
+{
+	auto it = m_TileNames.find(name);
+
+	if (it == m_TileNames.end()) return UINT_MAX;
+	else return it->second;
+}
+
 Rectangle Sprite2D::GetSrcRect(unsigned int colIdx, unsigned int rowIdx) const
 {
 	if (colIdx == UINT_MAX || rowIdx == UINT_MAX) return {};
@@ -97,12 +125,35 @@ Rectangle Sprite2D::GetSrcRect(unsigned int colIdx, unsigned int rowIdx) const
 
 Rectangle Sprite2D::GetSrcRect(unsigned int idx) const
 {
-	return GetSrcRect(idx % GetNrCols(), idx / GetNrCols());
+	return GetSrcRect(TileToCol(idx), TileToRow(idx));
 }
 
 Rectangle Sprite2D::GetSrcRect(const std::string& colName, const std::string& rowName) const
 {
 	return GetSrcRect(GetColIdx(colName), GetRowIdx(rowName));
+}
+
+Rectangle Sprite2D::GetSrcRect(const std::string& tileName) const
+{
+	return GetSrcRect(GetTileIdx(tileName));
+}
+
+unsigned int Sprite2D::TileToCol(unsigned int idx) const
+{
+	if (idx == UINT_MAX) return idx;
+	return idx % GetNrCols();
+}
+
+unsigned int Sprite2D::TileToRow(unsigned int idx) const
+{
+	if (idx == UINT_MAX) return idx;
+	return idx / GetNrCols();
+}
+
+unsigned int Sprite2D::ColRowToTile(unsigned int colIdx, unsigned int rowIdx) const
+{
+	if (colIdx == UINT_MAX || rowIdx >= UINT_MAX) return UINT_MAX;
+	return colIdx + rowIdx * GetNrCols();
 }
 
 
