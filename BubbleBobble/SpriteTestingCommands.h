@@ -37,5 +37,37 @@ namespace dae
 		//---------------------------
 		
 	};
+
+	// Class Declaration
+	class PauseSpriteCommand final : public GameObjectCommand
+	{
+	public:
+		// Constructors and Destructor
+		explicit PauseSpriteCommand(GameObject* pGameObject, float time = FLT_MAX);
+		explicit PauseSpriteCommand(GameObject* pGameObject, bool isPlayCommand, float time = FLT_MAX);
+		~PauseSpriteCommand() = default;
+
+		// Copy and Move semantics
+		PauseSpriteCommand(const PauseSpriteCommand& other)					= delete;
+		PauseSpriteCommand& operator=(const PauseSpriteCommand& other)		= delete;
+		PauseSpriteCommand(PauseSpriteCommand&& other) noexcept				= delete;
+		PauseSpriteCommand& operator=(PauseSpriteCommand&& other) noexcept	= delete;
+
+		//---------------------------
+		// Public Member Functions
+		//---------------------------
+		void Execute() override;
+
+
+	private:
+		// Member variables
+		bool m_IsPlayCommand;
+		float m_Time;
+
+		//---------------------------
+		// Private Member Functions
+		//---------------------------
+
+	};
 }
 
