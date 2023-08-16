@@ -61,7 +61,7 @@ void dae::LoadGame()
 	{
 		auto go = scene.CreateObject();
 		go->SetParent(parent);
-		auto spriteTexture = std::make_shared<Sprite2D>(ResourceManager::GetInstance().LoadTexture("BubbleBobble/Sprites/LevelTilesBig.png"), 10, 1);
+		auto spriteTexture = ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/LevelTilesBig.png");
 		auto sprite = go->AddComponent<CSpriteRenderer>();
 		sprite->SetSprite(spriteTexture);
 		sprite->SetSettings(SpriteRenderSettings::IterateNone);
@@ -76,7 +76,7 @@ void dae::LoadGame()
 	{
 		auto go = scene.CreateObject();
 		go->SetParent(parent);
-		auto spriteTexture = std::make_shared<Sprite2D>(ResourceManager::GetInstance().LoadTexture("BubbleBobble/Sprites/Items.png"), 13, 8);
+		auto spriteTexture = ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Items.png");
 		auto sprite = go->AddComponent<CSpriteRenderer>();
 		sprite->SetSprite(spriteTexture, 10.f / 60);
 		go->GetTransform().SetLocalPosition(-sprite->GetSize().x / 2.f, 0.f);
@@ -88,9 +88,9 @@ void dae::LoadGame()
 		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 10.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_4, InputState::Pressed });
 		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_5, InputState::Pressed });
 
-		Sprite2D& s = *spriteTexture;
-		s.SetTileName(6, 1, "Watermelon");
-		s.SetTileName(3, 2, "FrenchFries");
+		//Sprite2D& s = *spriteTexture;
+		//s.SetTileName(6, 1, "Watermelon");
+		//s.SetTileName(3, 2, "FrenchFries");
 
 		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::tile, "Watermelon"), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Pressed });
 		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::tile, "FrenchFries"), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Released });
