@@ -1,0 +1,9 @@
+nrCols: 13
+nrRows: 8
+columns: []
+rows: []
+tiles:
+- index: 19
+  name: Watermelon
+- index: 29
+  name: FrenchFries
