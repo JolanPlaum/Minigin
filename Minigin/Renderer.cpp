@@ -26,6 +26,9 @@ void dae::Renderer::Init(SDL_Window* window)
 	{
 		throw std::runtime_error(std::string("SDL_CreateRenderer Error: ") + SDL_GetError());
 	}
+
+	int temp;
+	SDL_GetRendererOutputSize(m_renderer, &temp, &m_WindowHeight);
 }
 
 void dae::Renderer::Render() const
@@ -61,10 +64,10 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y) co
 void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const
 {
 	SDL_Rect dst{};
-	dst.x = static_cast<int>(x);
-	dst.y = static_cast<int>(y);
 	dst.w = static_cast<int>(abs(width));
 	dst.h = static_cast<int>(abs(height));
+	dst.x = static_cast<int>(x);
+	dst.y = m_WindowHeight - dst.h - static_cast<int>(y);
 
 	int flip{};
 	if (width < 0.f) flip |= SDL_FLIP_HORIZONTAL;
@@ -76,10 +79,10 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, float x, float y, fl
 void dae::Renderer::RenderTexture(const Texture2D& texture, const Rectangle& dstRect, const Rectangle& srcRect) const
 {
 	SDL_Rect dst{}, src{};
-	dst.x = static_cast<int>(dstRect.x);
-	dst.y = static_cast<int>(dstRect.y);
 	dst.w = static_cast<int>(abs(dstRect.w));
 	dst.h = static_cast<int>(abs(dstRect.h));
+	dst.x = static_cast<int>(dstRect.x);
+	dst.y = m_WindowHeight - dst.h - static_cast<int>(dstRect.y);
 
 	src.x = static_cast<int>(srcRect.x);
 	src.y = static_cast<int>(srcRect.y);
