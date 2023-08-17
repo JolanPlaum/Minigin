@@ -1,7 +1,6 @@
 #include "GameSelector.h"
 #include "SceneManager.h"
 #include "Scene.h"
-#include "ResourceManager.h"
 #include "GameObject.h"
 #include "Transform.h"
 
@@ -14,11 +13,10 @@
 #include "CTextureRenderer.h"
 #include "CTextTexture.h"
 #elif defined(SinglePlayer)
-#include "CSpriteRenderer.h"
-#include "Sprite2D.h"
-#include "Texture2D.h"
-#include "SpriteTestingCommands.h"
-#include "InputManager.h"
+#include "LevelTiles.h"
+#include <glm/vec2.hpp>
+#include <vector>
+#include "Renderer.h"
 #endif
 
 void dae::LoadGame()
@@ -52,52 +50,170 @@ void dae::LoadGame()
 
 #elif defined(SinglePlayer)
 	auto& scene = SceneManager::GetInstance().CreateScene("SinglePlayer");
-	auto& input = InputManager::GetInstance();
 
-	auto parent = scene.CreateObject();
-	parent->GetTransform().SetLocalPosition(200, 150);
-	parent->GetTransform().SetLocalScale(3);
+	const glm::vec2 gameSize{ 256, 224 };
+	glm::ivec2 screenSize{};
+	SDL_GetRendererOutputSize(Renderer::GetInstance().GetSDLRenderer(), &screenSize.x, &screenSize.y);
 
+	// Calculate game to screen scalar and center position
+	float baseScale{ trunc(std::min(screenSize.x / gameSize.x, screenSize.y / gameSize.y)) };
+	glm::vec2 baseOffset{ (screenSize.x - gameSize.x * baseScale) / 2.f, 0.f };
+
+	// Parent of all the tiles
 	{
-		auto go = scene.CreateObject();
-		go->SetParent(parent);
-		auto spriteTexture = ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/LevelTilesBig.png");
-		auto sprite = go->AddComponent<CSpriteRenderer>();
-		sprite->SetSprite(spriteTexture);
-		sprite->SetSettings(SpriteRenderSettings::IterateNone);
-		go->GetTransform().SetLocalPosition(-sprite->GetSize().x / 2.f, 0.f);
+		GameObject* pWorld = scene.CreateObject();
+		pWorld->GetTransform().SetLocalScale(baseScale);
+		pWorld->GetTransform().SetLocalPosition(baseOffset);
 
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::col, 1), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_Q, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::col, 7), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_W, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::row, 1), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_A, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::row, 7), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_S, InputState::Pressed });
+		std::vector<glm::vec2> bigTiles{
+			// Left Big Wall
+			{   0,   0 },
+			{   0,  16 },
+			{   0,  32 },
+			{   0,  48 },
+			{   0,  64 },
+			{   0,  80 },
+			{   0,  96 },
+			{   0, 112 },
+			{   0, 128 },
+			{   0, 144 },
+			{   0, 160 },
+			{   0, 176 },
+			{   0, 192 },
+
+			// Right Big Wall
+			{ 240,   0 },
+			{ 240,  16 },
+			{ 240,  32 },
+			{ 240,  48 },
+			{ 240,  64 },
+			{ 240,  80 },
+			{ 240,  96 },
+			{ 240, 112 },
+			{ 240, 128 },
+			{ 240, 144 },
+			{ 240, 160 },
+			{ 240, 176 },
+			{ 240, 192 }
+		};
+		std::vector<glm::vec2> smallTiles{
+			// Bottom Floor
+			{  16,   0 },
+			{  24,   0 },
+			{  32,   0 },
+			{  40,   0 },
+			{  48,   0 },
+			{  56,   0 },
+			{  64,   0 },
+
+			{ 104,   0 },
+			{ 112,   0 },
+			{ 120,   0 },
+			{ 128,   0 },
+			{ 136,   0 },
+			{ 144,   0 },
+
+			{ 184,   0 },
+			{ 192,   0 },
+			{ 200,   0 },
+			{ 208,   0 },
+			{ 216,   0 },
+			{ 224,   0 },
+			{ 232,   0 },
+
+			// Bottom Holes
+			{  72,   0 },
+			{  80,   0 },
+			{  88,   0 },
+			{  96,   0 },
+
+			{ 152,   0 },
+			{ 160,   0 },
+			{ 168,   0 },
+			{ 176,   0 },
+
+			// Platform 1		Platform 2			Platform 3
+			{  16,  40 },		{  16,  80 },		{  16, 120 },
+			{  24,  40 },		{  24,  80 },		{  24, 120 },
+			{  56,  40 },		{  56,  80 },		{  56, 120 },
+			{  64,  40 },		{  64,  80 },		{  64, 120 },
+			{  72,  40 },		{  72,  80 },		{  72, 120 },
+			{  80,  40 },		{  80,  80 },		{  80, 120 },
+			{  88,  40 },		{  88,  80 },		{  88, 120 },
+			{  96,  40 },		{  96,  80 },		{  96, 120 },
+			{ 104,  40 },		{ 104,  80 },		{ 104, 120 },
+			{ 112,  40 },		{ 112,  80 },		{ 112, 120 },
+			{ 120,  40 },		{ 120,  80 },		{ 120, 120 },
+			{ 128,  40 },		{ 128,  80 },		{ 128, 120 },
+			{ 136,  40 },		{ 136,  80 },		{ 136, 120 },
+			{ 144,  40 },		{ 144,  80 },		{ 144, 120 },
+			{ 152,  40 },		{ 152,  80 },		{ 152, 120 },
+			{ 160,  40 },		{ 160,  80 },		{ 160, 120 },
+			{ 168,  40 },		{ 168,  80 },		{ 168, 120 },
+			{ 176,  40 },		{ 176,  80 },		{ 176, 120 },
+			{ 184,  40 },		{ 184,  80 },		{ 184, 120 },
+			{ 192,  40 },		{ 192,  80 },		{ 192, 120 },
+			{ 224,  40 },		{ 224,  80 },		{ 224, 120 },
+			{ 232,  40 },		{ 232,  80 },		{ 232, 120 },
+		};
+		std::vector<glm::vec2> topTiles{
+			// Top Roof
+			{  16, 200 },
+			{  24, 200 },
+			{  32, 200 },
+			{  40, 200 },
+			{  48, 200 },
+			{  56, 200 },
+			{  64, 200 },
+
+			{ 104, 200 },
+			{ 112, 200 },
+			{ 120, 200 },
+			{ 128, 200 },
+			{ 136, 200 },
+			{ 144, 200 },
+
+			{ 184, 200 },
+			{ 192, 200 },
+			{ 200, 200 },
+			{ 208, 200 },
+			{ 216, 200 },
+			{ 224, 200 },
+			{ 232, 200 },
+
+			// Top Holes
+			{  72, 200 },
+			{  80, 200 },
+			{  88, 200 },
+			{  96, 200 },
+
+			{ 152, 200 },
+			{ 160, 200 },
+			{ 168, 200 },
+			{ 176, 200 }
+		};
+
+		for (const glm::vec2& pos : bigTiles)
+		{
+			GameObject* pGo = LevelTileBig(scene, 0);
+			pGo->SetParent(pWorld);
+			pGo->GetTransform().SetLocalPosition(pos);
+		}
+		for (const glm::vec2& pos : smallTiles)
+		{
+			GameObject* pGo = LevelTileSmall(scene, 0);
+			pGo->SetParent(pWorld);
+			pGo->GetTransform().SetLocalPosition(pos);
+		}
+		for (const glm::vec2& pos : topTiles)
+		{
+			GameObject* pGo = LevelTileSmall(scene, 0);
+			pGo->RemoveComponent<BoxCollider2D>();
+			pGo->SetTag("");
+			pGo->SetParent(pWorld);
+			pGo->GetTransform().SetLocalPosition(pos);
+		}
 	}
-
-	{
-		auto go = scene.CreateObject();
-		go->SetParent(parent);
-		auto spriteTexture = ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Items.png");
-		auto sprite = go->AddComponent<CSpriteRenderer>();
-		sprite->SetSprite(spriteTexture, 10.f / 60);
-		go->GetTransform().SetLocalPosition(-sprite->GetSize().x / 2.f, 0.f);
-
-		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, true), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_P, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 1.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_1, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 2.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_2, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 5.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_3, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go, 10.f), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_4, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<PauseSpriteCommand>(go), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_5, InputState::Pressed });
-
-		//Sprite2D& s = *spriteTexture;
-		//s.SetTileName(6, 1, "Watermelon");
-		//s.SetTileName(3, 2, "FrenchFries");
-
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::tile, "Watermelon"), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Pressed });
-		input.AddKeyboardCommand(std::make_unique<SetSpriteIdxCommand>(go, SetSpriteIdxCommand::Index::tile, "FrenchFries"), InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_E, InputState::Released });
-	}
-
-
-	//go->GetTransform().setwo
 
 #endif
 }
