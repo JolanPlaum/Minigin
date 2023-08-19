@@ -9,6 +9,7 @@
 #include "Transform.h"
 #include "CTextureRenderer.h"
 #include "CSpriteRenderer.h"
+#include "Renderer.h"
 
 using namespace dae;
 using namespace std::placeholders;
@@ -56,6 +57,11 @@ void BoxCollider2D::OnDestroy()
 //-----------------------------------------------------------------
 // Public Member Functions
 //-----------------------------------------------------------------
+void BoxCollider2D::Render() const
+{
+	//Renderer::GetInstance().DrawRect(Rectangle(m_BoxBoundaries));
+}
+
 void BoxCollider2D::SetOffset(glm::vec2 offset)
 {
 	m_Offset = offset;

@@ -29,6 +29,7 @@ namespace dae
 		//---------------------------
 		void Init() override;
 		void OnDestroy() override;
+		void Render() const override;
 
 		void SetOffset(glm::vec2 offset);
 		void SetSize(glm::vec2 size);

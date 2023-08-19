@@ -24,6 +24,8 @@ namespace dae
 		void RenderTexture(const Texture2D& texture, float x, float y, float width, float height) const;
 		void RenderTexture(const Texture2D& texture, const Rectangle& dstRect, const Rectangle& srcRect) const;
 
+		void DrawRect(const Rectangle& rect, SDL_Color color = { 255,0,0 }) const;
+
 		SDL_Renderer* GetSDLRenderer() const;
 
 		const SDL_Color& GetBackgroundColor() const { return m_clearColor; }

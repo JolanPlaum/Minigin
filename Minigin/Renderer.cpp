@@ -96,4 +96,16 @@ void dae::Renderer::RenderTexture(const Texture2D& texture, const Rectangle& dst
 	SDL_RenderCopyEx(GetSDLRenderer(), texture.GetSDLTexture(), &src, &dst, 0, nullptr, static_cast<SDL_RendererFlip>(flip));
 }
 
+void dae::Renderer::DrawRect(const Rectangle& rect, SDL_Color color) const
+{
+	SDL_Rect dst{};
+	dst.w = static_cast<int>(abs(rect.w));
+	dst.h = static_cast<int>(abs(rect.h));
+	dst.x = static_cast<int>(rect.x);
+	dst.y = m_WindowHeight - dst.h - static_cast<int>(rect.y);
+
+	SDL_SetRenderDrawColor(m_renderer, color.r, color.g, color.b, color.a);
+	SDL_RenderDrawRect(m_renderer, &dst);
+}
+
 inline SDL_Renderer* dae::Renderer::GetSDLRenderer() const { return m_renderer; }
