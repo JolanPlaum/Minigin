@@ -19,6 +19,7 @@
 #include "Renderer.h"
 #include "EntityCollision.h"
 #include "Dragon.h"
+#include "KeepSpriteSheetCentered.h"
 #endif
 
 void dae::LoadGame()
@@ -223,22 +224,31 @@ void dae::LoadGame()
 	{
 		GameObject* pGo = scene.CreateObject();
 		pGo->SetTag("Friendly");
-		pGo->GetTransform().SetLocalPosition({ 300, 200 });
+		pGo->GetTransform().SetLocalPosition({ gameSize / 2.f });
 		pGo->SetParent(pBaseParent);
 
+		// Visuals
+		{
+			GameObject* pVisuals = scene.CreateObject();
+			pVisuals->SetParent(pGo);
+
+			pVisuals->AddComponent<KeepSpriteSheetCentered>();
+			auto pRenderer = pVisuals->AddComponent<CSpriteRenderer>();
+
+			pRenderer->SetSprite(ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Dragon/Idle_Anim.png"));
+			pRenderer->SetSettings(SpriteRenderSettings::IterateColumn);
+		}
+
 		// Add components
-		auto pRenderer = pGo->AddComponent<CSpriteRenderer>();
-		auto pCollider = pGo->AddComponent<BoxCollider2D>();
 		pGo->AddComponent<EntityCollision>();
+		auto pCollider = pGo->AddComponent<BoxCollider2D>();
 		auto pDragon = pGo->AddComponent<Dragon>();
 
 		// Alter components
-		pRenderer->SetSprite(ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Dragon/Idle_Anim.png"));
-		pRenderer->SetSettings(SpriteRenderSettings::IterateColumn);
-		pCollider->SetSize(glm::vec2{ pRenderer->GetSize().x * 0.75f });
-		pCollider->SetOffset(glm::vec2{ pRenderer->GetSize().x * 0.25f / 2.f, 0.f });
+		pCollider->SetSize(glm::vec2{ 12, 12 });
+		pCollider->SetOffset(glm::vec2{ -6.f, 0.f });
 		pDragon->SetPlayerIdx(Player::One);
-		pDragon->TransitionToNewLevel({ 24, 8 });
+		pDragon->TransitionToNewLevel({ 32, 8 });
 		pDragon->NewLevelLoaded();
 	}
 

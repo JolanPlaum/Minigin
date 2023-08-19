@@ -134,13 +134,14 @@ void EntityCollision::OnCollisionNotify(GameObject* pOther)
 		}
 	}
 
+	if (displacementCorrection == glm::vec2{ 0,0 }) return;
 
 	displacementCorrection /= glm::abs(GetGameObject()->GetTransform().GetWorldScale());
 	auto pos = GetGameObject()->GetTransform().GetLocalPosition();
 	GetGameObject()->GetTransform().SetLocalPosition(pos + displacementCorrection);
 
 	//todo: remove this once lateUpdate has been implemented
-	//m_CurrentPosition = GetGameObject()->GetTransform().GetWorldPosition();
+	m_CurrentPosition = GetGameObject()->GetTransform().GetWorldPosition();
 }
 
 bool EntityCollision::IsLeftCollision(const Boundaries& bounds, const Boundaries& otherBounds) const
