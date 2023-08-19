@@ -36,6 +36,9 @@
     <ClCompile Include="EntityCollision.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="KeepSpriteSheetCentered.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSelector.h" />
@@ -58,6 +61,9 @@
       <Filter>Commands</Filter>
     </ClInclude>
     <ClInclude Include="EntityCollision.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="KeepSpriteSheetCentered.h">
       <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>

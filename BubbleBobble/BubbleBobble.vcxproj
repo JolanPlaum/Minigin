@@ -169,6 +169,7 @@
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="DragonPlayerStates.cpp" />
     <ClCompile Include="EntityCollision.cpp" />
+    <ClCompile Include="KeepSpriteSheetCentered.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameSelector.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
@@ -179,6 +180,7 @@
     <ClInclude Include="DragonPlayerStates.h" />
     <ClInclude Include="EntityCollision.h" />
     <ClInclude Include="GameSelector.h" />
+    <ClInclude Include="KeepSpriteSheetCentered.h" />
     <ClInclude Include="LevelTiles.h" />
     <ClInclude Include="MoveCommand.h" />
     <ClInclude Include="SpriteTestingCommands.h" />
