@@ -66,8 +66,6 @@ namespace dae
 		// Private Member Functions
 		//---------------------------
 		void OnCollisionNotify(GameObject* pOther);
-
-		void SetState(std::unique_ptr<State>& pState, std::unique_ptr<State> pNewState) const;
 		
 	};
 }

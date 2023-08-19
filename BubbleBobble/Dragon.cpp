@@ -69,12 +69,3 @@ void Dragon::OnCollisionNotify(GameObject*)
 {
 }
 
-void Dragon::SetState(std::unique_ptr<State>& pState, std::unique_ptr<State> pNewState) const
-{
-	if (pState) pState->OnExit();
-
-	pState = std::move(pNewState);
-
-	if (pState) pState->OnEnter();
-}
-

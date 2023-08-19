@@ -26,6 +26,16 @@ namespace dae
 		virtual std::unique_ptr<State> Transition() = 0;
 	};
 
+	// Public funtion for switching states
+	void SetState(std::unique_ptr<State>& pState, std::unique_ptr<State> pNewState)
+	{
+		if (pState) pState->OnExit();
+
+		pState = std::move(pNewState);
+
+		if (pState) pState->OnEnter();
+	}
+
 
 	//=============================
 	// GameObject State Class
