@@ -26,6 +26,7 @@ void TimeManager::Tick()
 
 	//Calculate difference between previous and current time
 	m_DeltaTime = duration<float>(currentTime - m_PrevTime).count();
+	m_DeltaTime = std::min(m_DeltaTime, m_MaxDeltaTime);
 
 	//Calculate fps
 	m_FPS = 1.f / m_DeltaTime;
