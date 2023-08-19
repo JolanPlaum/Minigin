@@ -17,6 +17,8 @@
 #include <glm/vec2.hpp>
 #include <vector>
 #include "Renderer.h"
+#include "EntityCollision.h"
+#include "Dragon.h"
 #endif
 
 void dae::LoadGame()
@@ -58,12 +60,14 @@ void dae::LoadGame()
 	// Calculate game to screen scalar and center position
 	float baseScale{ trunc(std::min(screenSize.x / gameSize.x, screenSize.y / gameSize.y)) };
 	glm::vec2 baseOffset{ (screenSize.x - gameSize.x * baseScale) / 2.f, 0.f };
+	GameObject* pBaseParent = scene.CreateObject();
+	pBaseParent->GetTransform().SetLocalScale(baseScale);
+	pBaseParent->GetTransform().SetLocalPosition(baseOffset);
 
 	// Parent of all the tiles
 	{
 		GameObject* pWorld = scene.CreateObject();
-		pWorld->GetTransform().SetLocalScale(baseScale);
-		pWorld->GetTransform().SetLocalPosition(baseOffset);
+		pWorld->SetParent(pBaseParent);
 
 		std::vector<glm::vec2> bigTiles{
 			// Left Big Wall
@@ -115,17 +119,17 @@ void dae::LoadGame()
 
 			{ 184,   0 },
 			{ 192,   0 },
-			{ 200,   0 },
-			{ 208,   0 },
+			{ 200, 0 },
+			{ 208, 0 },
 			{ 216,   0 },
 			{ 224,   0 },
 			{ 232,   0 },
 
 			// Bottom Holes
-			{  72,   0 },
-			{  80,   0 },
-			{  88,   0 },
-			{  96,   0 },
+			{ 72,   0 },
+			{ 80,   0 },
+			{ 88,   0 },
+			{ 96,   0 },
 
 			{ 152,   0 },
 			{ 160,   0 },
@@ -133,28 +137,28 @@ void dae::LoadGame()
 			{ 176,   0 },
 
 			// Platform 1		Platform 2			Platform 3
-			{  16,  40 },		{  16,  80 },		{  16, 120 },
-			{  24,  40 },		{  24,  80 },		{  24, 120 },
-			{  56,  40 },		{  56,  80 },		{  56, 120 },
-			{  64,  40 },		{  64,  80 },		{  64, 120 },
-			{  72,  40 },		{  72,  80 },		{  72, 120 },
-			{  80,  40 },		{  80,  80 },		{  80, 120 },
-			{  88,  40 },		{  88,  80 },		{  88, 120 },
-			{  96,  40 },		{  96,  80 },		{  96, 120 },
-			{ 104,  40 },		{ 104,  80 },		{ 104, 120 },
-			{ 112,  40 },		{ 112,  80 },		{ 112, 120 },
-			{ 120,  40 },		{ 120,  80 },		{ 120, 120 },
-			{ 128,  40 },		{ 128,  80 },		{ 128, 120 },
-			{ 136,  40 },		{ 136,  80 },		{ 136, 120 },
-			{ 144,  40 },		{ 144,  80 },		{ 144, 120 },
-			{ 152,  40 },		{ 152,  80 },		{ 152, 120 },
-			{ 160,  40 },		{ 160,  80 },		{ 160, 120 },
-			{ 168,  40 },		{ 168,  80 },		{ 168, 120 },
-			{ 176,  40 },		{ 176,  80 },		{ 176, 120 },
-			{ 184,  40 },		{ 184,  80 },		{ 184, 120 },
-			{ 192,  40 },		{ 192,  80 },		{ 192, 120 },
-			{ 224,  40 },		{ 224,  80 },		{ 224, 120 },
-			{ 232,  40 },		{ 232,  80 },		{ 232, 120 },
+			{ 16,  40 }, { 16,  80 }, { 16, 120 },
+			{ 24,  40 }, { 24,  80 }, { 24, 120 },
+			{ 56,  40 }, { 56,  80 }, { 56, 120 },
+			{ 64,  40 }, { 64,  80 }, { 64, 120 },
+			{ 72,  40 }, { 72,  80 }, { 72, 120 },
+			{ 80,  40 }, { 80,  80 }, { 80, 120 },
+			{ 88,  40 }, { 88,  80 }, { 88, 120 },
+			{ 96,  40 }, { 96,  80 }, { 96, 120 },
+			{ 104,  40 }, { 104,  80 }, { 104, 120 },
+			{ 112,  40 }, { 112,  80 }, { 112, 120 },
+			{ 120,  40 }, { 120,  80 }, { 120, 120 },
+			{ 128,  40 }, { 128,  80 }, { 128, 120 },
+			{ 136,  40 }, { 136,  80 }, { 136, 120 },
+			{ 144,  40 }, { 144,  80 }, { 144, 120 },
+			{ 152,  40 }, { 152,  80 }, { 152, 120 },
+			{ 160,  40 }, { 160,  80 }, { 160, 120 },
+			{ 168,  40 }, { 168,  80 }, { 168, 120 },
+			{ 176,  40 }, { 176,  80 }, { 176, 120 },
+			{ 184,  40 }, { 184,  80 }, { 184, 120 },
+			{ 192,  40 }, { 192,  80 }, { 192, 120 },
+			{ 224,  40 }, { 224,  80 }, { 224, 120 },
+			{ 232,  40 }, { 232,  80 }, { 232, 120 },
 		};
 		std::vector<glm::vec2> topTiles{
 			// Top Roof
@@ -213,6 +217,29 @@ void dae::LoadGame()
 			pGo->SetParent(pWorld);
 			pGo->GetTransform().SetLocalPosition(pos);
 		}
+	}
+
+	// Player
+	{
+		GameObject* pGo = scene.CreateObject();
+		pGo->SetTag("Friendly");
+		pGo->GetTransform().SetLocalPosition({ 300, 200 });
+		pGo->SetParent(pBaseParent);
+
+		// Add components
+		auto pRenderer = pGo->AddComponent<CSpriteRenderer>();
+		auto pCollider = pGo->AddComponent<BoxCollider2D>();
+		pGo->AddComponent<EntityCollision>();
+		auto pDragon = pGo->AddComponent<Dragon>();
+
+		// Alter components
+		pRenderer->SetSprite(ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Dragon/Idle_Anim.png"));
+		pRenderer->SetSettings(SpriteRenderSettings::IterateColumn);
+		pCollider->SetSize(glm::vec2{ pRenderer->GetSize().x * 0.75f });
+		pCollider->SetOffset(glm::vec2{ pRenderer->GetSize().x * 0.25f / 2.f, 0.f });
+		pDragon->SetPlayerIdx(Player::One);
+		pDragon->TransitionToNewLevel({ 24, 8 });
+		pDragon->NewLevelLoaded();
 	}
 
 #endif

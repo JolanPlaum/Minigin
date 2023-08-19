@@ -14,12 +14,27 @@
     <Filter Include="Prefabs">
       <UniqueIdentifier>{0334cd8f-908d-4095-a44c-5f17ae1586e1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="States">
+      <UniqueIdentifier>{5e9dfbad-9924-4019-aa1c-cb639a5c20cd}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameSelector.cpp" />
     <ClCompile Include="SpriteTestingCommands.cpp">
       <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="Dragon.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="DragonPlayerStates.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="MoveCommand.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="EntityCollision.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -29,6 +44,21 @@
     </ClInclude>
     <ClInclude Include="LevelTiles.h">
       <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="State.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Dragon.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="DragonPlayerStates.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="MoveCommand.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="EntityCollision.h">
+      <Filter>Components</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
