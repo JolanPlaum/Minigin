@@ -2,6 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "MoveCommand.h"
+#include <glm/geometric.hpp>
 #include "TimeManager.h"
 #include "GameObject.h"
 #include "Transform.h"
@@ -14,7 +15,7 @@ using namespace dae;
 //-----------------------------------------------------------------
 MoveCommand::MoveCommand(GameObject* pGameObject, glm::vec2 direction, float speed)
 	: GameObjectCommand(pGameObject)
-	, m_Direction(direction)
+	, m_Direction(glm::normalize(direction))
 	, m_Speed(speed)
 {
 }
