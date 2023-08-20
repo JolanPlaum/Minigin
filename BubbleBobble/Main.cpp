@@ -6,11 +6,14 @@
 #endif
 
 #include <SDL.h>
+#include <time.h>
 #include "Minigin.h"
 #include "GameSelector.h"
 
 int main(int, char* [])
 {
+	srand(static_cast<unsigned int>(time(nullptr)));
+
 	dae::Minigin engine("../Data/");
 	engine.Run(dae::LoadGame);
 
