@@ -32,7 +32,7 @@ namespace dae
 	
 	private:
 		// Member variables
-		float m_MaxDeltaTime{ 0.1f };
+		float m_MaxDeltaTime{ 0.05f };
 		float m_DeltaTime{};
 		float m_FPS{};
 

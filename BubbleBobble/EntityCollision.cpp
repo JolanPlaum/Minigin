@@ -74,7 +74,7 @@ void EntityCollision::OnCollisionNotify(GameObject* pOther)
 	Boundaries otherBounds{ pOther->GetComponent<BoxCollider2D>()->GetBoxBoundaries() };
 
 	glm::vec2 displacementCorrection{};
-	const float overlappingX{ 0.2f }, overlappingY{ 0.4f };
+	const float overlappingX{ 0.2f }, overlappingY{ 0.5f };
 
 	if (m_IsCollisionStatic && pOther->GetTag() == "StaticLevel")
 	{

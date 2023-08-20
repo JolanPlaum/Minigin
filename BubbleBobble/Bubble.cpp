@@ -146,7 +146,9 @@ void Bubble::OnCollisionNotify(GameObject* pOther)
 	{
 		glm::vec2 direction{ GetGameObject()->GetTransform().GetWorldPosition() - pOther->GetTransform().GetWorldPosition() };
 		float bubbleSize{ bounds.x2 - bounds.x1 };
-		float distanceToOtherBubble{ glm::length(direction) };
+		float distanceToOtherBubble{ glm::clamp(glm::length(direction), 0.001f, bubbleSize) };
+
+		if (distanceToOtherBubble <= 0.001f) return;
 
 		float speed{ 5.f };
 		float ratio{ bubbleSize / distanceToOtherBubble };
