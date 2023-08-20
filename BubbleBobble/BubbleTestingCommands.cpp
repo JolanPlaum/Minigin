@@ -2,7 +2,7 @@
 // Includes
 //-----------------------------------------------------------------
 #include "BubbleTestingCommands.h"
-#include "Bubbles.h"
+#include "BubblesPrefab.h"
 
 using namespace dae;
 

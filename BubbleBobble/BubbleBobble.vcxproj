@@ -180,7 +180,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bubble.h" />
-    <ClInclude Include="Bubbles.h" />
+    <ClInclude Include="BubblesPrefab.h" />
     <ClInclude Include="BubbleStates.h" />
     <ClInclude Include="BubbleTestingCommands.h" />
     <ClInclude Include="Dragon.h" />

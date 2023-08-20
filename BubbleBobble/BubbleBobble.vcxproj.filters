@@ -81,7 +81,7 @@
     <ClInclude Include="Bubble.h">
       <Filter>Components</Filter>
     </ClInclude>
-    <ClInclude Include="Bubbles.h">
+    <ClInclude Include="BubblesPrefab.h">
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="BubbleTestingCommands.h">
