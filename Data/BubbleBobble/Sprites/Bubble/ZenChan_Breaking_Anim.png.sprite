@@ -1,0 +1,15 @@
+nrCols: 3
+nrRows: 2
+columns:
+- index: 0
+  name: Right
+- index: 1
+  name: Middle
+- index: 2
+  name: Left
+rows:
+- index: 0
+  name: Light
+- index: 1
+  name: Dark
+tiles: []

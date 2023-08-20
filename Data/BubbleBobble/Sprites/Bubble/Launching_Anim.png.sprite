@@ -1,0 +1,9 @@
+nrCols: 3
+nrRows: 2
+columns: []
+rows:
+- index: 0
+  name: Green
+- index: 1
+  name: Blue
+tiles: []
