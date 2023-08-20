@@ -24,10 +24,10 @@ namespace dae
 		float x2{}, y2{};
 	};
 
-	bool IsLeftCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-	bool IsRightCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-	bool IsBottomCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-	bool IsTopCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
+	bool IsLeftCollision(const Boundaries& bounds, const Boundaries& otherBounds);
+	bool IsRightCollision(const Boundaries& bounds, const Boundaries& otherBounds);
+	bool IsBottomCollision(const Boundaries& bounds, const Boundaries& otherBounds);
+	bool IsTopCollision(const Boundaries& bounds, const Boundaries& otherBounds);
 
 	float OverlapPercentageX(const Boundaries& bounds, const Boundaries& otherBounds);
 	float OverlapPercentageY(const Boundaries& bounds, const Boundaries& otherBounds);
