@@ -56,6 +56,7 @@ namespace dae
 		GameObject* GetParent() const { return m_pParent; }
 		const std::vector<std::unique_ptr<GameObject>>& GetChildren() const { return m_Children; }
 		std::string GetTag() const { return m_Tag; }
+		Scene* GetScene() const;
 
 
 	private:
@@ -81,8 +82,6 @@ namespace dae
 
 		void CleanupComponents();
 		void CleanupChildren();
-
-		Scene* GetScene() const;
 
 	};
 

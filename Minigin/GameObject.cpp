@@ -151,6 +151,15 @@ void GameObject::SetTag(const std::string& tag)
 	else m_Tag = tag;
 }
 
+Scene* GameObject::GetScene() const
+{
+	if (m_pScene) return m_pScene;
+
+	if (m_pParent) return m_pParent->GetScene();
+
+	return nullptr;
+}
+
 
 //-----------------------------------------------------------------
 // Private Member Functions
@@ -212,14 +221,5 @@ void GameObject::CleanupChildren()
 	std::erase_if(m_Children, [](const std::unique_ptr<GameObject>& child) {
 		return child->IsDestroyed();
 		});
-}
-
-Scene* GameObject::GetScene() const
-{
-	if (m_pScene) return m_pScene;
-
-	if (m_pParent) return m_pParent->GetScene();
-
-	return nullptr;
 }
 
