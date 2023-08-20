@@ -56,6 +56,7 @@ namespace dae
 
 		glm::ivec2 GetSize() const;
 
+		Event<> Unpaused{};
 		Event<> Restarted{};
 		Event<> AnimationLooped{}; //todo: add the amount of loops as a parameter
 		

@@ -89,6 +89,8 @@ void CSpriteRenderer::Play()
 	m_AccuSec = 0.f;
 
 	UpdateFrame();
+
+	Unpaused.Notify();
 }
 void CSpriteRenderer::Restart()
 {
