@@ -144,10 +144,15 @@ void Bubble::OnCollisionNotify(GameObject* pOther)
 	}
 	else if (m_IsNotBeingLaunched && pOther->GetTag() == "Bubble")
 	{
-		glm::vec2 direction{ glm::normalize(GetGameObject()->GetTransform().GetWorldPosition() - pOther->GetTransform().GetWorldPosition()) };
+		glm::vec2 direction{ GetGameObject()->GetTransform().GetWorldPosition() - pOther->GetTransform().GetWorldPosition() };
+		float bubbleSize{ bounds.x2 - bounds.x1 };
+		float distanceToOtherBubble{ glm::length(direction) };
+
+		float speed{ 5.f };
+		float ratio{ bubbleSize / distanceToOtherBubble };
 
 		auto pos = GetGameObject()->GetTransform().GetLocalPosition();
-		GetGameObject()->GetTransform().SetLocalPosition(pos + direction);
+		GetGameObject()->GetTransform().SetLocalPosition(pos + ratio * speed * TimeManager::GetInstance().GetDeltaTime() * glm::normalize(direction));
 	}
 }
 
