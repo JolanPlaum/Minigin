@@ -144,39 +144,3 @@ void EntityCollision::OnCollisionNotify(GameObject* pOther)
 	m_CurrentPosition = GetGameObject()->GetTransform().GetWorldPosition();
 }
 
-bool EntityCollision::IsLeftCollision(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	return bounds.x1 < otherBounds.x1 && bounds.x2 > otherBounds.x1;
-}
-bool EntityCollision::IsRightCollision(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	return bounds.x1 < otherBounds.x2 && bounds.x2 > otherBounds.x2;
-}
-bool EntityCollision::IsBottomCollision(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	return bounds.y1 < otherBounds.y1 && bounds.y2 > otherBounds.y1;
-}
-bool EntityCollision::IsTopCollision(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	return bounds.y1 < otherBounds.y2 && bounds.y2 > otherBounds.y2;
-}
-
-float EntityCollision::OverlapPercentageX(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	float overlapX{ std::min(bounds.x2, otherBounds.x2) - std::max(bounds.x1, otherBounds.x1) };
-	float smallestX{ std::min(bounds.x2 - bounds.x1, otherBounds.x2 - otherBounds.x1) };
-
-	return overlapX / smallestX;
-}
-float EntityCollision::OverlapPercentageY(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	float overlapY{ std::min(bounds.y2, otherBounds.y2) - std::max(bounds.y1, otherBounds.y1) };
-	float smallestY{ std::min(bounds.y2 - bounds.y1, otherBounds.y2 - otherBounds.y1) };
-
-	return overlapY / smallestY;
-}
-float EntityCollision::OverlapPercentageTotal(const Boundaries& bounds, const Boundaries& otherBounds) const
-{
-	return OverlapPercentageX(bounds, otherBounds) * OverlapPercentageY(bounds, otherBounds);
-}
-

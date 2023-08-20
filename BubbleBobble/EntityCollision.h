@@ -65,14 +65,6 @@ namespace dae
 		//---------------------------
 		void OnCollisionNotify(GameObject* pOther);
 
-		bool IsLeftCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-		bool IsRightCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-		bool IsBottomCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-		bool IsTopCollision(const Boundaries& bounds, const Boundaries& otherBounds) const;
-		
-		float OverlapPercentageX(const Boundaries& bounds, const Boundaries& otherBounds) const;
-		float OverlapPercentageY(const Boundaries& bounds, const Boundaries& otherBounds) const;
-		float OverlapPercentageTotal(const Boundaries& bounds, const Boundaries& otherBounds) const;
 	};
 }
 
