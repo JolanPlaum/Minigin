@@ -28,6 +28,8 @@ void Dragon::OnDestroy()
 {
 	if (m_CollisionHandle.IsValid())
 		GetGameObject()->GetComponent<BoxCollider2D>()->OnCollision.Remove(m_CollisionHandle);
+
+	SetState(m_pState, nullptr);
 }
 
 
