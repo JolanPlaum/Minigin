@@ -242,6 +242,7 @@ void dae::LoadGame()
 
 			pRenderer->SetSprite(ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Dragon/Idle_Anim.png"));
 			pRenderer->SetSettings(SpriteRenderSettings::IterateColumn);
+			pRenderer->SetRowIdx(1);
 		}
 
 		// Add components
@@ -252,19 +253,11 @@ void dae::LoadGame()
 		// Alter components
 		pCollider->SetSize(glm::vec2{ 12, 12 });
 		pCollider->SetOffset(glm::vec2{ -6.f, 0.f });
-		pDragon->SetPlayerIdx(Player::One);
+		pDragon->SetPlayerIdx(Player::Two);
 		pDragon->TransitionToNewLevel({ 32, 8 });
 		pDragon->NewLevelLoaded();
 
 		pPlayer = pGo;
-	}
-
-	// Test Bubble
-	{
-		InputManager::GetInstance().AddKeyboardCommand(std::make_unique<LaunchBubbleCommand>(pPlayer, "Green"),
-			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_COMMA, InputState::Pressed });
-		InputManager::GetInstance().AddKeyboardCommand(std::make_unique<LaunchBubbleCommand>(pPlayer, "Blue"),
-			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_PERIOD, InputState::Pressed });
 	}
 
 #endif
