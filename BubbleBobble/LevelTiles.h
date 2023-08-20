@@ -7,7 +7,7 @@
 
 namespace dae
 {
-	GameObject* LevelTileBig(Scene& scene, unsigned int level)
+	inline GameObject* LevelTileBig(Scene& scene, unsigned int level)
 	{
 		// Create object
 		GameObject* pGo = scene.CreateObject();
@@ -27,7 +27,7 @@ namespace dae
 		return pGo;
 	}
 
-	GameObject* LevelTileSmall(Scene& scene, unsigned int level)
+	inline GameObject* LevelTileSmall(Scene& scene, unsigned int level)
 	{
 		// Create object
 		GameObject* pGo = scene.CreateObject();

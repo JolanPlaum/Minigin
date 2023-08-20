@@ -27,7 +27,7 @@ namespace dae
 	};
 
 	// Public funtion for switching states
-	void SetState(std::unique_ptr<State>& pState, std::unique_ptr<State> pNewState)
+	inline void SetState(std::unique_ptr<State>& pState, std::unique_ptr<State> pNewState)
 	{
 		if (pState) pState->OnExit();
 
