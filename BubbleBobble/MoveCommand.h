@@ -26,6 +26,8 @@ namespace dae
 		//---------------------------
 		void Execute() override;
 
+		void FlipDirection();
+
 		glm::vec2 GetDirection() const { return m_Direction; }
 		float GetSpeed() const { return m_Speed; }
 		

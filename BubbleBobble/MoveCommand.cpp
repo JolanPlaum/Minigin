@@ -35,6 +35,11 @@ void MoveCommand::Execute()
 	GetGameObject()->GetTransform().SetLocalPosition(pos);
 }
 
+void MoveCommand::FlipDirection()
+{
+	m_Speed *= -1;
+}
+
 
 //-----------------------------------------------------------------
 // Private Member Functions
