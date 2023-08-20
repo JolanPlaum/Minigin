@@ -39,8 +39,10 @@ namespace dae
 		// Member variables
 		std::string m_Name;
 		std::vector<std::unique_ptr<GameObject>> m_Objects{};
+		std::vector<GameObject*> m_NewObjects{};
+		std::vector<GameObject*> m_ActiveObjects{};
 
-		static unsigned int m_IdCounter; 
+		static unsigned int m_IdCounter;
 
 		//---------------------------
 		// Private Member Functions

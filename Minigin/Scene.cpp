@@ -23,7 +23,13 @@ Scene::Scene(const std::string& name)
 //-----------------------------------------------------------------
 void Scene::Init()
 {
-	for (const auto& go : m_Objects)
+	for (const auto& go : m_NewObjects)
+	{
+		m_ActiveObjects.push_back(go);
+	}
+	m_NewObjects.clear();
+
+	for (const auto& go : m_ActiveObjects)
 	{
 		go->Init();
 	}
@@ -31,7 +37,7 @@ void Scene::Init()
 
 void Scene::UpdateGui()
 {
-	for (const auto& go : m_Objects)
+	for (const auto& go : m_ActiveObjects)
 	{
 		go->UpdateGui();
 	}
@@ -39,7 +45,7 @@ void Scene::UpdateGui()
 
 void Scene::Update()
 {
-	for (const auto& go : m_Objects)
+	for (const auto& go : m_ActiveObjects)
 	{
 		go->Update();
 	}
@@ -47,7 +53,7 @@ void Scene::Update()
 
 void Scene::Render() const
 {
-	for (const auto& go : m_Objects)
+	for (const auto& go : m_ActiveObjects)
 	{
 		go->Render();
 	}
@@ -60,6 +66,12 @@ void Scene::Cleanup()
 		if (go->IsDestroyed()) go->OnDestroy();
 	}
 
+	std::erase_if(m_NewObjects, [](GameObject* pGo) {
+		return pGo->IsDestroyed();
+		});
+	std::erase_if(m_ActiveObjects, [](GameObject* pGo) {
+		return pGo->IsDestroyed();
+		});
 	std::erase_if(m_Objects, [](const std::unique_ptr<GameObject>& go) {
 		return go->IsDestroyed();
 		});
@@ -82,6 +94,7 @@ GameObject* Scene::Add(std::unique_ptr<GameObject> pObject)
 	if (pObject->m_pScene == nullptr && pObject->GetParent() == nullptr)
 	{
 		pObject->m_pScene = this;
+		m_NewObjects.push_back(pObject.get());
 		m_Objects.emplace_back(std::move(pObject));
 		return m_Objects.back().get();
 	}
@@ -103,6 +116,8 @@ std::unique_ptr<GameObject> Scene::Remove(GameObject* pObject)
 		pTemp->m_pScene = nullptr;
 		m_Objects.erase(it);
 	}
+	std::erase(m_NewObjects, pTemp.get());
+	std::erase(m_ActiveObjects, pTemp.get());
 	return std::move(pTemp);
 }
 
@@ -113,6 +128,8 @@ void Scene::RemoveAll()
 		object->m_pScene = nullptr;
 	}
 	m_Objects.clear();
+	m_NewObjects.clear();
+	m_ActiveObjects.clear();
 }
 
 
