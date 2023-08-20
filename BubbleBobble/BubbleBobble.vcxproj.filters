@@ -48,6 +48,9 @@
     <ClCompile Include="BubbleTestingCommands.cpp">
       <Filter>Commands</Filter>
     </ClCompile>
+    <ClCompile Include="FunctionCommand.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSelector.h" />
@@ -85,6 +88,9 @@
       <Filter>Prefabs</Filter>
     </ClInclude>
     <ClInclude Include="BubbleTestingCommands.h">
+      <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="FunctionCommand.h">
       <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>

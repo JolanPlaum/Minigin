@@ -170,6 +170,7 @@
     <ClCompile Include="BubbleStates.cpp" />
     <ClCompile Include="BubbleTestingCommands.cpp" />
     <ClCompile Include="Dragon.cpp" />
+    <ClCompile Include="FunctionCommand.cpp" />
     <ClCompile Include="DragonPlayerStates.cpp" />
     <ClCompile Include="EntityCollision.cpp" />
     <ClCompile Include="KeepSpriteSheetCentered.cpp" />
@@ -184,6 +185,7 @@
     <ClInclude Include="BubbleStates.h" />
     <ClInclude Include="BubbleTestingCommands.h" />
     <ClInclude Include="Dragon.h" />
+    <ClInclude Include="FunctionCommand.h" />
     <ClInclude Include="DragonPlayerStates.h" />
     <ClInclude Include="EntityCollision.h" />
     <ClInclude Include="GameSelector.h" />
