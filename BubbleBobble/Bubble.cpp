@@ -116,7 +116,7 @@ void Bubble::OnCollisionNotify(GameObject* pOther)
 		// Top of other bounds
 		if (IsBottomCollision(bounds, otherBounds) && OverlapPercentageX(bounds, otherBounds) > 0.2f)
 		{
-			displacementCorrection.y = otherBounds.y2 - bounds.y1;
+			displacementCorrection.y = otherBounds.y1 - bounds.y2;
 		}
 
 		// Left of other bounds
@@ -136,6 +136,10 @@ void Bubble::OnCollisionNotify(GameObject* pOther)
 	}
 	else if (pOther->GetTag() == "Roof")
 	{
+		glm::vec2 correction = (otherBounds.y1 - bounds.y2) / glm::abs(GetGameObject()->GetTransform().GetWorldScale());
+		auto pos = GetGameObject()->GetTransform().GetLocalPosition();
+		GetGameObject()->GetTransform().SetLocalPosition(pos + correction);
+
 		m_pMoveCommand->FlipDirection();
 	}
 	else if (m_IsNotBeingLaunched && pOther->GetTag() == "Bubble")
