@@ -39,6 +39,15 @@
     <ClCompile Include="KeepSpriteSheetCentered.cpp">
       <Filter>Components</Filter>
     </ClCompile>
+    <ClCompile Include="BubbleStates.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Bubble.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="BubbleTestingCommands.cpp">
+      <Filter>Commands</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GameSelector.h" />
@@ -65,6 +74,18 @@
     </ClInclude>
     <ClInclude Include="KeepSpriteSheetCentered.h">
       <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleStates.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Bubble.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Bubbles.h">
+      <Filter>Prefabs</Filter>
+    </ClInclude>
+    <ClInclude Include="BubbleTestingCommands.h">
+      <Filter>Commands</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

@@ -3,6 +3,8 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "Transform.h"
+#define NOMINMAX
+
 
 #ifdef Demo
 #include "Scene.h"
@@ -14,12 +16,15 @@
 #include "CTextTexture.h"
 #elif defined(SinglePlayer)
 #include "LevelTiles.h"
+#include "BubblesPrefab.h"
 #include <glm/vec2.hpp>
 #include <vector>
 #include "Renderer.h"
+#include "InputManager.h"
 #include "EntityCollision.h"
 #include "Dragon.h"
 #include "KeepSpriteSheetCentered.h"
+#include "BubbleTestingCommands.h"
 #endif
 
 void dae::LoadGame()
@@ -213,13 +218,13 @@ void dae::LoadGame()
 		for (const glm::vec2& pos : topTiles)
 		{
 			GameObject* pGo = LevelTileSmall(scene, 0);
-			pGo->RemoveComponent<BoxCollider2D>();
-			pGo->SetTag("");
+			pGo->SetTag("Roof");
 			pGo->SetParent(pWorld);
 			pGo->GetTransform().SetLocalPosition(pos);
 		}
 	}
 
+	GameObject* pPlayer{};
 	// Player
 	{
 		GameObject* pGo = scene.CreateObject();
@@ -250,6 +255,16 @@ void dae::LoadGame()
 		pDragon->SetPlayerIdx(Player::One);
 		pDragon->TransitionToNewLevel({ 32, 8 });
 		pDragon->NewLevelLoaded();
+
+		pPlayer = pGo;
+	}
+
+	// Test Bubble
+	{
+		InputManager::GetInstance().AddKeyboardCommand(std::make_unique<LaunchBubbleCommand>(pPlayer, "Green"),
+			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_COMMA, InputState::Pressed });
+		InputManager::GetInstance().AddKeyboardCommand(std::make_unique<LaunchBubbleCommand>(pPlayer, "Blue"),
+			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_PERIOD, InputState::Pressed });
 	}
 
 #endif

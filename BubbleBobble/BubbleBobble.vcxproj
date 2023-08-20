@@ -166,6 +166,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Bubble.cpp" />
+    <ClCompile Include="BubbleStates.cpp" />
+    <ClCompile Include="BubbleTestingCommands.cpp" />
     <ClCompile Include="Dragon.cpp" />
     <ClCompile Include="DragonPlayerStates.cpp" />
     <ClCompile Include="EntityCollision.cpp" />
@@ -176,6 +179,10 @@
     <ClCompile Include="SpriteTestingCommands.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Bubble.h" />
+    <ClInclude Include="Bubbles.h" />
+    <ClInclude Include="BubbleStates.h" />
+    <ClInclude Include="BubbleTestingCommands.h" />
     <ClInclude Include="Dragon.h" />
     <ClInclude Include="DragonPlayerStates.h" />
     <ClInclude Include="EntityCollision.h" />
