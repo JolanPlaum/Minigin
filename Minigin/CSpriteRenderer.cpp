@@ -119,6 +119,9 @@ void CSpriteRenderer::SetSprite(std::shared_ptr<Sprite2D> pSprite, float seconds
 	}
 	else
 	{
+		m_pLockedSprite = m_pSprite;
+		m_LockedSecPerFrame = m_SecPerFrame;
+
 		m_pSprite = pSprite;
 		m_SecPerFrame = secondsPerFrame;
 
