@@ -38,6 +38,7 @@ namespace dae
 		void OnDestroy() override;
 		void Update() override;
 
+		void Respawn();
 		void TransitionToNewLevel(glm::vec2 startPos);
 		void NewLevelLoaded();
 
@@ -58,7 +59,7 @@ namespace dae
 		glm::vec2 m_StartPosition{};
 
 		std::unique_ptr<State> m_pState{};
-		std::unique_ptr<State> m_AttackState{};
+		std::unique_ptr<State> m_pAttackState{};
 
 		DelegateHandle m_CollisionHandle{};
 		

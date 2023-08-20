@@ -38,12 +38,31 @@ void Dragon::OnDestroy()
 //-----------------------------------------------------------------
 void Dragon::Update()
 {
-	std::unique_ptr<State> newState = m_pState->Transition();
-	if (newState != nullptr)
+	if (m_pState)
 	{
-		SetState(m_pState, std::move(newState));
+		std::unique_ptr<State> newState = m_pState->Transition();
+		if (newState != nullptr)
+		{
+			SetState(m_pState, std::move(newState));
+		}
+		m_pState->Update();
 	}
-	m_pState->Update();
+
+	if (m_pAttackState)
+	{
+		std::unique_ptr<State> newState = m_pAttackState->Transition();
+		if (newState != nullptr)
+		{
+			SetState(m_pAttackState, std::move(newState));
+		}
+		m_pAttackState->Update();
+	}
+}
+
+void Dragon::Respawn()
+{
+	SetState(m_pState, std::make_unique<DragonPlayerStateIdle>(GetGameObject()));
+	SetState(m_pAttackState, std::make_unique<DragonPlayerStateAttackReady>(GetGameObject()));
 }
 
 void Dragon::TransitionToNewLevel(glm::vec2 startPos)
@@ -51,7 +70,7 @@ void Dragon::TransitionToNewLevel(glm::vec2 startPos)
 	m_IsNewLevelLoaded = false;
 	m_StartPosition = startPos;
 	SetState(m_pState, std::make_unique<DragonPlayerStateWin>(GetGameObject()));
-	//todo: set attack state to immobilized
+	SetState(m_pAttackState, nullptr);
 }
 void Dragon::NewLevelLoaded()
 {

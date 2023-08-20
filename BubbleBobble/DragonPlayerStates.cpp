@@ -12,6 +12,8 @@
 #include "Dragon.h"
 #include "EntityCollision.h"
 #include "CSpriteRenderer.h"
+#include "FunctionCommand.h"
+#include "BubblesPrefab.h"
 
 using namespace dae;
 
@@ -441,8 +443,7 @@ void DragonPlayerStateDeath::Update()
 	{
 		if (m_IsAnim2)
 		{
-			m_NeedsRespawn = true;
-			GetGameObject()->GetComponentInChildren<CSpriteRenderer>()->SetSprite(nullptr);
+			GetGameObject()->GetComponent<Dragon>()->Respawn();
 		}
 		else
 		{
@@ -458,7 +459,6 @@ void DragonPlayerStateDeath::Update()
 
 std::unique_ptr<State> DragonPlayerStateDeath::Transition()
 {
-	if (m_NeedsRespawn) return std::make_unique<DragonPlayerStateIdle>(GetGameObject());
 	return nullptr;
 }
 
@@ -529,7 +529,6 @@ void DragonPlayerStateWin::Update()
 
 std::unique_ptr<State> DragonPlayerStateWin::Transition()
 {
-	if (m_NeedsRespawn) return std::make_unique<DragonPlayerStateIdle>(GetGameObject());
 	return nullptr;
 }
 
@@ -542,7 +541,166 @@ void DragonPlayerStateWin::OnAnimationEnd()
 	}
 	else if (m_CurrentAnim == 3)
 	{
-		m_pRenderer->SetSprite(nullptr);
-		m_NeedsRespawn = true;
+		m_pDragonOwner->Respawn();
 	}
+}
+
+
+
+
+
+//-----------------------------------------------------------------
+// DragonPlayerStateAttackReady Functions
+//-----------------------------------------------------------------
+void DragonPlayerStateAttackReady::OnEnter()
+{
+}
+
+void DragonPlayerStateAttackReady::OnExit()
+{
+	auto& input = InputManager::GetInstance();
+	for (auto pCommand : m_KeyboardCommands)
+	{
+		input.RemoveKeyboardCommand(pCommand);
+	}
+	for (auto pCommand : m_GamepadCommands)
+	{
+		input.RemoveGamepadCommand(pCommand);
+	}
+}
+
+void DragonPlayerStateAttackReady::Update()
+{
+	if (m_AccuSec <= m_AttackWaitingTime)
+	{
+		m_AccuSec += TimeManager::GetInstance().GetDeltaTime();
+
+		if (m_AccuSec > m_AttackWaitingTime)
+		{
+			AddCommands();
+		}
+	}
+}
+
+std::unique_ptr<State> DragonPlayerStateAttackReady::Transition()
+{
+	if (m_IsAttacking) return std::make_unique<DragonPlayerStateAttacking>(GetGameObject());
+	return nullptr;
+}
+
+void DragonPlayerStateAttackReady::OnAttackButtonPressed()
+{
+	m_IsAttacking = true;
+}
+
+void DragonPlayerStateAttackReady::AddCommands()
+{
+	auto& input = InputManager::GetInstance();
+	auto pDragon = GetGameObject()->GetComponent<Dragon>();
+
+	if (pDragon->GetPlayerIdx() == Player::One)
+	{
+		// Keyboard
+		m_KeyboardCommands.push_back(input.AddKeyboardCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_LCTRL, InputState::Pressed }));
+		m_KeyboardCommands.push_back(input.AddKeyboardCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_SPACE, InputState::Pressed }));
+
+		// Gamepad
+		m_GamepadCommands.push_back(input.AddGamepadCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputGamepadBinding{ Gamepad::Button::ButtonRight, InputState::Pressed, ControllerID::One }));
+		m_GamepadCommands.push_back(input.AddGamepadCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputGamepadBinding{ Gamepad::Button::ButtonUp, InputState::Pressed, ControllerID::One }));
+	}
+	else if (pDragon->GetPlayerIdx() == Player::Two)
+	{
+		// Keyboard
+		m_KeyboardCommands.push_back(input.AddKeyboardCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_RCTRL, InputState::Pressed }));
+		m_KeyboardCommands.push_back(input.AddKeyboardCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputKeyboardBinding{ Keyboard::Key::SDL_SCANCODE_KP_0, InputState::Pressed }));
+
+		// Gamepad
+		m_GamepadCommands.push_back(input.AddGamepadCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputGamepadBinding{ Gamepad::Button::ButtonRight, InputState::Pressed, ControllerID::Two }));
+		m_GamepadCommands.push_back(input.AddGamepadCommand(std::make_unique<FunctionCommand>(std::bind(&DragonPlayerStateAttackReady::OnAttackButtonPressed, this)),
+			InputGamepadBinding{ Gamepad::Button::ButtonUp, InputState::Pressed, ControllerID::Two }));
+	}
+}
+
+
+//-----------------------------------------------------------------
+// DragonPlayerStateAttacking Functions
+//-----------------------------------------------------------------
+void DragonPlayerStateAttacking::OnEnter()
+{
+	Dragon* pDragon{ GetGameObject()->GetComponent<Dragon>() };
+
+	std::string path{};
+	State* pState = pDragon->GetState();
+	if (dynamic_cast<DragonPlayerStateIdle*>(pState) ||
+		dynamic_cast<DragonPlayerStateWalking*>(pState)) path = "Ground";
+	else if (dynamic_cast<DragonPlayerStateJumping*>(pState)) path = "Jump";
+	else if (dynamic_cast<DragonPlayerStateFalling*>(pState)) path = "Fall";
+	else
+	{
+		m_IsAttackOver = true;
+		return;
+	}
+
+	// Set sprite
+	{
+		auto pSprite = ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Dragon/Attack_" + path + "_Anim.png");
+		m_pRenderer = GetGameObject()->GetComponentInChildren<CSpriteRenderer>();
+		m_pRenderer->SetSprite(pSprite, 2.f / 60.f);
+		m_pRenderer->Lock();
+	}
+
+	// Set delegates
+	m_AnimationEndHandle = m_pRenderer->AnimationLooped.AddFunction(std::bind(&DragonPlayerStateAttacking::OnAnimationEnd, this));
+
+	// Do the actual attack
+	{
+		std::string color{};
+		switch (pDragon->GetPlayerIdx())
+		{
+		case dae::Player::One:
+			color = "Green"; break;
+
+		case dae::Player::Two:
+			color = "Blue"; break;
+
+		default:
+			break;
+		}
+
+		LaunchedBubble(GetGameObject()->GetScene(),
+			m_pRenderer->GetGameObject()->GetTransform(),
+			glm::vec2{ -m_pRenderer->GetGameObject()->GetTransform().GetWorldScale().x, 0.f },
+			color);
+	}
+}
+
+void DragonPlayerStateAttacking::OnExit()
+{
+	// Remove delegates
+	if (m_AnimationEndHandle.IsValid()) m_pRenderer->AnimationLooped.Remove(m_AnimationEndHandle);
+
+	// Unlock sprite
+	if (m_pRenderer) m_pRenderer->Unlock();
+}
+
+void DragonPlayerStateAttacking::Update()
+{
+}
+
+std::unique_ptr<State> DragonPlayerStateAttacking::Transition()
+{
+	if (m_IsAttackOver) return std::make_unique<DragonPlayerStateAttackReady>(GetGameObject(), 0.5f);
+	return nullptr;
+}
+
+void DragonPlayerStateAttacking::OnAnimationEnd()
+{
+	m_IsAttackOver = true;
 }

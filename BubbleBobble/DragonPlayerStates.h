@@ -184,7 +184,7 @@ namespace dae
 		// Member variables
 		const float m_FirstFrameTime{ 0.5f }, m_DeathAnim1Time{ 0.875f }, m_DeathAnim2Time{ 1.f };
 		float m_AccuSec{ 0.f }, m_Timer{ 0.f };
-		bool m_IsAnim2{ false }, m_NeedsRespawn{ false };
+		bool m_IsAnim2{ false };
 
 		// Private Member Functions
 
@@ -215,7 +215,7 @@ namespace dae
 		
 	private:
 		// Member variables
-		bool m_IsAtStartPos{ false }, m_NeedsRespawn{ false };
+		bool m_IsAtStartPos{ false };
 		int m_CurrentAnim{ 1 };
 
 		Dragon* m_pDragonOwner{};
@@ -226,6 +226,86 @@ namespace dae
 
 		DelegateHandle m_AnimationEndHandle{};
 		
+		// Private Member Functions
+		void OnAnimationEnd();
+		
+	};
+	
+
+
+
+
+	//=============================
+	// DragonPlayerStateAttackReady
+	//=============================
+	class DragonPlayerStateAttackReady final : public GameObjectState
+	{
+	public:
+		// Constructors and Destructor
+		explicit DragonPlayerStateAttackReady(GameObject* pGameObject, float wait = 0.f)
+			: GameObjectState(pGameObject)
+			, m_AttackWaitingTime{ wait }
+		{
+		}
+		~DragonPlayerStateAttackReady() = default;
+		
+		// Copy and Move semantics
+		DragonPlayerStateAttackReady(const DragonPlayerStateAttackReady& other)					= delete;
+		DragonPlayerStateAttackReady& operator=(const DragonPlayerStateAttackReady& other)		= delete;
+		DragonPlayerStateAttackReady(DragonPlayerStateAttackReady&& other) noexcept				= delete;
+		DragonPlayerStateAttackReady& operator=(DragonPlayerStateAttackReady&& other) noexcept	= delete;
+		
+		// Public Member Functions
+		void OnEnter() override;
+		void OnExit() override;
+		void Update() override;
+		std::unique_ptr<State> Transition() override;
+		
+		
+	private:
+		// Member variables
+		const float m_AttackWaitingTime{ 0.f };
+		float m_AccuSec{ 0.f };
+		bool m_IsAttacking{ false };
+		std::vector<Command*> m_KeyboardCommands{};
+		std::vector<Command*> m_GamepadCommands{};
+		
+		// Private Member Functions
+		void OnAttackButtonPressed();
+		void AddCommands();
+		
+	};
+	
+	//=============================
+	// DragonPlayerStateAttacking
+	//=============================
+	class DragonPlayerStateAttacking final : public GameObjectState
+	{
+	public:
+		// Constructors and Destructor
+		explicit DragonPlayerStateAttacking(GameObject* pGameObject) :GameObjectState(pGameObject) {};
+		~DragonPlayerStateAttacking() = default;
+		
+		// Copy and Move semantics
+		DragonPlayerStateAttacking(const DragonPlayerStateAttacking& other)					= delete;
+		DragonPlayerStateAttacking& operator=(const DragonPlayerStateAttacking& other)		= delete;
+		DragonPlayerStateAttacking(DragonPlayerStateAttacking&& other) noexcept				= delete;
+		DragonPlayerStateAttacking& operator=(DragonPlayerStateAttacking&& other) noexcept	= delete;
+		
+		// Public Member Functions
+		void OnEnter() override;
+		void OnExit() override;
+		void Update() override;
+		std::unique_ptr<State> Transition() override;
+		
+		
+	private:
+		// Member variables
+		bool m_IsAttackOver{ false };
+		CSpriteRenderer* m_pRenderer{};
+
+		DelegateHandle m_AnimationEndHandle{};
+
 		// Private Member Functions
 		void OnAnimationEnd();
 		
