@@ -29,11 +29,11 @@ void CollisionManager::Update()
 {
 	if (m_Colliders.size() < 2) return;
 
-	for (int idx1{ 0 }; idx1 < m_Colliders.size() - 1; ++idx1)
+	for (int idx1{ 0 }; idx1 < static_cast<int>(m_Colliders.size()) - 1; ++idx1)
 	{
 		const auto& boundaries = m_Colliders[idx1]->GetBoxBoundaries();
 
-		for (int idx2{ idx1 + 1 }; idx2 < m_Colliders.size(); ++idx2)
+		for (int idx2{ idx1 + 1 }; idx2 < static_cast<int>(m_Colliders.size()); ++idx2)
 		{
 			if (IsCollision(boundaries, m_Colliders[idx2]->GetBoxBoundaries()))
 			{
