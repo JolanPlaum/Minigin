@@ -25,13 +25,26 @@
 #include "Dragon.h"
 #include "KeepSpriteSheetCentered.h"
 #include "BubbleTestingCommands.h"
-#include "ZenChan.h"
+#include "EnemiesPrefab.h"
+#include "PlayerPrefabs.h"
 #include "Lives.h"
 #include "Score.h"
 #endif
 
 void dae::LoadGame()
 {
+	std::cout << "\nControls: {Keyboard} & {Gamepad}\n";
+	std::cout << "\n - Player 1: Keyboard and Controller1\n";
+	std::cout << "\tLeft: A & DpadLeft/LeftThumbstickLeft\n";
+	std::cout << "\tRight: D & DpadRight/LeftThumbstickRight\n";
+	std::cout << "\tJump: W & FaceButtonLeft/FaceButtonDown\n";
+	std::cout << "\tAttack: LCTRL/SPACE & FaceButtonRight/FaceButtonUp\n";
+	std::cout << "\n - Player 2: Keyboard and Controller2\n";
+	std::cout << "\tLeft: ArrowLeft & DpadLeft/LeftThumbstickLeft\n";
+	std::cout << "\tRight: ArrowRight & DpadRight/LeftThumbstickRight\n";
+	std::cout << "\tJump: ArrowUp & FaceButtonLeft/FaceButtonDown\n";
+	std::cout << "\tAttack: RCTRL/Num0 & FaceButtonRight/FaceButtonUp\n";
+
 #ifdef Demo
 	auto& scene = SceneManager::GetInstance().CreateScene("Demo");
 
@@ -227,66 +240,38 @@ void dae::LoadGame()
 		}
 	}
 
-	GameObject* pPlayer{};
 	// Player
 	{
-		GameObject* pGo = scene.CreateObject();
-		pGo->SetTag("Friendly");
-		pGo->GetTransform().SetLocalPosition({ gameSize / 2.f });
-		pGo->SetParent(pBaseParent);
+		GameObject* pBob = BobPrefab(&scene);
+		pBob->GetTransform().SetLocalPosition({ gameSize / 2.f });
+		pBob->SetParent(pBaseParent);
+		pBob->GetComponent<Dragon>()->TransitionToNewLevel({ 32, 8 });
+		pBob->GetComponent<Dragon>()->NewLevelLoaded();
 
-		// Visuals
-		{
-			GameObject* pVisuals = scene.CreateObject();
-			pVisuals->SetParent(pGo);
-
-			pVisuals->AddComponent<KeepSpriteSheetCentered>();
-			auto pRenderer = pVisuals->AddComponent<CSpriteRenderer>();
-
-			pRenderer->SetSprite(ResourceManager::GetInstance().LoadSprite("BubbleBobble/Sprites/Dragon/Idle_Anim.png"));
-			pRenderer->SetSettings(SpriteRenderSettings::IterateColumn);
-			pRenderer->SetRowIdx(1);
-		}
-
-		// Add components
-		pGo->AddComponent<EntityCollision>();
-		auto pCollider = pGo->AddComponent<BoxCollider2D>();
-		auto pDragon = pGo->AddComponent<Dragon>();
-		pGo->AddComponent<Lives>();
-		pGo->AddComponent<Score>();
-
-		// Alter components
-		pCollider->SetSize(glm::vec2{ 12, 12 });
-		pCollider->SetOffset(glm::vec2{ -6.f, 0.f });
-		pDragon->SetPlayerIdx(Player::Two);
-		pDragon->TransitionToNewLevel({ 32, 8 });
-		pDragon->NewLevelLoaded();
-
-		pPlayer = pGo;
+		//Comment Bub for 1 player game
+		GameObject* pBub = BubPrefab(&scene);
+		pBub->GetTransform().SetLocalPosition({ gameSize / 2.f });
+		pBub->SetParent(pBaseParent);
+		pBub->GetComponent<Dragon>()->TransitionToNewLevel({ 224, 8 });
+		pBub->GetComponent<Dragon>()->NewLevelLoaded();
 	}
 
+	GameObject* pEnemies = scene.CreateObject();
+	pEnemies->SetParent(pBaseParent);
 	// Zen Chan
 	{
-		GameObject* pGo = scene.CreateObject();
-		pGo->SetTag("Enemy");
-		pGo->GetTransform().SetLocalPosition(120, 128);
-		pGo->SetParent(pBaseParent);
+		std::vector<glm::vec2> zenChans{
+			{ 120, 128 },
+			{ 120, 144 },
+			{ 120, 160 },
+		};
 
-		// Visuals
+		for (const glm::vec2& pos : zenChans)
 		{
-			GameObject* pVisuals = scene.CreateObject();
-			pVisuals->SetParent(pGo);
-
-			pVisuals->AddComponent<KeepSpriteSheetCentered>();
-			pVisuals->AddComponent<CSpriteRenderer>();
+			GameObject* pGo = ZenChanPrefab(&scene);
+			pGo->SetParent(pEnemies);
+			pGo->GetTransform().SetLocalPosition(pos);
 		}
-
-		pGo->AddComponent<EntityCollision>();
-		auto pCollider = pGo->AddComponent<BoxCollider2D>();
-		pGo->AddComponent<ZenChan>();
-
-		pCollider->SetSize(glm::vec2{ 12, 12 });
-		pCollider->SetOffset(glm::vec2{ -6.f, 0.f });
 	}
 
 #endif

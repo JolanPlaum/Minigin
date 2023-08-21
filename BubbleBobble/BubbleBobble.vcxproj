@@ -202,6 +202,7 @@
     <ClInclude Include="LevelTiles.h" />
     <ClInclude Include="Lives.h" />
     <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="PlayerPrefabs.h" />
     <ClInclude Include="Score.h" />
     <ClInclude Include="SpriteTestingCommands.h" />
     <ClInclude Include="State.h" />

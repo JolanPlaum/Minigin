@@ -3,8 +3,10 @@
 //-----------------------------------------------------------------
 #include "Dragon.h"
 #include "GameObject.h"
+#include "Transform.h"
 #include "DragonPlayerStates.h"
 #include "BoxCollider2D.h"
+#include "TimeManager.h"
 
 using namespace dae;
 
@@ -38,6 +40,11 @@ void Dragon::OnDestroy()
 //-----------------------------------------------------------------
 void Dragon::Update()
 {
+	if (m_IsSpawned && m_AccuSec < m_NoHitTime)
+	{
+		m_AccuSec += TimeManager::GetInstance().GetDeltaTime();
+	}
+
 	if (m_pState)
 	{
 		std::unique_ptr<State> newState = m_pState->Transition();
@@ -63,10 +70,17 @@ void Dragon::Respawn()
 {
 	SetState(m_pState, std::make_unique<DragonPlayerStateIdle>(GetGameObject()));
 	SetState(m_pAttackState, std::make_unique<DragonPlayerStateAttackReady>(GetGameObject()));
+
+	GetGameObject()->GetTransform().SetLocalPosition(m_StartPosition);
+
+	m_IsSpawned = true;
+	Respawned.Notify();
 }
 
 void Dragon::TransitionToNewLevel(glm::vec2 startPos)
 {
+	m_AccuSec = 0.f;
+	m_IsSpawned = false;
 	m_IsNewLevelLoaded = false;
 	m_StartPosition = startPos;
 	SetState(m_pState, std::make_unique<DragonPlayerStateWin>(GetGameObject()));
@@ -88,10 +102,13 @@ void Dragon::SetPlayerIdx(Player idx)
 //-----------------------------------------------------------------
 void Dragon::OnCollisionNotify(GameObject* pOther)
 {
-	if (pOther->GetTag() == "Enemy")
+	if (m_IsSpawned && m_AccuSec >= m_NoHitTime && pOther->GetTag() == "Enemy")
 	{
 		SetState(m_pState, std::make_unique<DragonPlayerStateDeath>(GetGameObject()));
-		SetState(m_pAttackState, std::make_unique<DragonPlayerStateAttackReady>(GetGameObject()));
+		SetState(m_pAttackState, nullptr);
+
+		m_IsSpawned = false;
+		m_AccuSec = 0.f;
 	}
 }
 

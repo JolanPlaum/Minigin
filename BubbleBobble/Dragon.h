@@ -5,6 +5,7 @@
 #include <glm/vec2.hpp>
 #include "DelegateHandle.h"
 #include "State.h"
+#include "Event.h"
 
 namespace dae
 {
@@ -48,11 +49,17 @@ namespace dae
 		Player GetPlayerIdx() const { return m_PlayerIdx; }
 		glm::vec2 GetStartPosition() const { return m_StartPosition; }
 		State* GetState() const { return m_pState.get(); }
+
+		Event<> Respawned{};
 		
 		
 	private:
 		// Member variables
 		bool m_IsNewLevelLoaded{};
+		bool m_IsSpawned{ false };
+
+		const float m_NoHitTime{ 2.f };
+		float m_AccuSec{ 0.f };
 
 		Player m_PlayerIdx{ Player::None };
 
