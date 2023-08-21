@@ -17,6 +17,9 @@
     <Filter Include="States">
       <UniqueIdentifier>{5e9dfbad-9924-4019-aa1c-cb639a5c20cd}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Components\Enemy">
+      <UniqueIdentifier>{de38c367-1f47-4cb8-8d23-92971bf82d65}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Main.cpp" />
@@ -50,6 +53,24 @@
     </ClCompile>
     <ClCompile Include="FunctionCommand.cpp">
       <Filter>Commands</Filter>
+    </ClCompile>
+    <ClCompile Include="EnemyBehaviour.cpp">
+      <Filter>Components\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenChan.cpp">
+      <Filter>Components\Enemy</Filter>
+    </ClCompile>
+    <ClCompile Include="ZenChanStates.cpp">
+      <Filter>States</Filter>
+    </ClCompile>
+    <ClCompile Include="Lives.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Score.cpp">
+      <Filter>Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Item.cpp">
+      <Filter>Components</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -92,6 +113,27 @@
     </ClInclude>
     <ClInclude Include="FunctionCommand.h">
       <Filter>Commands</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemyBehaviour.h">
+      <Filter>Components\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChan.h">
+      <Filter>Components\Enemy</Filter>
+    </ClInclude>
+    <ClInclude Include="ZenChanStates.h">
+      <Filter>States</Filter>
+    </ClInclude>
+    <ClInclude Include="Lives.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Score.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Item.h">
+      <Filter>Components</Filter>
+    </ClInclude>
+    <ClInclude Include="EnemiesPrefab.h">
+      <Filter>Prefabs</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

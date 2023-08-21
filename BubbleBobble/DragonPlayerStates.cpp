@@ -14,6 +14,7 @@
 #include "CSpriteRenderer.h"
 #include "FunctionCommand.h"
 #include "BubblesPrefab.h"
+#include "Lives.h"
 
 using namespace dae;
 
@@ -432,7 +433,7 @@ void DragonPlayerStateDeath::OnEnter()
 
 void DragonPlayerStateDeath::OnExit()
 {
-	//todo: notify lives component that player is dead
+	GetGameObject()->GetComponent<Lives>()->Kill();
 }
 
 void DragonPlayerStateDeath::Update()

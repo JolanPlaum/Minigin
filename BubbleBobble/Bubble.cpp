@@ -9,6 +9,7 @@
 #include "BubbleStates.h"
 #include "TimeManager.h"
 #include "CSpriteRenderer.h"
+#include "EnemyBehaviour.h"
 
 using namespace dae;
 
@@ -49,6 +50,11 @@ void Bubble::OnDestroy()
 //-----------------------------------------------------------------
 void Bubble::Update()
 {
+	if (m_pTrappedEnemy && m_IsNotBeingLaunched == false)
+	{
+		SetState(m_pState, std::make_unique<BubbleStateFloating>(GetGameObject(), m_pTrappedEnemy->GetName()));
+	}
+
 	// Update state
 	std::unique_ptr<State> newState = m_pState->Transition();
 	if (newState != nullptr)
@@ -64,7 +70,7 @@ void Bubble::Update()
 	UpdateMoveCommand();
 
 	// Update enemy animation with custom sec/frame
-	if (m_HasEnemy) UpdateEnemyAnimation();
+	if (m_pTrappedEnemy) UpdateEnemyAnimation();
 }
 
 void Bubble::Launch(std::unique_ptr<MoveCommand> pCommand)
@@ -73,11 +79,11 @@ void Bubble::Launch(std::unique_ptr<MoveCommand> pCommand)
 	m_IsNotBeingLaunched = false;
 }
 
-void Bubble::TrapEnemy(GameObject*)
+void Bubble::TrapEnemy(GameObject* pEnemy)
 {
-	// 1. Set enemy parent to this bubble
-	// 2. Set enemy state to trapped
-	// 3. Set this bubble state to floating using enemy's name
+	m_pTrappedEnemy = pEnemy->GetComponent<EnemyBehaviour>();
+	m_pTrappedEnemy->SetTrapped();
+	//SetState(m_pState, std::make_unique<BubbleStateFloating>(GetGameObject(), m_pTrappedEnemy->GetName()));
 }
 
 void Bubble::EndOfLaunch()
@@ -106,6 +112,9 @@ void Bubble::OnCollisionNotify(GameObject* pOther)
 			// 1. Set this bubble state to popped
 			// 2. Set enemy state (if this has an enemy) to death
 			// 3. Remove enemy from this bubble
+			if (m_pTrappedEnemy) m_pTrappedEnemy->SetDead(GetGameObject()->GetTransform().GetWorldPosition());
+			m_pTrappedEnemy = nullptr;
+
 			SetState(m_pState, std::make_unique<BubbleStatePop>(GetGameObject()));
 		}
 	}

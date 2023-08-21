@@ -25,6 +25,9 @@
 #include "Dragon.h"
 #include "KeepSpriteSheetCentered.h"
 #include "BubbleTestingCommands.h"
+#include "ZenChan.h"
+#include "Lives.h"
+#include "Score.h"
 #endif
 
 void dae::LoadGame()
@@ -249,6 +252,8 @@ void dae::LoadGame()
 		pGo->AddComponent<EntityCollision>();
 		auto pCollider = pGo->AddComponent<BoxCollider2D>();
 		auto pDragon = pGo->AddComponent<Dragon>();
+		pGo->AddComponent<Lives>();
+		pGo->AddComponent<Score>();
 
 		// Alter components
 		pCollider->SetSize(glm::vec2{ 12, 12 });
@@ -258,6 +263,30 @@ void dae::LoadGame()
 		pDragon->NewLevelLoaded();
 
 		pPlayer = pGo;
+	}
+
+	// Zen Chan
+	{
+		GameObject* pGo = scene.CreateObject();
+		pGo->SetTag("Enemy");
+		pGo->GetTransform().SetLocalPosition(120, 128);
+		pGo->SetParent(pBaseParent);
+
+		// Visuals
+		{
+			GameObject* pVisuals = scene.CreateObject();
+			pVisuals->SetParent(pGo);
+
+			pVisuals->AddComponent<KeepSpriteSheetCentered>();
+			pVisuals->AddComponent<CSpriteRenderer>();
+		}
+
+		pGo->AddComponent<EntityCollision>();
+		auto pCollider = pGo->AddComponent<BoxCollider2D>();
+		pGo->AddComponent<ZenChan>();
+
+		pCollider->SetSize(glm::vec2{ 12, 12 });
+		pCollider->SetOffset(glm::vec2{ -6.f, 0.f });
 	}
 
 #endif

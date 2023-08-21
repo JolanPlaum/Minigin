@@ -86,7 +86,12 @@ void Dragon::SetPlayerIdx(Player idx)
 //-----------------------------------------------------------------
 // Private Member Functions
 //-----------------------------------------------------------------
-void Dragon::OnCollisionNotify(GameObject*)
+void Dragon::OnCollisionNotify(GameObject* pOther)
 {
+	if (pOther->GetTag() == "Enemy")
+	{
+		SetState(m_pState, std::make_unique<DragonPlayerStateDeath>(GetGameObject()));
+		SetState(m_pAttackState, std::make_unique<DragonPlayerStateAttackReady>(GetGameObject()));
+	}
 }
 

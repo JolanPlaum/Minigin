@@ -170,14 +170,20 @@
     <ClCompile Include="BubbleStates.cpp" />
     <ClCompile Include="BubbleTestingCommands.cpp" />
     <ClCompile Include="Dragon.cpp" />
+    <ClCompile Include="EnemyBehaviour.cpp" />
     <ClCompile Include="FunctionCommand.cpp" />
     <ClCompile Include="DragonPlayerStates.cpp" />
     <ClCompile Include="EntityCollision.cpp" />
+    <ClCompile Include="Item.cpp" />
     <ClCompile Include="KeepSpriteSheetCentered.cpp" />
+    <ClCompile Include="Lives.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="GameSelector.cpp" />
     <ClCompile Include="MoveCommand.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="SpriteTestingCommands.cpp" />
+    <ClCompile Include="ZenChan.cpp" />
+    <ClCompile Include="ZenChanStates.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Bubble.h" />
@@ -185,15 +191,22 @@
     <ClInclude Include="BubbleStates.h" />
     <ClInclude Include="BubbleTestingCommands.h" />
     <ClInclude Include="Dragon.h" />
+    <ClInclude Include="EnemiesPrefab.h" />
+    <ClInclude Include="EnemyBehaviour.h" />
     <ClInclude Include="FunctionCommand.h" />
     <ClInclude Include="DragonPlayerStates.h" />
     <ClInclude Include="EntityCollision.h" />
     <ClInclude Include="GameSelector.h" />
+    <ClInclude Include="Item.h" />
     <ClInclude Include="KeepSpriteSheetCentered.h" />
     <ClInclude Include="LevelTiles.h" />
+    <ClInclude Include="Lives.h" />
     <ClInclude Include="MoveCommand.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="SpriteTestingCommands.h" />
     <ClInclude Include="State.h" />
+    <ClInclude Include="ZenChan.h" />
+    <ClInclude Include="ZenChanStates.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

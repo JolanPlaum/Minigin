@@ -12,6 +12,7 @@ namespace dae
 	// Class Forward Declarations
 	class BoxCollider2D;
 	class CSpriteRenderer;
+	class EnemyBehaviour;
 	
 	// Class Declaration
 	class Bubble final : public Component
@@ -40,12 +41,13 @@ namespace dae
 
 		void SetColor(std::string color);
 		std::string GetColor() const { return m_Color; }
+
+		EnemyBehaviour* GetTrappedEnemy() const { return m_pTrappedEnemy; }
 		
 		
 	private:
 		// Member variables
 		bool m_IsNotBeingLaunched{ true };
-		bool m_HasEnemy{ false };
 
 		bool m_IsEnemyAnimReverse{ false }, m_IsEnemyAnimStraight{ false };
 		float m_EnemyAnimAccuSec{ 0.f };
@@ -59,6 +61,7 @@ namespace dae
 
 		CSpriteRenderer* m_pSprite{};
 		BoxCollider2D* m_pCollider{};
+		EnemyBehaviour* m_pTrappedEnemy{};
 		std::unique_ptr<State> m_pState{};
 		std::unique_ptr<MoveCommand> m_pMoveCommand{};
 

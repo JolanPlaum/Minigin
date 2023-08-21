@@ -12,6 +12,7 @@
 #include "Bubble.h"
 #include "CSpriteRenderer.h"
 #include "BoxCollider2D.h"
+#include "EnemyBehaviour.h"
 
 using namespace dae;
 
@@ -53,6 +54,7 @@ void BubbleStateLaunching::Update()
 
 std::unique_ptr<State> BubbleStateLaunching::Transition()
 {
+	if (m_pEnemy) GetGameObject()->GetComponent<Bubble>()->TrapEnemy(m_pEnemy);
 	if (m_AccuSec >= m_LaunchTime) return std::make_unique<BubbleStateFloating>(GetGameObject());
 	return nullptr;
 }
@@ -179,6 +181,12 @@ void BubbleStatePop::OnEnter()
 
 		// Set delegates
 		m_AnimationEndHandle = pRenderer->AnimationLooped.AddFunction(std::bind(&BubbleStatePop::OnAnimationEnd, this));
+	}
+
+	if (auto pEnemy = GetGameObject()->GetComponent<Bubble>()->GetTrappedEnemy(); pEnemy)
+	{
+		pEnemy->FreeTrapped(GetGameObject()->GetTransform().GetWorldPosition());
+
 	}
 }
 

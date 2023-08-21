@@ -76,7 +76,7 @@ void Scene::Cleanup()
 		return go->IsDestroyed();
 		});
 
-	for (const auto& go : m_Objects)
+	for (const auto& go : m_ActiveObjects)
 	{
 		go->Cleanup();
 	}

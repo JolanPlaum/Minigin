@@ -42,6 +42,7 @@ namespace dae
 		const float m_LaunchTime{ 0.35f };
 		float m_AccuSec{ 0.f };
 
+		GameObject* m_pEnemy{};
 		std::unique_ptr<MoveCommand> m_pMoveCommand{};
 
 		DelegateHandle m_CollisionHandle{};
